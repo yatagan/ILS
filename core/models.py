@@ -12,3 +12,9 @@ class Book(models.Model):
 
 class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
+
+
+class BookRent(models.Model):
+    date = models.DateField()
+    book_instance = models.ForeignKey(BookInstance, on_delete=models.CASCADE)
+    active = models.BooleanField()
