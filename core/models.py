@@ -8,3 +8,7 @@ class Author(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=128)
     authors = models.ManyToManyField(Author)
+
+
+class BookInstance(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
