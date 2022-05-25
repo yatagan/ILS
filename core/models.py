@@ -16,7 +16,11 @@ class BookInstance(models.Model):
 
 
 class Visitor(models.Model):
-    new_visitor = models.CharField(max_length=200)
-    books = models.ManyToManyField(Book)
-    date = models.DateField()
+    name = models.CharField(max_length=200)
 
+
+class BookRent(models.Model):
+    books = models.ManyToManyField(BookInstance)
+    visitor = models.ForeignKey(Visitor, on_delete=models.CASCADE)
+    active = models.BooleanField()
+    date = models.DateField()
