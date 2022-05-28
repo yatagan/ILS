@@ -35,5 +35,23 @@
         "groups": [],
         "user_permissions": []
     }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$CgR9vMX9HHP7OACTNANJaj$t3bLekdfKWHLuBxwjelRl40ymufV+qxuMkZXaHoZZrc=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "lika",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-05-28T08:20:29.531Z",
+        "groups": [],
+        "user_permissions": []
+    }
 }
 ]
