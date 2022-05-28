@@ -1,0 +1,20 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$fLPA2qvmBtUBYa0uEJbwTI$rMIIcwRkEV665VIH8XMY6VnHKWq/m1SfhLzF0VmqK/c=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "yatagan",
+        "first_name": "",
+        "last_name": "",
+        "email": "me@yatagan.xyz",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-05-28T07:26:46.662Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
