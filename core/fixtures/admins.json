@@ -15,6 +15,25 @@
         "date_joined": "2022-05-28T07:26:46.662Z",
         "groups": [],
         "user_permissions": []
+
+    }
+},
+{    
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$3pqHBHX4K1HfAlDcjjmewL$XrBYj7fqKoqG96NAhIKLSP5hbgV8r0RdRGXtwesCYGU=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "Semen",
+        "first_name": "",
+        "last_name": "",
+        "email": "skripa88@ukr.net",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-05-28T08:12:46.486Z",
+        "groups": [],
+        "user_permissions": []
     }
 }
 ]
