@@ -2,8 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Book 
 from .forms import BookForm
 
-def my_lib(request):
-    return render(request, 'core/my_lib.html')
+
 
 def new_book(request):
     #додати нову книгу
