@@ -1,8 +1,9 @@
 from django.urls import path
+
 from . import views
 
-app_name = 'core'
+app_name = 'ILS'
 urlpatterns = [
-    #main page
-    path('', views.my_lib, name='my_lib'),
+    #Home page
+    path('', views.index, name='index')
 ]
