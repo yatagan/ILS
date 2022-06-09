@@ -1,0 +1,13 @@
+{% extends "warehouse/base.html" %}
+
+{%  block content %} 
+
+<p> Додайте книгу: </p>
+
+<form action="{% url 'warehouse:new_book' %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="Додати">Додати книгу</button>
+</form>
+
+{% endblock content %}
