@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
-from .models import Book 
-from ..warehouse.forms import BookForm
+from core.models import Book 
+# from .forms import BookForm
 
 def index(request):
     #warehouse`s main page`
