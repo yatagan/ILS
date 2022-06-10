@@ -32,12 +32,8 @@ class BookInstance(models.Model):
 class Visitor(models.Model):
     name = models.CharField(max_length=200)
     order = models.CharField(models, max_length=200)
-    number = models.ImageField(default=1)
+    number = models.IntegerField(default=1)
     #date_added = models.DateTimeField(auto_add_now=True)
-
-    def chek_name():
-        if name == name:
-            pass
 
     def __str__(self):
         return self() 
