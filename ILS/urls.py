@@ -5,4 +5,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('warehouse/', include('warehouse.urls')),
+    path('library_reception/', include('library_reception.urls')),
 ]

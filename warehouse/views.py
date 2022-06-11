@@ -1,5 +1,4 @@
 from django.shortcuts import render,redirect
-from core.models import BookInstance
 from .forms import BookForm
 
 def index(request):
