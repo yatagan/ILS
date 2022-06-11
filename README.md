@@ -15,10 +15,10 @@
 ## Склад
   * Форма додавання екземплярів книжок
     * Книжка
-    * ISBN (http://www.ukrbook.net/agentstvo.html)
+    * *ISBN (http://www.ukrbook.net/agentstvo.html)*
     * Кількість
 
-## Бабуля
+## Library reception
   * Форма видачі книжки(ок)
     * Екземпляки книжок, що бере клієнт
     * Клієнт
