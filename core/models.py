@@ -1,7 +1,4 @@
-from email.policy import default
-from unicodedata import name
 from django.db import models
-
 
 class Author(models.Model):
     name = models.CharField(max_length=128)
@@ -28,19 +25,21 @@ class Book(models.Model):
 
 class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    ISBN = models.CharField(max_length=13, default="I don't know what it is")
+  
 
 class Visitor(models.Model):
     name = models.CharField(max_length=200)
-    order = models.CharField(models, max_length=200)
+    order = models.CharField(max_length=200, default="this is my order")
     number = models.ImageField(default=1)
-    #date_added = models.DateTimeField(auto_add_now=True)
+    date_added = models.DateField(auto_now=True)
 
-    def chek_name():
-        if name == name:
-            pass
+    # def chek_name(self):
+    #     if self.name == self.name:
+    #         pass
 
     def __str__(self):
-        return self() 
+        return self.name
 
 
 class BookRent(models.Model):
