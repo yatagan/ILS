@@ -1,0 +1,7 @@
+{% extends "pizzas/base.html" %}
+
+{% block content %}
+  <p>Зробити замовлення</p>
+    <a href="{% url 'librery_reception:new_order' %}">Форма замовлення</a>
+
+{% endblock content %}
