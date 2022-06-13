@@ -1,0 +1,10 @@
+{% extends 'librery_reception/base.html' %}
+
+{% block content %}
+         <p><h4>Заповніть форму замовлення</h4></p>
+    <form action="{% url 'library_reception: new_order' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submint">Внести замовлення</button>
+    </form>     
+{% endblock content %}

@@ -31,8 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #Our APP
+    'library_reception',
     'warehouse',
     'core',
+    #Django APP
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

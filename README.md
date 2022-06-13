@@ -15,11 +15,16 @@
 ## Склад
   * Форма додавання екземплярів книжок
     * Книжка
-    * ISBN (http://www.ukrbook.net/agentstvo.html)
+    * *ISBN (http://www.ukrbook.net/agentstvo.html)*
     * Кількість
 
-## Бабуля
+## Library reception
   * Форма видачі книжки(ок)
     * Екземпляки книжок, що бере клієнт
     * Клієнт
     * Дата
+    How do I see realisation for this:
+    - VISITOR coming to reception - REGISTRATION or LOG IN
+    - formation NEW_ORDER - (name_book, autor, availability check)
+    - formation CARD_RENT - (name_book, autor, visitor, data_rent_on, data_rent_off)
+    - may be: if data_rent_off is comming - send message to e-mail

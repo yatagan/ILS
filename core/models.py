@@ -30,7 +30,7 @@ class BookInstance(models.Model):
   
 
 class Visitor(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=30)
     order = models.CharField(max_length=200, default="this is my order")
     number = models.IntegerField(default=1)
     date_added = models.DateField(auto_now=True)
@@ -48,5 +48,6 @@ class BookRent(models.Model):
     books = models.ManyToManyField(BookInstance)
     visitor = models.ForeignKey(Visitor, on_delete=models.CASCADE)
     active = models.BooleanField()
-    date = models.DateField()
+    date_on = models.DateField()
+    date_off = models.DateField()
 
