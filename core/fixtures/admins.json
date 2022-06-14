@@ -22,7 +22,7 @@
     "model": "auth.user",
     "pk": 2,
     "fields": {
-        "password": "pbkdf2_sha256$320000$3pqHBHX4K1HfAlDcjjmewL$XrBYj7fqKoqG96NAhIKLSP5hbgV8r0RdRGXtwesCYGU=",
+        "password": "pbkdf2_sha256$320000$p3cwn6yFi2QiadM1B7wuT7$vSPeMjnSaIRTjV+Bao2xWguG6fZuObCOQsvCkuPqPX4=",
         "last_login": null,
         "is_superuser": true,
         "username": "Semen",
