@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'library_reception',
     'warehouse',
     'core',
+    'visitors',
     #Django APP
     'django.contrib.admin',
     'django.contrib.auth',

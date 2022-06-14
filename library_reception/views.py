@@ -1,10 +1,8 @@
-import numbers
-from turtle import title
-from typing import Any
-from django.shortcuts import render,redirect
 
+from turtle import title
+from django.shortcuts import render,redirect
 from core.models import *
-from .forms import CardBookForm, VisitorForm, BookRentForm
+from .forms import VisitorForm #, BookRentForm
 
 
 def index(request):
@@ -24,6 +22,10 @@ def new_visitor(request):
 
 def new_order(request):
     """Add new order from visitor"""
+    # found_books = Book.objects.filter(title__contains='java')
+    # books = Book.objects.all()
+    # for book in books:
+    #     exemlar_title = book.title
     exemlar_title = Book.objects.get(title)#треба дістати значення title
     exemplar_number = Book.objects.get(number)#треба дістати значення number
     if exemlar_title != Book(title):
@@ -38,7 +40,7 @@ def new_order(request):
     else:
         return f"Вибачте, цієї книги зараз не має в наявності"
 
-def card_book_rent(request):
+#def card_book_rent(request):
     #Change the form
     if request.method != 'POST':
         form = CardBookForm()

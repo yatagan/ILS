@@ -14,10 +14,10 @@ class Book(models.Model):
 
     def number_books(self):
         return self.bookinstance_set.count()
-                # if instance == 0:
-        #     return f"All of theese books are in rent!"
-        # else:
-        #     return f"Book rental available" 
+        #if instance == 0:
+        #   return f"All of theese books are in rent!"
+        #else:
+        #   return f"Book rental available" 
 
     def __str__(self):
         return self.title
@@ -34,11 +34,6 @@ class Visitor(models.Model):
     number = models.IntegerField(default=1)
     date_added = models.DateField(auto_now=True)
 
-    # def chek_name(self):
-    #     if self.name == self.name:
-    #         pass
-
-
     def __str__(self):
         return self.name
 
@@ -47,6 +42,6 @@ class BookRent(models.Model):
     books = models.ManyToManyField(BookInstance)
     visitor = models.ForeignKey(Visitor, on_delete=models.CASCADE)
     active = models.BooleanField()
-    date_on = models.DateField()
+    date = models.DateField()
     date_off = models.DateField()
 

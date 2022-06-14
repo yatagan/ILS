@@ -6,11 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home page</title>
 </head>
-<body>
-    <h3>Наша бібліотека</h3>    
-</body>
+  <body>
+
+      <h3>Наша бібліотека</h3>
+        <p><h4>
+            <a href="{% url 'warehouse:index' %}">Склад книжок</a> -
+            <a href="{% url 'library_reception:index' %}">Зробити замовлення</a> -
+            {% if user.is_authenticated %}
+                Вітаємо, {{ user.username }}.
+                <a href="{% url 'visitors:logout' %}">Вихід</a>
+            {% else %}
+                <a href="{% url 'visitors:login' %}">Зареєструватися</a>
+            {% endif %} 
+        </h4></p>
+
+  </body>
 </html>
 
-    {% block content %}
+   {% block content %}
         
-    {% endblock content %}
+          
+        
+   {% endblock content %}

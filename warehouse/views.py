@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .forms import BookForm
 
+
 def index(request):
     #warehouse`s main page`
     return render(request, 'warehouse/index.html')

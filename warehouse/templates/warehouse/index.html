@@ -1,1 +1,14 @@
-<p> Це головна сторінка складу</p>
+{% extends 'warehouse/base.html' %}
+
+{% block content %}
+  <p>
+    <h3>Головна сторінка складу</h3> 
+  </p>
+  {% if user.is_authenticated %}
+    Hello, {{user.username }}
+  {% else %}
+    <a href="{% url 'visitors:login' %}">Виконайте вхід</a> -
+    <a href="{% url 'visitors:register %">Зареєструйтесь</a> 
+  {% endif %}
+
+{% endblock content %}
