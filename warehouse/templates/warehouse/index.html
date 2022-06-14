@@ -1,14 +1,10 @@
-{% extends 'warehouse/base.html' %}
+{% extends "warehouse/base.html" %} 
 
 {% block content %}
-  <p>
-    <h3>Головна сторінка складу</h3> 
-  </p>
-  {% if user.is_authenticated %}
-    Hello, {{user.username }}
-  {% else %}
-    <a href="{% url 'visitors:login' %}">Виконайте вхід</a> -
-    <a href="{% url 'visitors:register %">Зареєструйтесь</a> 
-  {% endif %}
-
-{% endblock content %}
+<title>Warehouse</title>
+<h3> Це головна сторінка складу</h3>
+<p>Каталог</p>
+<p>Пошук</p>
+<p>Наша колекція включає доступ до: "QUANTITY" назв книг (електронних та друкованих), "QUANTITY" назв журналів (електронних та друкованих).</p>
+<p>Ми пропонуємо посібники з найкращих ресурсів у кожній предметній області.</p>
+<a href="{% url 'warehouse:new_book' %}">Додати нову книгу</a>

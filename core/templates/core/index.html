@@ -4,5 +4,12 @@
 <h1>Привіт</h1>
 <h4>Ви зайшли в нашу бібліотеку</h4>
 <p>Сподіваємося, що у Вас залишаться приємні враження від нашої роботи</p>
-{% endblock content %}
 
+{% if user.is_authenticated %}
+Hello, {{user.username }}
+{% else %}
+<a href="{% url 'visitors:login' %}">Виконайте вхід</a> -
+<a href="{% url 'visitors:register %">Зареєструйтесь</a> 
+{% endif %}
+
+{% endblock content %}
