@@ -49,8 +49,7 @@ class Book(models.Model):
 
 class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    ISBN = models.CharField(max_length=13, default="I don't know what it is")
-    number = models.IntegerField(default=0)
+
   
 
 class Visitor(models.Model):
