@@ -6,11 +6,35 @@ class Author(models.Model):
     def __str__(self) -> str:
         return self.name
 
+def get_books(title):
+    return Book.objects.filter(title__contains=title)
+# get_books('Java')
+# [list of Java books]
+# get_books('Python')
+# [list of Python book]
 
 class Book(models.Model):
     title = models.CharField(max_length=128)
     authors = models.ManyToManyField(Author)
     number = models.IntegerField(default=0)
+
+    def check_book_title(title):
+        """
+            >>> check_book_title("wsadfsadf")
+            Вибачте, такої книги не має в нашій бібліотеці.
+            >>> check_book_title("Head")
+            {'Headfirst Java': 2, 'Head fist Python': 13}
+        """
+        books = Book.objects.filter(title_contains=title)
+        book_dicsh = {}
+        book_dicsh = dict(books)
+        print(book_dicsh)
+         
+        if books:
+            return f"Вибачте, такої книги не має в нашій бібліотеці."
+        else:
+            return BookInstance.objects.filter()
+        
 
     def number_books(self):
         return self.bookinstance_set.count()

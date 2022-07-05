@@ -22,16 +22,10 @@ def new_visitor(request):
 
 def new_order(request):
     """Add new order from visitor"""
-    # found_books = Book.objects.filter(title__contains='java')
-    # books = Book.objects.all()
-    # for book in books:
-    #     exemlar_title = book.title
-    exemlar_title = Book.objects.get(title)#треба дістати значення title
+    
+    exemplar_title = Book.objects.get(title)#треба дістати значення title
     exemplar_number = Book.objects.get(number)#треба дістати значення number
-    if exemlar_title != Book(title):
-        return f"Вибачте, такої книги не має в нашій бібліотеці"
-    else:
-        pass
+    
     
     if exemplar_number > 0:
         form = BookRentForm()
