@@ -8,8 +8,21 @@
         <button class="btn btn-warning">На головну</button>
     </div>
 
-{% if user.is_authenticated %}
-Hello, {{user.username }}
-{% endif %}
+    <div class="features">
 
+    {% if posts %}
+        {% for post in posts %}
+
+        <p>
+            {{ post.title }}
+            <br>
+            {{ post.text }}
+        </p>
+
+        {% endfor %}
+    {% else %}
+        Новин немає
+    {% endif %}
+
+</div>
 {% endblock content %}

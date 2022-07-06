@@ -69,3 +69,11 @@ class BookRent(models.Model):
     date = models.DateField()
     date_off = models.DateField()
 
+class Post(models.Model):
+    title = models.CharField(max_length=150)
+    text = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+
