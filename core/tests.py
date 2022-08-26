@@ -1,4 +1,3 @@
-from turtle import title
 from django.test import TestCase
 
 from core.models import Book, BookInstance, Author
