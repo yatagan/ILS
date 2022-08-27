@@ -1,3 +1,7 @@
+# ТЗ
+https://www.educative.io/courses/grokking-the-object-oriented-design-interview/RMlM3NgjAyR
+
+
 # Система керування бібліоткекою
 
 * Головна сторінка бібліотеки (Контакти, історія, новини) (https://mylib.ua/)
