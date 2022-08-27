@@ -5,16 +5,16 @@ body {
 aside {
     float:left;
     background:#3f4574;
-    width: 20%;
+    width: min-content;
     padding: 2.0%;
-    height: 100vh;
+    height: 120vmax;
     color: rgb(240, 212, 173);
     border-right: 5px solid #d1ecda;
 }
 
 aside img {
-    width: 300px;
-    height: 200px;
+    width: 250px;
+    height: 180px;
     float: left;
 }
 
@@ -26,11 +26,13 @@ aside .logo {
 }
 
 aside h5 {
+    font-family: 'Times New Roman', Times, serif;
     margin-top: 250px;
     font-size: 30px;
 }
 
 aside ul li {
+    font-family: Arial, sans-serif;
     color: aqua;
     display: block;
     margin-top: 20px;
@@ -50,6 +52,7 @@ main .features {
     margin-top: 100px;
     text-align: center;
     width: 75%;
+    font-family: serif;
 }
 
 main .features p {max-width: 400px; margin: 20px auto}
