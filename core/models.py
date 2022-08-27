@@ -50,6 +50,9 @@ class Book(models.Model):
 class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.book.title} (#{self.id})"
+
   
 
 class Visitor(models.Model):
