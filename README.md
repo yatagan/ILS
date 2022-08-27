@@ -1,8 +1,14 @@
 # ТЗ
 https://www.educative.io/courses/grokking-the-object-oriented-design-interview/RMlM3NgjAyR
 
-   ./manage.py migrate
-   ./manage.py loaddata admins library
+
+# Django commands
+    ./manage.py migrate
+    ./manage.py loaddata admins library
+    
+# Heroku commands
+    heroku run python manage.py loaddata admins library
+
 
 
 # Система керування бібліоткекою
