@@ -20,9 +20,19 @@ class Account(auth_models.User):
 
 
 class Librarian(Account):
+
+    class Meta:
+        verbose_name = 'Librarian'
+        verbose_name_plural = 'Librarians'
+
     def addBookItem(self, book):
         ...
 
 
 class Member(Account):
+
+    class Meta:
+        verbose_name = 'Member'
+        verbose_name_plural = 'Members'
+
     totalBooksCheckedout = models.IntegerField(default=0)
