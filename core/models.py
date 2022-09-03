@@ -6,8 +6,8 @@ class Author(models.Model):
     def __str__(self) -> str:
         return self.name
 
-def get_books(title):
-    return Book.objects.filter(title__contains=title)
+    def get_books(title):
+        return Book.objects.filter(title__contains=title)
 # get_books('Java')
 # [list of Java books]
 # get_books('Python')
@@ -53,24 +53,13 @@ class BookInstance(models.Model):
     def __str__(self):
         return f"{self.book.title} (#{self.id})"
 
-  
 
-class Visitor(models.Model):
-    name = models.CharField(max_length=30)
-    order = models.CharField(max_length=200, default="this is my order")
-    number = models.IntegerField(default=1)
-    date_added = models.DateField(auto_now=True)
-
-    def __str__(self):
-        return self.name
-
-
-class BookRent(models.Model):
-    books = models.ManyToManyField(BookInstance)
-    visitor = models.ForeignKey(Visitor, on_delete=models.CASCADE)
-    active = models.BooleanField()
-    date = models.DateField()
-    date_off = models.DateField()
+# class BookRent(models.Model):
+#     books = models.ManyToManyField(BookInstance)
+#     visitor = models.ForeignKey(Visitor, on_delete=models.CASCADE)
+#     active = models.BooleanField()
+#     date = models.DateField()
+#     date_off = models.DateField()
 
 class Post(models.Model):
     title = models.CharField(max_length=150)
@@ -79,4 +68,24 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+class Library(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title    
+
+
+class Catalog(models.Model):
+
+    def __str__(self):
+        return self
+
+class  Rack(models.Model):
+
+    def __str__(self):
+        return self    
+
+
+
+                                
 
