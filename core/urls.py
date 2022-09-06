@@ -10,6 +10,6 @@ urlpatterns = [
     #Home page
     path('', views.index, name='index'),
     #сторінка з книгами
-    path('books/', views.books, name='books'),
+    path('search/', views.search_books, name='search_books'),
     # path('new_order/', views.new_order, name='new_order'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
