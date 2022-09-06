@@ -3,13 +3,10 @@
 
 {% block content%}
     <div class="features">
-        <h1>Привіт</h1>
-        <h4>Ви зайшли в нашу бібліотеку</h4>
-        <p>Сподіваємося, що у Вас залишаться приємні враження від нашої роботи</p>
-        <button class="btn btn-warning">На головну</button>
+
         <form class="d-flex" role="search" action="{% url 'core:books' %}">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
-            <button class="btn btn-warning" type="submit">Search</button>
+            <input class="form-control me-2" type="search" placeholder="Введіть критерій пошуку (книжка, автор тощо)" aria-label="Search" name="search">
+            <button class="btn btn-warning" type="submit">Шукати</button>
         </form>
     
     </div>

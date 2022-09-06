@@ -18,7 +18,7 @@ def books(request):
         books = Book.objects.order_by('-date_added')
 
     context = {'books': books}
-    return render(request, 'core/books.html', context)
+    return render(request, 'core/search_results.html', context)
 
 # def new_order(request):
 #     book = BookInstance.objects.get()
