@@ -1,7 +1,7 @@
 
 from django.shortcuts import render,redirect
 from core.models import *
-from .forms import VisitorForm #, BookRentForm
+# from .forms import VisitorForm #, BookRentForm
 
 
 def index(request):
