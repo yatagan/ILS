@@ -4,7 +4,14 @@
 <title>Warehouse</title>
 <h3> Це головна сторінка складу</h3>
 <p>Каталог</p>
-<p>Пошук</p>
+<form class="form-inline my-2 my-lg-0" action="{% url 'warehouse:search_book' %}">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Пошук книги</button>
+</form>
+<form class="form-inline my-2 my-lg-0" action="{% url 'warehouse:search_author' %}">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Пошук автора</button>
+</form>
 <p>Наша колекція включає доступ до: "QUANTITY" назв книг (електронних та друкованих), "QUANTITY" назв журналів (електронних та друкованих).</p>
 <p>Ми пропонуємо посібники з найкращих ресурсів у кожній предметній області.</p>
 <a href="{% url 'warehouse:new_book' %}">Додати нову книгу</a>

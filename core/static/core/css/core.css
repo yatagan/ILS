@@ -1,37 +1,57 @@
 body {
-    background: #3f7451;
+    background: #8abe9b;
 }
 
-aside {
-    float:left;
-    background:#3f4574;
-    width: min-content;
-    padding: 2.0%;
-    height: 120vmax;
-    color: rgb(240, 212, 173);
-    border-right: 5px solid #d1ecda;
+header {
+    height: 15%;
+    background-color: #d1ecda;
+    text-align: center;
+    border-right: 5px solid #bfe321;
 }
 
-aside img {
-    width: 250px;
-    height: 180px;
-    float: left;
-}
-
-aside .logo {
+header .logo {
     font-style: italic;
     font-size: 30pt;
     margin-left: auto;
     font-weight: bold;
+    color: brown;
 }
 
-aside h5 {
+header img {
+    width: 300px;
+    height: 154px;
+    float: left;
+    padding: 2px;
+}
+
+main {
+    height: 30em;
+    background-color: burlywood;
+}
+
+main div {
+    color: chartreuse;
+    text-align: center;
+    font-family: serif;
+}
+
+main aside {
+    float:left;
+    background:#3f4574;
+    width: min-content;
+    height: 30em;
+    padding: 2.0%;
+    color: rgb(240, 212, 173);
+    border-right: 5px solid #d1ecda;
+}            
+
+main aside h5 {
     font-family: 'Times New Roman', Times, serif;
-    margin-top: 250px;
+    margin-top: 100px;
     font-size: 30px;
-}
+}    
 
-aside ul li {
+main aside ul li {
     font-family: Arial, sans-serif;
     color: aqua;
     display: block;
@@ -39,20 +59,16 @@ aside ul li {
     transition: transform cubic-bezier(0.6, 0.04, 0.98, 0.335) ease;
 }
 
-aside ul:hover, aside ul a:hover {
+main aside ul:hover, aside ul a:hover {
     color: rgb(179, 78, 78);
     text-decoration: none;
     transform: scale(1.1);
 
 }
 
-main .features {
-    float:left;
-    color: chartreuse;
-    margin-top: 100px;
+footer {
+    height: 10%;
     text-align: center;
-    width: 75%;
-    font-family: serif;
+    background-color: coral;
 }
 
-main .features p {max-width: 400px; margin: 20px auto}

@@ -14,21 +14,17 @@
     
     </div>
 
-    <div class="features">
-
-    {% if posts %}
-        {% for post in posts %}
-
-        <p>
-            {{ post.title }}
+    <div>
+        {% if posts %}
+          {% for post in posts %}
+            <p>
+              {{ post.title }}
             <br>
-            {{ post.text }}
-        </p>
-
-        {% endfor %}
-    {% else %}
-        Новин немає
-    {% endif %}
-
+              {{ post.text }}
+            </p>
+          {% endfor %}
+        {% else %}
+          Новин немає
+        {% endif %}
     </div>
 {% endblock content %}

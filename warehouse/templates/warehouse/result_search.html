@@ -1,0 +1,15 @@
+{% extends "warehouse/base.html" %}
+
+{%  block content %} 
+    {% for result in search_query_book %}
+ 
+        <p> "{{ result.title }}"</p>
+       
+    {% endfor %}
+
+    {% for a in authors %}
+ 
+        <p> "{{ a.name }}"</p>
+       
+    {% endfor %}
+{% endblock content %}
