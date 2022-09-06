@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
-from core.models import Book, BookInstance
+from core.models import Author, Book, BookInstance
 from .forms import BookForm
+from django.http import HttpResponse
 
 
 def index(request):
@@ -27,6 +28,26 @@ def new_book(request):
             return redirect ('warehouse:index')
     context = {'form': form}
     return render(request, 'warehouse/new_book.html', context)
+
+def search_book(request):
+    search_query = request.GET.get('search_book', '')
+    if search_query:
+        book = Book.objects.filter(title_incontains=search_query)
+    else:
+        book = Book.objects.all()
+    result_search_book = {'search_query_book': book}
+    # return HttpResponse(context)    
+    return render(request, 'warehouse/result_search.html', result_search_book)  
+
+def search_author(request):
+    search_query = request.GET.get('search_author', '')
+    if search_query:
+        authors = Author.objects.filter(name_incontains=search_query)
+    else:
+        authors = Author.objects.all() 
+    result_search_author = {'authors': authors}     
+    return render(request, 'warehouse/result_search.html', result_search_author)     
+                                 
 
     
 

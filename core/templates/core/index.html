@@ -1,28 +1,17 @@
 {% extends "core/base.html" %}
 
 {% block content%}
-    <div class="features">
-        <h1>Привіт</h1>
-        <h4>Ви зайшли в нашу бібліотеку</h4>
-        <p>Сподіваємося, що у Вас залишаться приємні враження від нашої роботи</p>
-        <button class="btn btn-warning">На головну</button>
-    </div>
-
-    <div class="features">
-
-    {% if posts %}
-        {% for post in posts %}
-
-        <p>
-            {{ post.title }}
+    <div>
+        {% if posts %}
+          {% for post in posts %}
+            <p>
+              {{ post.title }}
             <br>
-            {{ post.text }}
-        </p>
-
-        {% endfor %}
-    {% else %}
-        Новин немає
-    {% endif %}
-
+              {{ post.text }}
+            </p>
+          {% endfor %}
+        {% else %}
+          Новин немає
+        {% endif %}
     </div>
 {% endblock content %}

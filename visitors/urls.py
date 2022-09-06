@@ -7,6 +7,6 @@ from . import views
 app_name = 'visitors'
 urlpatterns = [
     path('', include('django.contrib.auth.urls')),
-    #Page of registrayion
+    #Page of registration
     path('register/', views.register, name='register'),
 ]
