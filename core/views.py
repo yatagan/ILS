@@ -16,7 +16,7 @@ def search_books(request):
     else:
     #show all books
         books = Book.objects.all()
-    
+            
     context = {'books': books.order_by('title')}
     return render(request, 'core/search_results.html', context)
 
