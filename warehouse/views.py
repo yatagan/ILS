@@ -30,19 +30,19 @@ def new_book(request):
     return render(request, 'warehouse/new_book.html', context)
 
 def search_book(request):
-    search_query = request.GET.get('search_book', '')
+    search_query = request.GET.get('search', '')
     if search_query:
-        book = Book.objects.filter(title_incontains=search_query)
+        books = Book.objects.filter(title__icontains=search_query).distinct()
     else:
-        book = Book.objects.all()
-    result_search_book = {'search_query_book': book}
+        books = Book.objects.all()
+    result_search_book = {'search_query_book': books}
     # return HttpResponse(context)    
     return render(request, 'warehouse/result_search.html', result_search_book)  
 
 def search_author(request):
-    search_query = request.GET.get('search_author', '')
+    search_query = request.GET.get('search', '')
     if search_query:
-        authors = Author.objects.filter(name_incontains=search_query)
+        authors = Author.objects.filter(name__icontains=search_query).distinct()
     else:
         authors = Author.objects.all() 
     result_search_author = {'authors': authors}     

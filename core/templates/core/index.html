@@ -5,13 +5,15 @@
     <div class="features">
 
         <form class="d-flex" role="search" action="{% url 'core:search_books' %}">
-            <input class="form-control me-2" type="search" placeholder="Введіть критерій пошуку (книжка, автор тощо)" aria-label="Search" name="search">
+            <input class="form-control me-2" type="search" 
+                   placeholder="Введіть критерій пошуку (книжка, автор тощо)" 
+                   aria-label="Search" name="search">
             <button class="btn btn-warning" type="submit">Шукати</button>
         </form>
     
     </div>
 
-    <div>
+    <div class="card-news">
         {% if posts %}
           {% for post in posts %}
             <p>

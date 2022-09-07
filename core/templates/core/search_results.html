@@ -1,22 +1,22 @@
 {% extends "core/base.html" %}
 
 {% block content %}
-  <h3>Сторінка переліку книжок</h3> 
+  <h4>Результати Вашого пошуку:</h4> 
 
-  <ul>
+  <ol>
     {% for book in books %} 
     <div class="card">
-      <h5 class="card-header">{{ book.title }}</h5>
-      <div class="card-body">
+      <h6>{{ book.title }}</h6>
+      <div>
         {% for author in book.authors.all %}
-        <h6 class="card-title">{{ author.name }}</h6>
+        <h6 class="card">{{ author.name }}</h6>
         {% endfor %}
       </div>
     </div>
     {% empty %}
       <li><h5>No books have been added yet.</h5></li>
     {% endfor %}
-  </ul>
+  </ol>
   
 
 {% endblock content %}

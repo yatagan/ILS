@@ -3,10 +3,16 @@ body {
 }
 
 header {
-    height: 15%;
+    height: 30%;
     background-color: #d1ecda;
     text-align: center;
     border-right: 5px solid #bfe321;
+}
+
+header div p {
+    color: brown;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
 }
 
 header .logo {
@@ -19,13 +25,13 @@ header .logo {
 
 header img {
     width: 300px;
-    height: 154px;
+    height: 100px;
     float: left;
     padding: 2px;
 }
 
 main {
-    height: 30em;
+    height: 35em;
     background-color: burlywood;
 }
 
@@ -35,11 +41,31 @@ main div {
     font-family: serif;
 }
 
+main h4 {
+    color: brown;
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+}
+
+main .card {
+    color: #3f4574;
+    background-color: rgb(205, 235, 146);
+    width: 50%;
+    margin-left: 25em;
+}
+
+main .card-news {
+    color: brown;
+    text-align: center; 
+    margin-top: 25.5em;
+}
+
 main aside {
     float:left;
     background:#3f4574;
     width: min-content;
-    height: 30em;
+    height: 35em;
     padding: 2.0%;
     color: rgb(240, 212, 173);
     border-right: 5px solid #d1ecda;
@@ -67,7 +93,7 @@ main aside ul:hover, aside ul a:hover {
 }
 
 footer {
-    height: 10%;
+    height: 2.5em;
     text-align: center;
     background-color: coral;
 }
