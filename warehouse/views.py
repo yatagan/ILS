@@ -32,7 +32,7 @@ def new_book(request):
 def search_book(request):
     search_query = request.GET.get('search', '')
     if search_query:
-        books = Book.objects.filter(title_incontains=search_query).distinct()
+        books = Book.objects.filter(title__icontains=search_query).distinct()
     else:
         books = Book.objects.all()
     result_search_book = {'search_query_book': books}
@@ -42,7 +42,7 @@ def search_book(request):
 def search_author(request):
     search_query = request.GET.get('search', '')
     if search_query:
-        authors = Author.objects.filter(name_incontains=search_query).distinct()
+        authors = Author.objects.filter(name__icontains=search_query).distinct()
     else:
         authors = Author.objects.all() 
     result_search_author = {'authors': authors}     
