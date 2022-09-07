@@ -2,21 +2,25 @@
 
 {% block content %}
   <h4>Результати Вашого пошуку:</h4> 
-
-  <ol>
-    {% for book in books %} 
-    <div class="card">
-      <h6>{{ book.title }}</h6>
-      <div>
+  <div class="card">
+    <ul>
+      {% for book in books %} 
+      <li>Назва книжки: "{{ book.title }}"</li>
+      <ol>
         {% for author in book.authors.all %}
-        <h6 class="card">{{ author.name }}</h6>
+          <li>Автор книги: {{ author.name }}</li>
         {% endfor %}
-      </div>
-    </div>
+      </ol>
+    </ul>  
+  </div>
+   
+  <div class="card">
     {% empty %}
-      <li><h5>No books have been added yet.</h5></li>
+      <p>Введіть данні для пошуку.</p>
     {% endfor %}
-  </ol>
+  </div>
+
+  
   
 
 {% endblock content %}
