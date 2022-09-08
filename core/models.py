@@ -1,4 +1,7 @@
+
+from datetime import date
 from django.db import models
+from warehouse.models import Rack
 
 class Author(models.Model):
     name = models.CharField(max_length=128)
@@ -49,17 +52,15 @@ class Book(models.Model):
 
 class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    date_lending = models.DateField(default=date.today)
+    format_book = models.IntegerField(choices=((1, "paper"), (2, "electorinic")))
+    date_messege = models.CharField(max_length=200)
+    chack_out = models.ForeignKey(Rack, on_delete=models.CASCADE) 
 
     def __str__(self):
-        return f"{self.book.title} (#{self.id})"
+        return self.book
 
 
-# class BookRent(models.Model):
-#     books = models.ManyToManyField(BookInstance)
-#     visitor = models.ForeignKey(Visitor, on_delete=models.CASCADE)
-#     active = models.BooleanField()
-#     date = models.DateField()
-#     date_off = models.DateField()
 
 class Post(models.Model):
     title = models.CharField(max_length=150)
@@ -79,13 +80,4 @@ class Catalog(models.Model):
 
     def __str__(self):
         return self
-
-class  Rack(models.Model):
-
-    def __str__(self):
-        return self    
-
-
-
-                                
 
