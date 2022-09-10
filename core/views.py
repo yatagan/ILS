@@ -23,21 +23,3 @@ def search_books(request):
         context = {'books': books.order_by('title')}
     return render(request, 'core/search_results.html', context)
 
-
-def new_order(request):
-    if request.method != 'POST':
-        form = BookInstanceForm()
-    else:
-        form = BookInstanceForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('core:page_order.html')    
-    # book = BookInstance.GET.get('search', '')
-    # data_lending = request.POST.get("date_start_lending", '')
-    # format_book = request.POST.get("format", 1)
-    # date_massege = request.POST.get("book_finish_lending", '')
-
-    context = {'form': form}
-    return render(request, 'core/index.html', context)
-       
-  
