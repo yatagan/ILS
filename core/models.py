@@ -73,19 +73,3 @@ class Library(models.Model):
 
     def __str__(self):
         return self.title    
-
-
-class Catalog(models.Model):
-
-    def __str__(self):
-        return self
-
-class  Rack(models.Model):
-
-    def __str__(self):
-        return self    
-
-
-
-                                
-
