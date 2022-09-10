@@ -51,9 +51,7 @@ class Book(models.Model):
 
 class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    date_lending = models.DateField(default=date.today)
-    format_book = models.IntegerField(choices=((1, "paper"), (2, "electorinic")))
-    date_messege = models.DateField(default=date.today)
+    format_book = models.IntegerField(choices=((1, "paper"), (2, "ebook"), (3, "magazine"), (4, "audio")))
     
     def __str__(self):
         return self.book
