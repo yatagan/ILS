@@ -51,6 +51,16 @@ class Book(models.Model):
 
 class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    isbn = models.CharField(max_length=13, null=True, blank=True)
+
+    LOAN_STATUS = (
+        ('m', 'Технічне обслуговування'),
+        ('o', 'Видана'),
+        ('a', 'Доступна'),
+        ('r', 'Зарезервована'),
+    )
+
+    status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', help_text='Змінити статус екземпляра')
     format_book = models.IntegerField(choices=((1, "paper"), (2, "ebook"), (3, "magazine"), (4, "audio")))
     
     def __str__(self):
