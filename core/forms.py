@@ -12,5 +12,5 @@ class BookInstanceForm(forms.ModelForm):
     
     class Meta:
         model = BookInstance
-        fields = ['book', 'date_lending', 'format_book', 'date_messege']
-        label = {'book': 'Назва книги', 'date_lending': 'Дата видачи' }
+        fields = ['book', 'format_book']
+        label = {'book': 'Назва', 'format_book': 'Формат' }
