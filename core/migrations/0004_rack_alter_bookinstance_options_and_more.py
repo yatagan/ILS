@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0001_initial'),
+        ('core', '0003_delete_catalog_delete_rack'),
     ]
 
     operations = [
