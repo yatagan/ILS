@@ -7,4 +7,4 @@ class  Rack(models.Model):
     title = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return self.number_rack    
+        return self.number_rack
