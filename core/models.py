@@ -47,6 +47,11 @@ class Book(models.Model):
         return self.title
 
 
+class Rack(models.Model):
+    number = models.IntegerField(default=0)
+    location = models.CharField(max_length=100)
+
+
 class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     isbn = models.CharField(max_length=13, null=True, blank=True)
@@ -61,16 +66,13 @@ class BookInstance(models.Model):
     )
 
     status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', help_text='Змінити статус екземпляра')
+    rack = models.ForeignKey(Rack, null=True, blank=True)
 
     class Meta:
         ordering = ["due_back"]
 
     def __str__(self):
         return f"{self.book.title} (#{self.id})"
-
-class Rack(models.Model):
-    number = models.IntegerField(default=0)
-    location = models.CharField(max_length=100)
 
 
 # class BookRent(models.Model):
