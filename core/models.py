@@ -1,3 +1,5 @@
+
+from datetime import date
 from django.db import models
 
 class Author(models.Model):
@@ -49,17 +51,12 @@ class Book(models.Model):
 
 class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-
+    format_book = models.IntegerField(choices=((1, "paper"), (2, "ebook"), (3, "magazine"), (4, "audio")))
+    
     def __str__(self):
-        return f"{self.book.title} (#{self.id})"
+        return self.book
 
 
-# class BookRent(models.Model):
-#     books = models.ManyToManyField(BookInstance)
-#     visitor = models.ForeignKey(Visitor, on_delete=models.CASCADE)
-#     active = models.BooleanField()
-#     date = models.DateField()
-#     date_off = models.DateField()
 
 class Post(models.Model):
     title = models.CharField(max_length=150)
@@ -79,13 +76,4 @@ class Catalog(models.Model):
 
     def __str__(self):
         return self
-
-class  Rack(models.Model):
-
-    def __str__(self):
-        return self    
-
-
-
-                                
 
