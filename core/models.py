@@ -55,14 +55,12 @@ class Rack(models.Model):
 class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     isbn = models.CharField(max_length=13, null=True, blank=True)
-    imprint = models.CharField(max_length=200, null=True, blank=True, help_text='Видавництво та рік випуску', verbose_name='Видавництво')
-    due_back = models.DateField(null=True, blank=True, help_text='Введіть кінець строку статусу', verbose_name='Дата закінчення статусу')
 
     LOAN_STATUS = (
-        ('m', 'Технічне обслуговування'), #книги изначально будут созданы недоступными до того, как они будут храниться на полках.
-        ('o', 'On loan'),
-        ('a', 'Доступний'),
-        ('r', 'Зарезервований'),
+        ('m', 'Технічне обслуговування'),
+        ('o', 'Видана'),
+        ('a', 'Доступна'),
+        ('r', 'Зарезервована'),
     )
 
     status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', help_text='Змінити статус екземпляра')
