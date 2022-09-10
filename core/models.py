@@ -35,7 +35,7 @@ class BookInstance(models.Model):
     format_book = models.IntegerField(choices=((1, "paper"), (2, "ebook"), (3, "magazine"), (4, "audio")))
     
     def __str__(self):
-        return self.book
+        return f"{self.book.title} (format: {self.format_book})"
 
 
 
