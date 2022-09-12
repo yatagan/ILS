@@ -1,22 +1,29 @@
 {% extends "warehouse/base.html" %} 
 
 {% block content %}
-<title>Warehouse</title>
-<h3> Це головна сторінка складу</h3>
-<p>Каталог</p>
-<div class="container">
-  <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'warehouse:search_book' %}">
-    <input class="form-control mr-sm-1" type="search" placeholder="Введіть данні" aria-label="Search" name="search">
-    <button class="btn btn-outline-success my-2 my-sm-3" type="submit">Пошук книги</button>
-  </form>
-</div>
-<div class="container">
-  <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'warehouse:search_author' %}">
+  
+<aside class="card_left">
+  <div class="container">
+    <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'warehouse:search_book' %}">
+      <input class="form-control mr-sm-1" type="search" placeholder="Введіть данні" aria-label="Search" name="search">
+      <button class="btn btn-outline-success my-2 my-sm-3" type="submit">Пошук книги</button>
+    </form>
+  </div>
+  <div class="container">
+    <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'warehouse:search_author' %}">
       <input class="form-control mr-sm-1" type="search" placeholder="Введіть дані" aria-label="Search" name="search">
       <button class="btn btn-outline-success my-2 my-sm-3" type="submit">Пошук автора</button>
+    </form>
+  </div>
+</aside>
+ 
+<aside class="card_right">
+  <form action="{% url 'warehouse:new_book' %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-outline-success name="Додати">Додати екземпляр</button>
   </form>
-</div>
-<p>Наша колекція включає доступ до: "QUANTITY" назв книг (електронних та друкованих), "QUANTITY" назв журналів (електронних та друкованих).</p>
-<p>Ми пропонуємо посібники з найкращих ресурсів у кожній предметній області.</p>
-<a href="{% url 'warehouse:new_book' %}">Додати нову книгу</a>
+  <!-- <a href="{% url 'warehouse:new_book' %}">Додати нову книгу</a> -->
+</aside>
+
 {% endblock content %}

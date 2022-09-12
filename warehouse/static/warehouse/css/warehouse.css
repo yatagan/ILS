@@ -1,0 +1,43 @@
+body {
+    background: #8abe9b;
+}
+
+header {
+    height: 30%;
+    background-color: #d1ecda;
+    text-align: center;
+    border-right: 5px solid #bfe321;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+    color: brown;
+
+}
+main {
+    height: 40em;
+}
+
+ 
+main .card_left {
+    float: left;
+    text-align: center;
+    background-color: #bfe321;
+    height: 40em;
+    width: 49%;
+
+}
+
+main .card_right {
+    float: right;
+    text-align: center;
+    background-color: rgb(223, 174, 49);
+    height: 40em;
+    width: 49%;
+
+}
+
+footer {
+    height: 2.5em;
+    text-align: center;
+    background-color: coral;
+}
+
