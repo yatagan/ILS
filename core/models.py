@@ -38,7 +38,6 @@ class BookInstance(models.Model):
         return f"{self.book.title} (format: {self.format_book})"
 
 
-
 class Post(models.Model):
     title = models.CharField(max_length=150)
     text = models.TextField()
@@ -58,4 +57,3 @@ class Catalog(models.Model):
 
     def __str__(self):
         return self
-

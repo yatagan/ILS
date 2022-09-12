@@ -1,7 +1,7 @@
 {% extends "core/base.html" %}
 
 
-{% block content%}
+{% block content %}
     <div class="features">
 
         <form class="d-flex" role="search" action="{% url 'core:search_books' %}">
@@ -10,20 +10,8 @@
                    aria-label="Search" name="search">
             <button class="btn btn-warning" type="submit">Шукати</button>
         </form>
+    </div>
     
-    </div>
+    
 
-    <div class="card-news">
-        {% if posts %}
-          {% for post in posts %}
-            <p>
-              {{ post.title }}
-            <br>
-              {{ post.text }}
-            </p>
-          {% endfor %}
-        {% else %}
-          Новин немає
-        {% endif %}
-    </div>
 {% endblock content %}
