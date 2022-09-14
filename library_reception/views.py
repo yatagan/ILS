@@ -1,49 +1,22 @@
 
 from django.shortcuts import render, redirect
-from core.models import *
-from core.forms import BookInstanceForm 
-# from .forms import VisitorForm, BookRentForm
+from library_reception.models import BookInstanceRent
+from library_reception.forms import BookInstanceRentForm
 
 
 def index(request):
     #library_reception home page
-    return render(request, 'library_reception/index.html')
+    return render(request, 'library_reception/index.html', {'rents': BookInstanceRent.objects.all()})
 
-def new_order(request):
+def book_rent(request):
     if request.method != 'POST':
-        form = BookInstanceForm()
+        order_form = BookInstanceRentForm()
     else:
-        form = BookInstanceForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            print (form)
-            return redirect('library_reception:new_order')    
-   
-    context = {'form': form}
-    return render(request, 'library_reception/index.html', context)   
-
-# def new_visitor(request):
-#     #Check visitor
-#     if request.method != 'POST':
-#         form = VisitorForm()
-#         context = {'form': form}
-#         return render(request, 'librery_reception/new_order.html', context)   
-#     else:
-#         if form.is_valid():
-#             form.save()
-#             return redirect(request, 'librery_reception/new_order.html')
-
-
-#def card_book_rent(request):
-    #Change the form
-    # if request.method != 'POST':
-    #     form = CardBookForm()
-    #     context = {'form': form}
-    #     return render(request, 'library_reception/card_book_rent.html', context)
-    # else:
-    #     form = CardBookForm(data=request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('library_reception:card_book_rent.html')
-    
-
+        order_form = BookInstanceRentForm(data=request.POST)
+        if order_form.is_valid():
+            order_form.save()
+        return redirect('library_reception:index')
+        
+    context = {"order_form":order_form}
+    return render(request, 'library_reception/book_rent.html', context)
+           

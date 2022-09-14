@@ -22,7 +22,7 @@ class Book(models.Model):
 
 class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    isbn = models.CharField(max_length=13, null=True, blank=True)
+    isbn = models.CharField(max_length=20, null=True, blank=True)
 
     LOAN_STATUS = (
         ('m', 'Технічне обслуговування'),

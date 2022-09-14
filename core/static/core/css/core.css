@@ -76,14 +76,13 @@ main aside h5 {
 
 main aside ul li {
     font-family: Arial, sans-serif;
-    color: aqua;
+    color: rgb(206, 112, 29);
     display: block;
     margin-top: 20px;
-    transition: transform cubic-bezier(0.6, 0.04, 0.98, 0.335) ease;
+    
 }
 
-main aside ul:hover, aside ul a:hover {
-    color: rgb(179, 78, 78);
+main aside ul a:hover {
     text-decoration: none;
     transform: scale(1.1);
 
