@@ -1,0 +1,14 @@
+{% extends "library_reception/base.html" %}
+
+
+{% block content %}
+  <div class="card">
+    <p>Вибрати екземпляр: </p>
+    <form action="{% url 'library_reception:index' %}" method="post">
+      {% csrf_token %}
+      {{ order_form.as_p }}
+      <button name="submit">Орендувати книгу</button>
+    </form>
+  </div>
+  <button class="btn btn-warning">На головну</button>
+{% endblock content %}

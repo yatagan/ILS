@@ -18,9 +18,9 @@
     <main>
       {% block content%}
       <div>
-        <p>
-          <a href="{% url 'library_reception:index' %}">Reception</a>
-        </p>
+        <form>
+          {{ form.as_p }}
+        </form>
       </div>
       {% endblock content%}
     </main>

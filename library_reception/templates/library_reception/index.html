@@ -3,12 +3,15 @@
 {% block content %}
 
   <p>Зробіть замовлення:</p>
-    <a href="{% url 'library_reception:new_order' %}">Форма замовлення</a>
+  <a href="{% url 'library_reception:new_order' %}">Форма для замовлення</a>
     <div class="card">
-      <table>
-          {{ form }}
-      </table>
-      <button class="btn btn-warning" type="submit">Внести замовлення</button>
+      <form>
+        {{ form.as_p }}
+        <button class="submit" action="{% url 'library_reception:book_rent' %}">Обробити замовлення</button>
+      </form>
   </div>
+  
+  <button class="btn btn-warning">На головну</button>
 
 {% endblock content %}
+

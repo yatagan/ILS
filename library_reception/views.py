@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from core.models import *
 from core.forms import BookInstanceForm 
-# from .forms import VisitorForm, BookRentForm
+from .forms import BookInstenceRentForm
 
 
 def index(request):
@@ -16,11 +16,24 @@ def new_order(request):
         form = BookInstanceForm(data=request.POST)
         if form.is_valid():
             form.save()
-            print (form)
-            return redirect('library_reception:new_order')    
+            return redirect('library_reception:new_rent')    
    
     context = {'form': form}
-    return render(request, 'library_reception/index.html', context)   
+    return render(request, 'library_reception/index.html', context)
+
+
+def book_rent(request):
+    if request.method != 'POST':
+        order_form = BookInstenceRentForm()
+    else:
+        order_form = BookInstenceRentForm(data=request.POST)
+        if order_form.is_valid():
+            order_form.save()
+        return redirect(request,'library_reception:book_rent')
+        
+    context = {"order_form":order_form}
+    return render(request, 'library_reception/book_rent.html', context)
+           
 
 # def new_visitor(request):
 #     #Check visitor

@@ -28,6 +28,7 @@ main div {
     color: chartreuse;
     text-align: center;
     font-family: serif;
+    
 }
 
 main p {
@@ -39,9 +40,11 @@ main p {
 
 main .card {
     color: #3f4574;
+    height: 20em;
     background-color: rgb(205, 235, 146);
     width: 50%;
     margin-left: 25em;
+    
 }
 
 

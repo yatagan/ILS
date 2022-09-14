@@ -1,10 +1,15 @@
-{% extend library_reception/base.html %}
+{% extends "library_reception/base.html" %}
 
 {% block content %}
-         <p><h4>Перевірте замовлення:</h4></p>
+  
+    <button class="btn btn-warning" onclick="window.location.href = 'core/base.html';" >На головну</button>
+      <p><h4>Перевірте замовлення:</h4></p>
     <form action="{% url 'library_reception:new_order' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button name="submint">Внести замовлення</button>
-    </form>     
+      {% csrf_token %}
+      {{ form.as_table }}
+      <button name="submit"action="{% url 'library_reception:book_rent' %}">Внести замовлення</button>
+    </form>
+
+    
 {% endblock content %}
+ 
