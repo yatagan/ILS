@@ -1,7 +1,14 @@
-{% extends "pizzas/base.html" %}
+{% extends "library_reception/base.html" %}
 
 {% block content %}
-  <p>Зробити замовлення</p>
-    <a href="{% url 'librery_reception:new_order' %}">Форма замовлення</a>
+
+  <p>Зробіть замовлення:</p>
+    <a href="{% url 'library_reception:new_order' %}">Форма замовлення</a>
+    <div class="card">
+      <table>
+          {{ form }}
+      </table>
+      <button class="btn btn-warning" type="submit">Внести замовлення</button>
+  </div>
 
 {% endblock content %}
