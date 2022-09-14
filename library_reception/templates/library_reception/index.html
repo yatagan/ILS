@@ -1,15 +1,21 @@
-{% extends "library_reception/base.html" %}
+{% extends "core/base.html" %}
 
 {% block content %}
 
-  <p>Зробіть замовлення:</p>
-  <a href="{% url 'library_reception:new_order' %}">Форма для замовлення</a>
-    <div class="card">
-      <form>
-        {{ form.as_p }}
-        <button class="submit" action="{% url 'library_reception:book_rent' %}">Обробити замовлення</button>
-      </form>
-  </div>
+  <p>Головна сторінка рецепціі</p>
+
+  {% for rent in rents %}
+
+  <p>{{rent.return_date}}</p>
+  
+    <ul>
+    {% for book in rent.books.all %}
+      <li> {{ book }} </li>
+    {% endfor %}
+    </ul>
+  
+    {% endfor %}
+
   
   <button class="btn btn-warning">На головну</button>
 

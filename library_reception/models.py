@@ -1,8 +1,8 @@
 from django.db import models
 from core.models import BookInstance
 
-class BookInstenceRent(models.Model):
-    title_book = models.ManyToManyField(BookInstance)
+class BookInstanceRent(models.Model):
+    books = models.ManyToManyField(BookInstance)
     start_rent_date = models.DateField(auto_now=False)
     return_date = models.DateField(auto_now=False)
     # status = models.ManyToManyField(BookInstance)
