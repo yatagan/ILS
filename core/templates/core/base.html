@@ -28,6 +28,7 @@
       <aside>
         <h5>Навігація</h5>
         <ul>
+          <a href="{% url 'core:index' %}"><li><i class="fa-solid fa-window"></i>На головну сторінку</li></a>
           <a href="{% url 'warehouse:index' %}"><li><i class="fa-solid fa-window"></i>Склад книжок</li></a>
           <a href="{% url 'library_reception:index' %}"><li><i class="fa-solid fa-window"></i>Список замовлень</li></a>
           <a href="{% url 'library_reception:book_rent' %}"><li><i class="fa-solid fa-window"></i>Зробити замовлення</li></a>
