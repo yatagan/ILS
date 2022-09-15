@@ -7,19 +7,18 @@
       {% for book in books %}
         <li>Назва книжки: "{{ book.title }}"</li>
       {% empty %}
-        <p>Введіть данні для пошуку</p>
+        <p>Введіть данні з назвою книги</p>
       {% endfor %}
     </ol>
   </div>
-  <div>
-
-  </div class="card">
+  <div class="card">
     <ol>
       {% for author in authors %}
         <li> {{ author.name }}</li>
       {% empty %}
-        <p>Введіть данні для пошуку</p>
+        <p>Введіть ім'я або призвище автора</p>
       {% endfor %}  
     </ol>
+  </div>
         
 {% endblock content %}

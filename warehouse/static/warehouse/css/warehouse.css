@@ -17,23 +17,6 @@ main {
 }
 
  
-main .card_left {
-    float: left;
-    text-align: center;
-    background-color: #bfe321;
-    height: 40em;
-    width: 49%;
-
-}
-
-main .card_right {
-    float: right;
-    text-align: center;
-    background-color: rgb(223, 174, 49);
-    height: 40em;
-    width: 49%;
-
-}
 
 footer {
     height: 2.5em;
