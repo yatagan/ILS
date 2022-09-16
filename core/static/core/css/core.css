@@ -40,7 +40,8 @@ main div {
     width: 50%;
     float: right;
     margin-top: 2em;
-    margin-right: 2em;
+    margin-right: 7em;
+
 }
 
 main h4 {
@@ -48,6 +49,20 @@ main h4 {
     text-align: center;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-style: italic;
+
+}
+
+main table td, th {
+    padding: 3px;
+    border: 1px solid green;
+    background-color: bisque;
+    border-collapse: collapse;
+    border-style: double;
+}
+
+main p {
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;;
 }
 
 main .card {
@@ -58,6 +73,16 @@ main .card {
     text-align: left;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin-bottom: 2px;
+    
+}
+
+main .card_table {
+    color: #3f4574;
+    background-color: rgb(235, 222, 146);
+    width: 70%;
+    text-align: left;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border: 3px solid #d1ecda;
 }
 
 main .card-news {

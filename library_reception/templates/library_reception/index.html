@@ -3,21 +3,29 @@
 {% block content %}
 
   <h4>Головна сторінка рецепціі</h4>
-  <div class="card">
+  <div class="card_table">
     <p>Журнал замовлень</p>
     <table border="1" cellpadding="5">
       <tr>
         <th>Назва книги</th>
         <th>Початок оренди</th>
         <th>Закінчення оренди</th>
+        <th>Книгу видав</th>
+        <th>Книгу отримав</th>
       </tr>
       {% for rent in rents %}
         {% for book in rent.books.all %}
+          {% for librarian in rent.librarian.all %}
+          {% for member in rent.member.all %}
       <tr>
         <td>{{ book }}</td>
         <td>{{ rent.start_rent_date }}</td>
         <td>{{ rent.return_date }}</td>
+        <td>{{ librarian }}</td>
+        <td>{{ member }}</td>
       </tr>
+           {% endfor %} 
+          {% endfor %}
         {% endfor %} 
       {% endfor %} 
     </table>   
