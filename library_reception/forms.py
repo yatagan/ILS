@@ -9,4 +9,4 @@ class BookInstanceRentForm(forms.ModelForm):
 
     class Meta:
         model = BookInstanceRent
-        fields = ['books', 'start_rent_date', 'return_date']
+        fields = ['books', 'start_rent_date', 'return_date', 'librarian', 'member']
