@@ -10,22 +10,16 @@
         <th>Назва книги</th>
         <th>Початок оренди</th>
         <th>Закінчення оренди</th>
-        <th>Книгу видав</th>
-        <th>Книгу отримав</th>
       </tr>
       {% for rent in rents %}
+      
+      <p>{{ rent.librarian }} видав {{ rent.member }}:</p>
         {% for book in rent.books.all %}
-          {% for librarian in rent.librarian.all %}
-          {% for member in rent.member.all %}
-      <tr>
-        <td>{{ book }}</td>
-        <td>{{ rent.start_rent_date }}</td>
-        <td>{{ rent.return_date }}</td>
-        <td>{{ librarian }}</td>
-        <td>{{ member }}</td>
-      </tr>
-           {% endfor %} 
-          {% endfor %}
+          <tr>
+            <td>{{ book }}</td>
+            <td>{{ rent.start_rent_date }}</td>
+            <td>{{ rent.return_date }}</td>
+          </tr>
         {% endfor %} 
       {% endfor %} 
     </table>   

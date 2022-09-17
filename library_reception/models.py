@@ -6,10 +6,5 @@ class BookInstanceRent(models.Model):
     books = models.ManyToManyField(BookInstance, verbose_name="Назва книги:")
     start_rent_date = models.DateField(auto_now=False)
     return_date = models.DateField(auto_now=False)
-    librarian = models.ManyToManyField(Librarian, verbose_name="Книгу видав:")
-    member = models.ManyToManyField(Member, verbose_name="Книгу отримав")
-    
-
-
-
-
+    librarian = models.ForeignKey(Librarian, verbose_name="Книгу видав:", on_delete=models.CASCADE)
+    member = models.ForeignKey(Member, verbose_name="Книгу отримав", on_delete=models.CASCADE)
