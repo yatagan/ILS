@@ -40,7 +40,7 @@ main div {
     width: 50%;
     float: right;
     margin-top: 2em;
-    margin-right: 7em;
+    margin-right: 12em;
 
 }
 
@@ -52,12 +52,13 @@ main h4 {
 
 }
 
-main table td, th {
+main table tr, th, td {
     padding: 3px;
     border: 1px solid green;
     background-color: bisque;
     border-collapse: collapse;
     border-style: double;
+    
 }
 
 main p {
@@ -79,7 +80,7 @@ main .card {
 main .card_table {
     color: #3f4574;
     background-color: rgb(235, 222, 146);
-    width: 70%;
+    width: 55%;
     text-align: left;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     border: 3px solid #d1ecda;
