@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from core.models import Author, Book, BookInstance
-from .forms import BookForm
+from .forms import ManyBooksForm
 
 
 
@@ -10,15 +10,19 @@ def index(request):
 
 def new_book(request):
     if request.method != 'POST':
-        form = BookForm()
+        form = ManyBooksForm()
     else:
-        form = BookForm(data=request.POST)
+        form = ManyBooksForm(data=request.POST)
         if form.is_valid():
             selected_book = form.cleaned_data['book']
+            format_book = form.cleaned_data['format_book']
             кількість = form.cleaned_data['number']
-            for _ in range(кількість):
-                new_book = BookInstance(book=selected_book)
-                new_book.save()
+            rack = form.cleaned_data['rack']
+            new_books = [BookInstance(book=selected_book, format_book=format_book) for _ in range(кількість)]
+            for book in new_books:
+                book.save()
+                rack.books.add(book)
+            rack.save()
 
             return redirect ('warehouse:index')
     context = {'form': form}
