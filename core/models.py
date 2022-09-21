@@ -31,8 +31,15 @@ class BookInstance(models.Model):
         ('r', 'Зарезервована'),
     )
 
+    FORMATS = (
+        (1, "paper"), 
+        (2, "ebook"), 
+        (3, "magazine"), 
+        (4, "audio")
+    )
+
     status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', help_text='Змінити статус екземпляра')
-    format_book = models.IntegerField(choices=((1, "paper"), (2, "ebook"), (3, "magazine"), (4, "audio")))
+    format_book = models.IntegerField(choices=FORMATS)
     
     def __str__(self):
         return f"{self.book.title} (format: {self.format_book})"

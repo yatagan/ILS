@@ -1,4 +1,8 @@
+from unicodedata import name
+from django.http import HttpResponse
 from django.shortcuts import render,redirect
+from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 from core.models import Author, Book, BookInstance
 from .forms import ManyBookInstancesForm
 
@@ -7,6 +11,40 @@ from .forms import ManyBookInstancesForm
 def index(request):
     #warehouse`s main page`
     return render(request, 'warehouse/index.html')
+
+@csrf_exempt
+def new_book_naive(request):
+    if request.method == 'GET':
+        url = reverse('warehouse:new_book_naive')
+        books = Book.objects.all()
+        books_options = [f'<option value="{book.id}">{book.title}</option>' for book in books]
+        formats_options = [f'<option value="{id}">{title}</option>' for id, title in BookInstance.FORMATS]
+
+        form = f"""
+            <form action="{url}" method=post>
+                <select name="book">
+                    {" ".join(books_options)}
+                </select>
+                <select name="format_book">
+                    {" ".join(formats_options)}
+                </select>
+                <input name="isbn">
+                <input type=submit>
+            </form>
+        """
+        return HttpResponse(form)
+
+    elif request.method == "POST":
+        isbn = request.POST["isbn"]
+
+        book_id = request.POST["book"]
+        book = Book.objects.get(id=book_id)
+
+        format_book = request.POST["format_book"]
+
+        book = BookInstance.objects.create(book=book, isbn=isbn, format_book=format_book)
+
+        return HttpResponse(book)
 
 def new_book(request):
     if request.method != 'POST':
@@ -24,7 +62,7 @@ def new_book(request):
                 rack.books.add(book)
             rack.save()
 
-            return redirect ('warehouse:index')
+            return redirect('warehouse:index')
     context = {'form': form}
     return render(request, 'warehouse/new_book.html', context)
 
