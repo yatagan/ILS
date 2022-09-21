@@ -2,7 +2,7 @@ from django import forms
 from core.models import BookInstance
 from .models import Rack
 
-class ManyBooksForm(forms.ModelForm):
+class ManyBookInstancesForm(forms.ModelForm):
     rack = forms.ModelChoiceField(queryset=Rack.objects.all())
 
     class Meta:
