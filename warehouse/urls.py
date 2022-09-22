@@ -7,7 +7,7 @@ urlpatterns = [
     #warehouse`s main page`
     path('', views.index, name='index'),
     #add new_book
-    path('new_book/', views.new_book, name='new_book'),
+    path('add_book_instance/', views.add_book_instance, name='add_book_instance'),
     #search books
     path('search_book/', views.search_book, name='search_book'),
     #search author
