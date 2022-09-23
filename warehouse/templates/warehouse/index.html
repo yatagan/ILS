@@ -1,20 +1,36 @@
 {% extends "core/base.html" %} 
 
 {% block content %}
+
+  <div>
+    <form class="form-inline my-2 my-lg-0" role="search" 
+          action="{% url 'warehouse:search_book' %}">
+      <input class="form-control mr-sm-1" type="search" 
+            aria-label="Search" name="search">
+      <button class="btn btn-outline-success my-2 my-sm-3"  
+              type="submit">Пошук книги</button>
+    </form>
+    <form class="form-inline my-2 my-lg-0" role="search" 
+          action="{% url 'warehouse:search_author' %}">
+      <input class="form-control mr-sm-1" type="search" 
+             aria-label="Search" name="search">
+      <button class="btn btn-outline-success my-2 my-sm-3" 
+              type="submit">Пошук автора</button>
+    </form>
+  </div>
   
-
   <div>
-    <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'warehouse:search_book' %}">
-      <input class="form-control mr-sm-1" type="search" aria-label="Search" name="search">
-      <button class="btn btn-outline-success my-2 my-sm-3" type="submit">Пошук книги</button>
-    </form>
+    <a href="{% url 'warehouse:new_item_book' %}"><li><i 
+      class="fa-solid fa-window"></i>Додавання екземплярів</li></a>
   </div>
-  <div>
-    <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'warehouse:search_author' %}">
-      <input class="form-control mr-sm-1" type="search" aria-label="Search" name="search">
-      <button class="btn btn-outline-success my-2 my-sm-3" type="submit">Пошук автора</button>
-    </form>
-  </div>
-
-
+  
+  <div style="border: 1px solid green;">
+    <h5>Журнал книжок бібліотеки:</h5>
+    <ol>
+      {% for book in unracked_books %}
+        <li>{{ book }}</li>
+      {% endfor %}
+    </ol>
+  </div>  
+  
 {% endblock content %}

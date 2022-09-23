@@ -1,28 +1,43 @@
 from django.shortcuts import render,redirect
 from core.models import Author, Book, BookInstance
-from .forms import BookForm
+from warehouse.forms import ManyBookInstanceForm
+from warehouse.models import Rack
+
+
 
 
 
 def index(request):
     #warehouse`s main page`
-    return render(request, 'warehouse/index.html')
+    context ={'unracked_books': BookInstance.objects.all(), 
+              'racks': Rack.objects.filter(title__isnull=False)} 
+    return render(request, 'warehouse/index.html', context)
 
-def new_book(request):
+def list_items(request):
+    
+    context ={'unracked_books': BookInstance.objects.all(), 
+              'racks': Rack.objects.filter(title__isnull=False)} 
+    return render(request, 'warehouse/list_items.html', context)
+
+
+def new_item_book(request):
     if request.method != 'POST':
-        form = BookForm()
+        form = ManyBookInstanceForm()
     else:
-        form = BookForm(data=request.POST)
+        form = ManyBookInstanceForm(data=request.POST)
         if form.is_valid():
             selected_book = form.cleaned_data['book']
-            кількість = form.cleaned_data['number']
-            for _ in range(кількість):
-                new_book = BookInstance(book=selected_book)
-                new_book.save()
+            format_book = form.cleaned_data['format_book']
+            number = form.cleaned_data['number']
+            rack = form.cleaned_data['rack']
+            new_book = [BookInstance(book=selected_book, format_book=format_book) for _ in range(number)] 
+            for book in new_book:
+                book.save()
+                rack.books.add(book)
+            return redirect ('warehouse:list_items', 'warehouse:index')
 
-            return redirect ('warehouse:index')
     context = {'form': form}
-    return render(request, 'warehouse/new_book.html', context)
+    return render(request, 'warehouse/new_item_book.html', context)
 
 def search_book(request):
     search_query = request.GET.get('search', '')

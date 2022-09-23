@@ -1,5 +1,5 @@
 body {
-    background: #8abe9b;
+    background: #b3d8c0;
 }
 
 header {
@@ -35,13 +35,21 @@ main {
     background-color: burlywood;
     
 }
+main div ol {
+    float: left;
+}
 
 main div {
-    width: 50%;
+    width: 30%;
     float: right;
     margin-top: 2em;
     margin-right: 12em;
 
+}
+
+main div form {
+    width: 30em;
+    float: left;
 }
 
 main h4 {
@@ -53,7 +61,7 @@ main h4 {
 }
 
 main table tr, th, td {
-    padding: 3px;
+    padding: 0.5px;
     border: 1px solid green;
     background-color: bisque;
     border-collapse: collapse;
@@ -80,10 +88,11 @@ main .card {
 main .card_table {
     color: #3f4574;
     background-color: rgb(235, 222, 146);
-    width: 55%;
+    width: 60%;
     text-align: left;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     border: 3px solid #d1ecda;
+    
 }
 
 main .card-news {

@@ -1,8 +1,5 @@
-from dataclasses import dataclass
 from django.shortcuts import render, redirect
-
-from core.forms import BookInstanceForm
-from .models import Book, BookInstance, Post
+from .models import Book, Post
 from django.db.models import Q
 
 
