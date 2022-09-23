@@ -5,12 +5,20 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from core.models import Author, Book, BookInstance
 from .forms import ManyBookInstancesForm
+from .models import Rack
 
 
 
 def index(request):
     #warehouse`s main page`
-    return render(request, 'warehouse/index.html')
+    return render(
+        request, 
+        'warehouse/index.html', 
+        {
+            'racks': Rack.objects.all(),
+            'unracked_books': BookInstance.objects.filter(rack__isnull=False),
+        }
+    )
 
 @csrf_exempt
 def new_book_naive(request):

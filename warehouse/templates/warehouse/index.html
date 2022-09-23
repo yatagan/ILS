@@ -16,5 +16,27 @@
     </form>
   </div>
 
+  <div>
+
+    <h3>Книжки по полицям:</h3>
+    {% for rack in racks %}
+      <div style="border: 1px solid green;">
+      <h6>{{ rack.title }}</h6>
+      <ul>
+        {% for book in rack.books.all %}
+          <li>{{ book }}</li>
+        {% endfor %}
+      </ul>
+      </div>
+    {% endfor %}
+
+    <h3>Книжки, що не на полицях:</h3>
+    <ul>
+      {% for book in unracked_books %}
+        <li>{{ book }}</li>
+      {% endfor %}
+    </ul>
+
+  </div>
 
 {% endblock content %}
