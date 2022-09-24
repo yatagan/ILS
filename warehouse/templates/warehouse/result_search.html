@@ -1,26 +1,24 @@
-{% extends "warehouse/base.html" %}
+{% extends "core/base.html" %}
 
 {%  block content %}
   <h4>Результат пошуку</h4>
   <div class="card">
     <ol>
-      {% for book in search_query_book %}
-      <li>Назва книжки: "{{ book.title }}"</li>
+      {% for book in books %}
+        <li>Назва книжки: "{{ book.title }}"</li>
       {% empty %}
-        <p>Такої кники в нашій бібліотеці нажаль не має</p>
+        <p>Введіть данні з назвою книги</p>
       {% endfor %}
     </ol>
   </div>
-  <div>
-
-  </div class="card">
+  <div class="card">
     <ol>
       {% for author in authors %}
-      <li> {{ author.name }}</li>
+        <li> {{ author.name }}</li>
       {% empty %}
-        <p>Книжок такого автора в нашій бібліотеці ще не має</p>
+        <p>Введіть ім'я або призвище автора</p>
       {% endfor %}  
     </ol>
-    <button class="btn btn-warning">На головну</button>
-    
+  </div>
+        
 {% endblock content %}

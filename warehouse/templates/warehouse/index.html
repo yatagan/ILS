@@ -2,27 +2,26 @@
 
 {% block content %}
   
-<aside class="card_left">
-  <div class="container">
+
+  <div>
     <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'warehouse:search_book' %}">
-      <input class="form-control mr-sm-1" type="search" placeholder="Введіть данні" aria-label="Search" name="search">
+      <input class="form-control mr-sm-1" type="search" aria-label="Search" name="search">
       <button class="btn btn-outline-success my-2 my-sm-3" type="submit">Пошук книги</button>
     </form>
   </div>
-  <div class="container">
+  <div>
     <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'warehouse:search_author' %}">
-      <input class="form-control mr-sm-1" type="search" placeholder="Введіть дані" aria-label="Search" name="search">
+      <input class="form-control mr-sm-1" type="search" aria-label="Search" name="search">
       <button class="btn btn-outline-success my-2 my-sm-3" type="submit">Пошук автора</button>
     </form>
   </div>
-</aside>
  
-<aside class="card_right">
-  <form action="{% url 'warehouse:add_book_instance' %}" method='post'>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-outline-success name="Додати">Додати екземпляр</button>
-  </form>
-</aside>
+  <aside class="card_right">
+    <form action="{% url 'warehouse:add_book_instance' %}" method='post'>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-outline-success name="Додати">Додати екземпляр</button>
+    </form>
+  </aside>
 
 {% endblock content %}

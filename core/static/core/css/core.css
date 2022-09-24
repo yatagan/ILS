@@ -6,7 +6,7 @@ header {
     height: 30%;
     background-color: #d1ecda;
     text-align: center;
-    border-right: 5px solid #bfe321;
+    border-right: 5px;
 }
 
 header div p {
@@ -33,6 +33,15 @@ header img {
 main {
     height: 35em;
     background-color: burlywood;
+    
+}
+
+main div {
+    width: 50%;
+    float: right;
+    margin-top: 2em;
+    margin-right: 12em;
+
 }
 
 main h4 {
@@ -40,16 +49,41 @@ main h4 {
     text-align: center;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-style: italic;
+
+}
+
+main table tr, th, td {
+    padding: 3px;
+    border: 1px solid green;
+    background-color: bisque;
+    border-collapse: collapse;
+    border-style: double;
+    
+}
+
+main p {
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;;
 }
 
 main .card {
     color: #3f4574;
     background-color: rgb(205, 235, 146);
-    width: 35%;
-    margin-left: 30em;
+    width: 50%;
+    margin-left: 10em;
     text-align: left;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin-bottom: 2px;
+    
+}
+
+main .card_table {
+    color: #3f4574;
+    background-color: rgb(235, 222, 146);
+    width: 55%;
+    text-align: left;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border: 3px solid #d1ecda;
 }
 
 main .card-news {
@@ -70,7 +104,7 @@ main aside {
 
 main aside h5 {
     font-family: 'Times New Roman', Times, serif;
-    margin-top: 100px;
+    margin-top: 10%;
     font-size: 30px;
 }    
 
