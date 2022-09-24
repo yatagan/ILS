@@ -42,3 +42,18 @@
   fields:
     title: Head First Java
     authors: [6]
+
+- model: core.bookinstance
+  pk: 1
+  fields:
+    book: 1
+    isbn: null
+    status: a
+    format_book: 1
+- model: core.bookinstance
+  pk: 2
+  fields:
+    book: 2
+    isbn: null
+    status: o
+    format_book: 2

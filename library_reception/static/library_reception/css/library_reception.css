@@ -6,7 +6,7 @@ header {
     height: 30%;
     background-color: #d1ecda;
     text-align: center;
-    border-right: 5px solid #bfe321;
+    border-right: 5px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-style: italic;
     color: brown;
@@ -22,14 +22,9 @@ main a {
 main {
     height: 35em;
     background-color: burlywood;
+
 }
 
-main div {
-    color: chartreuse;
-    text-align: center;
-    font-family: serif;
-    
-}
 
 main p {
     color: brown;
@@ -38,12 +33,12 @@ main p {
     font-style: italic;
 }
 
-main .card {
+main div .card {
     color: #3f4574;
-    height: 20em;
+    height: 50em;
     background-color: rgb(205, 235, 146);
-    width: 50%;
-    margin-left: 25em;
+    width: 70%;
+    margin-left: 20em;
     
 }
 

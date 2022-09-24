@@ -34,8 +34,8 @@ def search_book(request):
         books = Book.objects.filter(title__icontains=search_query).distinct()
     else:
         books = Book.objects.all()
-    result_search_book = {'search_query_book': books}
-
+    result_search_book = {'books': books}
+    
     return render(request, 'warehouse/result_search.html', result_search_book)  
 
 def search_author(request):
@@ -43,7 +43,8 @@ def search_author(request):
     if search_query:
         authors = Author.objects.filter(name__icontains=search_query).distinct()
     else:
-        authors = Author.objects.all() 
+        authors = Author.objects.all()
+        
     result_search_author = {'authors': authors}     
     return render(request, 'warehouse/result_search.html', result_search_author)     
                                  

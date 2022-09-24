@@ -1,5 +1,3 @@
-from cProfile import label
-from pyexpat import model
 from django import forms
 from .models import Book, BookInstance
 

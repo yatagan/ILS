@@ -2,22 +2,35 @@
 
 {% block content %}
 
-  <p>Головна сторінка рецепціі</p>
-
-  {% for rent in rents %}
-
-  <p>{{rent.return_date}}</p>
-  
-    <ul>
-    {% for book in rent.books.all %}
-      <li> {{ book }} </li>
-    {% endfor %}
-    </ul>
-  
-    {% endfor %}
-
-  
-  <button class="btn btn-warning">На головну</button>
-
+  <h4>Головна сторінка рецепціі</h4>
+  <div  class="card_table">
+    <p>Журнал замовлень</p>
+    <table width="100%" border="1" cellpadding="5">
+        <tr>
+          <th width="15%">Книгу отримав</th>
+          <th width="15%">Початок оренди</th>
+          <th width="40%">Назва книги</th>
+          <th width="15%">Хто видав</th>
+          <th width="15%">Закінчення оренди</th>
+        </tr>
+        {% for rent in rents.all %}
+        <tr>
+          <td>{{ rent.member }}</td>
+            <td>{{ rent.start_rent_date }}</td>
+            <td>
+              {% for book in rent.books.all %}
+              <ul><li>{{ book }}</li></ul>
+              {% endfor %} 
+            </td>
+            <td>{{ rent.librarian }}</td>
+            <td>{{ rent.return_date }}</td>
+          </tr>
+        {% endfor %} 
+    </table>   
+  </div>
+  <div>
+    <a href="{% url 'library_reception:show_books_rented' %}"><i class="fa-solid fa-window"></i>Журнал</a>
+  </div>
+    
 {% endblock content %}
 
