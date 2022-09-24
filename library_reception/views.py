@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from core.models import BookInstance
 from library_reception.models import BookInstanceRent
 from library_reception.forms import BookInstanceOrderForm, BookInstanceRentForm
+from .models import BookInstanceOrder
 
 
 def index(request):
@@ -33,10 +34,21 @@ def book_order(request):
     else:
         form_order = BookInstanceOrderForm(data=request.POST)
         if form_order.is_valid():
-            stutus_query = form_order.cleaned_data['status']
-            return redirect('library_reception:book_order')
-        else:
-            return {'form_order': 'Зараз ця книга не доступна для замовлення'}     
+            books = form_order.cleaned_data['books']
+            member = form_order.cleaned_data['member']
+
+            order = BookInstanceOrder(member=member)
+            order.save()
+            for book in books:
+                try:
+                    book_instance = BookInstance.objects.get(book=book, status='a')
+                except BookInstance.DoesNotExist:
+                    form_order.add_error('books', f'Зараз {book.title} не доступна для замовлення')
+                    context = {'form_order': form_order}
+                    return render(request, 'library_reception/book_order.html', context)  
+                book_instance.status = 'r'
+                book_instance.save()
+                order.books.add(book_instance)
 
     context = {'form_order': form_order}
     return render(request, 'library_reception/book_order.html', context)               

@@ -2,12 +2,8 @@
 
 {% block content %}
 <form action="{% url 'library_reception:book_order' %}" method="post">
-    {% for order in new_orders %}
-    {{ order.books }}
-    {% endfor %}
-  
     {% csrf_token %}
-    {{ order_form.as_p }}
+    {{ form_order.as_p }}
     <button name="submit">Замовити книгу</button>
 
   </form>
