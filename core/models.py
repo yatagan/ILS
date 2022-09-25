@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Author(models.Model):
     name = models.CharField(max_length=128)
 
@@ -32,16 +31,15 @@ class BookInstance(models.Model):
     )
 
     FORMATS = (
-        (1, 'paper'),
-        (2, 'ebook'),
-        (3, 'magazin'),
-        (4, 'audio')
-
+        (1, "paper"), 
+        (2, "ebook"), 
+        (3, "magazine"), 
+        (4, "audio")
     )
 
-    status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', help_text='Змінити статус екземпляра')
+    status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m')
     format_book = models.IntegerField(choices=FORMATS)
-    
+
     def __str__(self):
         return f"{self.book.title} (format: {self.format_book})"
 

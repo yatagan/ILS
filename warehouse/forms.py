@@ -1,6 +1,7 @@
 from django import forms
 from core.models import Book, BookInstance
-from .models import Rack
+from warehouse.models import Rack
+
 
 class BookForm(forms.ModelForm):
     class Meta:
@@ -9,11 +10,20 @@ class BookForm(forms.ModelForm):
         
     number = forms.IntegerField()
 
-class ManyBookInstanceForm(forms.ModelForm):
+
+
+
+class AddBookInstanceForm(forms.Form):
+    book = forms.ModelChoiceField(queryset=Book.objects.all())
+    status = forms.ChoiceField(choices=BookInstance.LOAN_STATUS)
+    format_book = forms.ChoiceField(choices=BookInstance.FORMATS)
+    number = forms.IntegerField()
+    isbn = forms.CharField()
     rack = forms.ModelChoiceField(queryset=Rack.objects.all())
 
-    class Meta:
-        model = BookInstance
-        fields = ['book', 'format_book', 'isbn']
 
-    number = forms.IntegerField()        
+
+
+       
+
+   
