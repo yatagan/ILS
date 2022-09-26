@@ -17,6 +17,4 @@ class BookInstanceOrderForm(forms.Form):
     books = forms.ModelMultipleChoiceField(queryset=Book.objects.all())
     member = forms.ModelChoiceField(queryset=Member.objects.all())
 
-    # class Meta:
-    #     model = BookInstanceOrder
-    #     fields = ['books', 'status', 'member']        
+   
