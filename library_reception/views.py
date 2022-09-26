@@ -40,12 +40,12 @@ def book_order(request):
             order = BookInstanceOrder(member=member)
             order.save()
             for book in books:
-                try:
-                    book_instance = BookInstance.objects.get(book=book, status='a')
-                except BookInstance.DoesNotExist:
+                book_instances = BookInstance.objects.filter(book=book, status='a')
+                if len(book_instances) == 0:
                     form_order.add_error('books', f'Зараз {book.title} не доступна для замовлення')
                     context = {'form_order': form_order}
                     return render(request, 'library_reception/book_order.html', context)  
+                book_instance = book_instances[0]
                 book_instance.status = 'r'
                 book_instance.save()
                 order.books.add(book_instance)
