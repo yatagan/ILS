@@ -39,6 +39,7 @@ class BookInstance(models.Model):
 
     status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m')
     format_book = models.IntegerField(choices=FORMATS)
+
     def __str__(self):
         return f"{self.book.title} (format: {self.format_book})"
 

@@ -1,0 +1,17 @@
+{% extends "core/base.html" %}
+
+{%  block content %} 
+  <h5>Книжки по полицям:</h5>
+  {% for rack in racks %}
+    <div style="border: 1px solid green;">
+      <h6>Назва полички: "{{ rack.title }}"</h6>
+      <ol>
+        {% for book in rack.books.all %}
+          <li>{{ book }}</li>
+        {% endfor %}
+      </ol>
+    </div>
+  {% endfor %}
+  
+  
+{% endblock content %}

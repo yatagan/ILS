@@ -1,6 +1,8 @@
 from django.forms.widgets import SelectDateWidget
 from django import forms
-from .models import BookInstanceRent
+from core.models import Book, BookInstance
+from library_reception.models import BookInstanceRent
+from visitors.models import Member
 
 
 class BookInstanceRentForm(forms.ModelForm):
@@ -10,3 +12,9 @@ class BookInstanceRentForm(forms.ModelForm):
     class Meta:
         model = BookInstanceRent
         fields = ['books', 'start_rent_date', 'return_date', 'librarian', 'member']
+
+class BookInstanceOrderForm(forms.Form):
+    books = forms.ModelMultipleChoiceField(queryset=Book.objects.all())
+    member = forms.ModelChoiceField(queryset=Member.objects.all())
+
+   

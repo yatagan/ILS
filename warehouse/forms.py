@@ -2,6 +2,17 @@ from django import forms
 from core.models import Book, BookInstance
 from warehouse.models import Rack
 
+
+class BookForm(forms.ModelForm):
+    class Meta:
+        model = BookInstance
+        fields = ['book']
+        
+    number = forms.IntegerField()
+
+
+
+
 class AddBookInstanceForm(forms.Form):
     book = forms.ModelChoiceField(queryset=Book.objects.all())
     status = forms.ChoiceField(choices=BookInstance.LOAN_STATUS)

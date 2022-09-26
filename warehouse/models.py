@@ -3,7 +3,7 @@ from core.models import BookInstance
 
 
 class Rack(models.Model):
-    books = models.ManyToManyField(BookInstance)
+    books = models.ManyToManyField(BookInstance, blank=True)
     title = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):

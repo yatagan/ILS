@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<form action="{% url 'library_reception:book_order' %}" method="post">
+    {% csrf_token %}
+    {{ form_order.as_p }}
+    <button name="submit">Замовити книгу</button>
+
+  </form>
+
+{% endblock %}

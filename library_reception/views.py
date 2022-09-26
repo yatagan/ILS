@@ -1,12 +1,20 @@
 
+
 from django.shortcuts import render, redirect
+from core.models import BookInstance
 from library_reception.models import BookInstanceRent
-from library_reception.forms import BookInstanceRentForm
+from library_reception.forms import BookInstanceOrderForm, BookInstanceRentForm
+from .models import BookInstanceOrder
 
 
 def index(request):
     #library_reception home page
-    return render(request, 'library_reception/index.html', {'rents': BookInstanceRent.objects.all()})
+    context = {'rents': BookInstanceRent.objects.all()}
+    return render(request, 'library_reception/index.html', context)
+
+def show_order(request):
+    
+    return render(request, 'library_reception/book_order.html')    
 
 def book_rent(request):
     if request.method != 'POST':
@@ -19,4 +27,29 @@ def book_rent(request):
         
     context = {"order_form":order_form}
     return render(request, 'library_reception/book_rent.html', context)
+
+def book_order(request):
+    if request.method != 'POST':
+        form_order = BookInstanceOrderForm()
+    else:
+        form_order = BookInstanceOrderForm(data=request.POST)
+        if form_order.is_valid():
+            books = form_order.cleaned_data['books']
+            member = form_order.cleaned_data['member']
+
+            order = BookInstanceOrder(member=member)
+            order.save()
+            for book in books:
+                book_instances = BookInstance.objects.filter(book=book, status='a')
+                if len(book_instances) == 0:
+                    form_order.add_error('books', f'Зараз {book.title} не доступна для замовлення')
+                    context = {'form_order': form_order}
+                    return render(request, 'library_reception/book_order.html', context)  
+                book_instance = book_instances[0]
+                book_instance.status = 'r'
+                book_instance.save()
+                order.books.add(book_instance)
+
+    context = {'form_order': form_order}
+    return render(request, 'library_reception/book_order.html', context)               
            

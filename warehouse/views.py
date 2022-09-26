@@ -1,18 +1,26 @@
 from django.shortcuts import render,redirect
 from core.models import Author, Book, BookInstance
+from warehouse.models import Rack
 from warehouse.forms import AddBookInstanceForm
-
-
 
 def index(request):
     #warehouse`s main page`
-    return render(request, 'warehouse/index.html')
+    context ={'unracked_books': BookInstance.objects.all(), 
+              'racks': Rack.objects.filter(title__isnull=False)} 
+    return render(request, 'warehouse/index.html', context)
+
+def list_items(request):
+    
+    context ={'unracked_books': BookInstance.objects.all(), 
+              'racks': Rack.objects.filter(title__isnull=False)} 
+    return render(request, 'warehouse/list_items.html', context)
 
 def add_book_instance(request):
     if request.method != 'POST':
         form = AddBookInstanceForm()
     else:
         form = AddBookInstanceForm(data=request.POST)
+
         if form.is_valid():
             selected_book = form.cleaned_data['book']
             format_book = form.cleaned_data['format_book']
@@ -27,6 +35,7 @@ def add_book_instance(request):
    
     context = {'form': form}
     return render(request, 'warehouse/add_book_instance.html', context)
+
 
 def search_book(request):
     search_query = request.GET.get('search', '')

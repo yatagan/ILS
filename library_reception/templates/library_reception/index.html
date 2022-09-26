@@ -5,7 +5,7 @@
   <h4>Головна сторінка рецепціі</h4>
   <div  class="card_table">
     <p>Журнал замовлень</p>
-    <table width="100%" border="1" cellpadding="5">
+    <table width="100%" border="1">
         <tr>
           <th width="15%">Книгу отримав</th>
           <th width="15%">Початок оренди</th>
@@ -16,7 +16,7 @@
         {% for rent in rents.all %}
         <tr>
           <td>{{ rent.member }}</td>
-            <td>{{ rent.start_rent_date }}</td>
+            <td >{{ rent.start_rent_date }}</td>
             <td>
               {% for book in rent.books.all %}
               <ul><li>{{ book }}</li></ul>
@@ -28,9 +28,7 @@
         {% endfor %} 
     </table>   
   </div>
-  <div>
-    <a href="{% url 'library_reception:show_books_rented' %}"><i class="fa-solid fa-window"></i>Журнал</a>
-  </div>
+  
     
 {% endblock content %}
 

@@ -8,3 +8,7 @@ class BookInstanceRent(models.Model):
     return_date = models.DateField(auto_now=False)
     librarian = models.ForeignKey(Librarian, verbose_name="Книгу видав:", on_delete=models.CASCADE)
     member = models.ForeignKey(Member, verbose_name="Книгу отримав", on_delete=models.CASCADE)
+
+class BookInstanceOrder(models.Model):
+    books = models.ManyToManyField(BookInstance, verbose_name="Назва книги:")
+    member = models.ForeignKey(Member, verbose_name="Книгу замовив", on_delete=models.CASCADE)
