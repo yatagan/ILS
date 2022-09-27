@@ -103,10 +103,10 @@ main .card-news {
 
 main aside {
     float:left;
-    background:#3f4574;
+    background:#565e9b;
     width: min-content;
     height: 35em;
-    padding: 2.0%;
+    padding: 1.0%;
     color: rgb(240, 212, 173);
     border-right: 5px solid #d1ecda;
 }            

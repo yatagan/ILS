@@ -1,13 +1,13 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+
   <div class="features">
     <form method="post" action="{% url 'visitors:register' %}">
       {% csrf_token %}
       {{ form.as_p }}
-
-      <button class="btn btn-warning">Реєстрація</button>
-      <input type="hidden" name="next" value="{% url '' %}" />
+      <button class="btn btn-warning">Зареєструватися</button>
+      <input type="hidden" name="next" value="{% url 'core:index' %}" />
     </form>
   </div>  
 
