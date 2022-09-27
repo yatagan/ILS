@@ -4,7 +4,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 
 def register(request):
-    #Зеєструє нового користувача.
+    #Зареєструє нового користувача.
     if request.method != 'POST':
         #Виводе пусту форму реєстрації.
         form = UserCreationForm()

@@ -5,12 +5,13 @@ from core.models import BookInstance
 from library_reception.models import BookInstanceRent
 from library_reception.forms import BookInstanceOrderForm, BookInstanceRentForm
 from .models import BookInstanceOrder
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
     #library_reception home page
-    context = {'rents': BookInstanceRent.objects.all()}
-    return render(request, 'library_reception/index.html', context)
+    #context = {'rents': BookInstanceRent.objects.all()}
+    return render(request, 'library_reception/index.html') #context)
 
 def show_order(request):
     
@@ -28,6 +29,7 @@ def book_rent(request):
     context = {"order_form":order_form}
     return render(request, 'library_reception/book_rent.html', context)
 
+@login_required
 def book_order(request):
     if request.method != 'POST':
         form_order = BookInstanceOrderForm()
