@@ -31,23 +31,27 @@ def list_items(request):
          raise Http404
 
 
+@login_required
 def add_book_instance(request):
-    if request.method != 'POST':
-        form = AddBookInstanceForm()
-    else:
-        form = AddBookInstanceForm(data=request.POST)
+    librarians = User.objects.filter(is_staff=1)
+    for librarian in librarians:
+        if request.user == librarian:
+            if request.method != 'POST':
+                form = AddBookInstanceForm()
+            else:
+                form = AddBookInstanceForm(data=request.POST)
 
-        if form.is_valid():
-            selected_book = form.cleaned_data['book']
-            format_book = form.cleaned_data['format_book']
-            number = form.cleaned_data['number']
-            rack = form.cleaned_data['rack']
-            new_books = [BookInstance(book=selected_book, format_book=format_book) for _ in range(number)]
-            for book in new_books:
-                book.save()
-                rack.books.add(book)
-            rack.save()
-            return redirect ('warehouse:index')
+            if form.is_valid():
+                selected_book = form.cleaned_data['book']
+                format_book = form.cleaned_data['format_book']
+                number = form.cleaned_data['number']
+                rack = form.cleaned_data['rack']
+                new_books = [BookInstance(book=selected_book, format_book=format_book) for _ in range(number)]
+                for book in new_books:
+                    book.save()
+                    rack.books.add(book)
+                rack.save()
+                return redirect ('warehouse:index')
    
     context = {'form': form}
     return render(request, 'warehouse/add_book_instance.html', context)
