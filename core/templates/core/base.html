@@ -30,16 +30,17 @@
         <ul>
           <a href="{% url 'core:index' %}"><li><i class="fa-solid fa-window"></i>На головну сторінку</li></a>
           <a href="{% url 'library_reception:book_order' %}"><li><i class="fa-solid fa-window"></i>Резервування книг</li></a>
-          <a href="{% url 'library_reception:book_rent' %}"><li><i class="fa-solid fa-window"></i>Зробити замовлення</li></a>
-          <a href="{% url 'library_reception:index' %}"><li><i class="fa-solid fa-window"></i>Список замовлень</li></a>
-          <a href="{% url 'warehouse:index' %}"><li><i class="fa-solid fa-window"></i>Склад книжок</li></a>
-                    
-            {% if user.is_authenticated %}
-              Вітаємо, {{ user.username }}.
-          <a href="{% url 'visitors:logout' %}"><li><i class="fa-thin fa-user-graduate"></i>Вихід</li></a>
-            {% else %}
-          <a href="{% url 'visitors:login' %}"><li><i class="fa-thin fa-user-graduate"></i>Вхід</li></a>
-            {% endif %}
+          {% if user.is_authenticated %}
+          Вітаємо, {{ user.username }} {{ user.first_name}}.
+              {% if user.is_staff %}
+                <a href="{% url 'library_reception:book_rent' %}"><li><i class="fa-solid fa-window"></i>Оформити оренду книг</li></a>
+                <a href="{% url 'library_reception:index' %}"><li><i class="fa-solid fa-window"></i>Список арендованих книг</li></a>
+                <a href="{% url 'warehouse:index' %}"><li><i class="fa-solid fa-window"></i>Склад книжок</li></a>
+              {% endif %}    
+            <a href="{% url 'visitors:logout' %}"><li><i class="fa-thin fa-user-graduate"></i>Вихід</li></a>
+          {% else %}
+            <a href="{% url 'visitors:login' %}"><li><i class="fa-thin fa-user-graduate"></i>Вхід</li></a>
+          {% endif %}
           <a href="{% url 'visitors:register' %}"><li><i class="fa-thin fa-user-graduate"></i>Реєстрація</li></a>   
         </ul>
       </aside>

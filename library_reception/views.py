@@ -6,6 +6,8 @@ from library_reception.models import BookInstanceRent
 from library_reception.forms import BookInstanceOrderForm, BookInstanceRentForm
 from .models import BookInstanceOrder
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import Http404
 
 
 def index(request):
@@ -13,21 +15,34 @@ def index(request):
     #context = {'rents': BookInstanceRent.objects.all()}
     return render(request, 'library_reception/index.html') #context)
 
+@login_required
 def show_order(request):
-    
-    return render(request, 'library_reception/book_order.html')    
-
-def book_rent(request):
-    if request.method != 'POST':
-        order_form = BookInstanceRentForm()
+    permitions = User.objects.filter(is_staff=1)
+    for legal_user in permitions:
+        if request.user == legal_user:
+            return render(request, 'library_reception/book_order.html') 
     else:
-        order_form = BookInstanceRentForm(data=request.POST)
-        if order_form.is_valid():
-            order_form.save()
-        return redirect('library_reception:index')
+         raise Http404        
+
+
+
+@login_required
+def book_rent(request):
+    permitions = User.objects.filter(is_staff=1)
+    for legal_user in permitions:
+        if request.user == legal_user:
+            if request.method != 'POST':
+                order_form = BookInstanceRentForm()
+            else:
+                order_form = BookInstanceRentForm(data=request.POST)
+                if order_form.is_valid():
+                    order_form.save()
+                return redirect('library_reception:index')
         
-    context = {"order_form":order_form}
-    return render(request, 'library_reception/book_rent.html', context)
+            context = {"order_form":order_form}
+            return render(request, 'library_reception/book_rent.html', context)
+    else:
+         raise Http404
 
 @login_required
 def book_order(request):
