@@ -12,8 +12,8 @@ from django.http import Http404
 
 def index(request):
     #library_reception home page
-    context = {'rents': BookInstanceRent.objects.all()}
-    return render(request, 'library_reception/index.html', context)
+    #context = {'rents': BookInstanceRent.objects.all()}
+    return render(request, 'library_reception/index.html') #context)
 
 @login_required
 def show_order(request):
