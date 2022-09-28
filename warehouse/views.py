@@ -2,18 +2,34 @@ from django.shortcuts import render,redirect
 from core.models import Author, Book, BookInstance
 from warehouse.models import Rack
 from warehouse.forms import AddBookInstanceForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import Http404
 
+
+@login_required
 def index(request):
+    permitions = User.objects.filter(is_staff=1)
+    for legal_user in permitions:
+        if request.user == legal_user:
     #warehouse`s main page`
-    context ={'unracked_books': BookInstance.objects.all(), 
-              'racks': Rack.objects.filter(title__isnull=False)} 
-    return render(request, 'warehouse/index.html', context)
+            context ={'unracked_books': BookInstance.objects.all(), 
+                      'racks': Rack.objects.filter(title__isnull=False)} 
+            return render(request, 'warehouse/index.html', context)
+    else:
+         raise Http404    
 
+@login_required
 def list_items(request):
-    
-    context ={'unracked_books': BookInstance.objects.all(), 
-              'racks': Rack.objects.filter(title__isnull=False)} 
-    return render(request, 'warehouse/list_items.html', context)
+    permitions = User.objects.filter(is_staff=1)
+    for legal_user in permitions:
+        if request.user == legal_user:
+            context ={'unracked_books': BookInstance.objects.all(), 
+                      'racks': Rack.objects.filter(title__isnull=False)} 
+        return render(request, 'warehouse/list_items.html', context)
+    else:
+         raise Http404
+
 
 def add_book_instance(request):
     if request.method != 'POST':
