@@ -33,6 +33,7 @@
           {% if user.is_authenticated %}
           Вітаємо, {{ user.username }} {{ user.first_name}}.
               {% if user.is_staff %}
+                <a href="{% url 'library_reception:show_order' %}"><li><i class="fa-solid fa-window"></i>Список зарезервованих книжок</li></a>
                 <a href="{% url 'library_reception:book_rent' %}"><li><i class="fa-solid fa-window"></i>Оформити оренду книг</li></a>
                 <a href="{% url 'library_reception:index' %}"><li><i class="fa-solid fa-window"></i>Список арендованих книг</li></a>
                 <a href="{% url 'warehouse:index' %}"><li><i class="fa-solid fa-window"></i>Склад книжок</li></a>

@@ -9,6 +9,11 @@ class Author(models.Model):
     def get_books(title):
         return Book.objects.filter(title__contains=title)
 
+    class Meta:
+        verbose_name = 'Автор'
+        verbose_name_plural = 'Автори'    
+        ordering = ['name']        
+
 
 class Book(models.Model):
     title = models.CharField(max_length=128)
@@ -18,6 +23,10 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'Книга'
+        verbose_name_plural = 'Книги'    
+        ordering = ['title']
 
 class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
@@ -43,6 +52,11 @@ class BookInstance(models.Model):
     def __str__(self):
         return f"{self.book.title} (format: {self.format_book})"
 
+    class Meta:
+        verbose_name = 'Екземпляр книги'
+        verbose_name_plural = 'Екземпляри книг'    
+        ordering = ['book']    
+
 
 class Post(models.Model):
     title = models.CharField(max_length=150)
@@ -50,6 +64,11 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'Повідомлення'
+        verbose_name_plural = 'Повідомлення'    
+        ordering = ['title']        
 
 
 class Library(models.Model):

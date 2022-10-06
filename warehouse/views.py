@@ -26,35 +26,36 @@ def list_items(request):
         if request.user == legal_user:
             context ={'unracked_books': BookInstance.objects.all(), 
                       'racks': Rack.objects.filter(title__isnull=False)} 
-        return render(request, 'warehouse/list_items.html', context)
+            return render(request, 'warehouse/list_items.html', context)
     else:
          raise Http404
 
 
 @login_required
 def add_book_instance(request):
-    librarians = User.objects.filter(is_staff=1)
+    librarians = User.objects.filter(is_staff=1, is_superuser=0)
     for librarian in librarians:
         if request.user == librarian:
             if request.method != 'POST':
                 form = AddBookInstanceForm()
             else:
                 form = AddBookInstanceForm(data=request.POST)
-
-            if form.is_valid():
-                selected_book = form.cleaned_data['book']
-                format_book = form.cleaned_data['format_book']
-                number = form.cleaned_data['number']
-                rack = form.cleaned_data['rack']
-                new_books = [BookInstance(book=selected_book, format_book=format_book) for _ in range(number)]
-                for book in new_books:
-                    book.save()
-                    rack.books.add(book)
-                rack.save()
-                return redirect ('warehouse:index')
+                if form.is_valid():
+                    selected_book = form.cleaned_data['book']
+                    format_book = form.cleaned_data['format_book']
+                    number = form.cleaned_data['number']
+                    rack = form.cleaned_data['rack']
+                    new_books = [BookInstance(book=selected_book, format_book=format_book) for _ in range(number)]
+                    for book in new_books:
+                        book.save()
+                        rack.books.add(book)
+                        rack.save()
+                    return redirect ('warehouse:index')
    
-    context = {'form': form}
-    return render(request, 'warehouse/add_book_instance.html', context)
+            context = {'form': form}
+            return render(request, 'warehouse/add_book_instance.html', context)
+    else:
+         raise Http404     
 
 
 def search_book(request):

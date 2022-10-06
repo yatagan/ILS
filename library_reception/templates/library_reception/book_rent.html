@@ -8,9 +8,9 @@
   
       {% csrf_token %}
       {{ order_form.as_p }}
-      <button name="submit">Орендувати книгу</button>
-  
+      <button class="btn btn-warning" name="submit">Орендувати книгу</button>
+        
     </form>
   </div>
-  
+   
 {% endblock content %}

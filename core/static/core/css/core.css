@@ -71,17 +71,59 @@ main table tr, th, td {
 
 main p {
     text-align: center;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+main .reseption_01 {
+    height: 1%;
+    margin-top: 1%;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+    color: brown;
+
+
+}
+
+main .warehouse_01 {
+    float: left;
+    width: 20%;
+    padding-left: 1%;
+}
+main .warehouse_02 {
+    width: 30%;
+}
+
+main .warehouse_02 h5 {
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: brown;
+    font-style: italic;
+}
+
+main .warehouse_03 {
+    width: 5%;
+    float: left;
+    padding-left: 1%;
+}
+
+main .warehouse_add_book_ins {
+    float: left;
+
+}
+
+main .warehouse_add_book_ins button {
+    margin-left: 40%;
 }
 
 main .card {
     color: #3f4574;
     background-color: rgb(205, 235, 146);
-    width: 50%;
+    width: 40%;
     margin-left: 10em;
     text-align: left;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin-bottom: 2px;
+    font-size: smaller;
     
 }
 

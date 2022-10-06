@@ -16,5 +16,6 @@ class BookInstanceRentForm(forms.ModelForm):
 class BookInstanceOrderForm(forms.Form):
     books = forms.ModelMultipleChoiceField(queryset=Book.objects.all())
     member = forms.ModelChoiceField(queryset=Member.objects.all())
+    #date_reserve = forms.DateTimeField(auto_now_add=False)
 
    
