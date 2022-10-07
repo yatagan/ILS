@@ -2,12 +2,12 @@
 
 {%  block content %} 
 
-  <p><h4>Додайте книгу:</h4></p>
+  <p><h4>Додайте екземпляр книги:</h4></p>
   <div class="warehouse_add_book_ins">
     <form action="{% url 'warehouse:add_book_instance' %}" method='post'>
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="btn btn-outline-success" name="Додати">Додати книгу</button>
+        <button class="btn btn-outline-success" name="Додати">Додати</button>
     </form>
   </div>
 

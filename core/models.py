@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from django.db import models
 
 class Author(models.Model):
@@ -29,7 +30,7 @@ class Book(models.Model):
         ordering = ['title']
 
 class BookInstance(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name='Книга')
     isbn = models.CharField(max_length=20, null=True, blank=True)
 
     LOAN_STATUS = (
@@ -46,8 +47,8 @@ class BookInstance(models.Model):
         (4, "audio")
     )
 
-    status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m')
-    format_book = models.IntegerField(choices=FORMATS)
+    status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', verbose_name='Статус:')
+    format_book = models.IntegerField(choices=FORMATS, verbose_name='Формат:')
 
     def __str__(self):
         return f"{self.book.title} (format: {self.format_book})"

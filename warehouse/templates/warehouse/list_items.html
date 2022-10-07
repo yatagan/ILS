@@ -1,9 +1,11 @@
 {% extends "core/base.html" %}
 
-{%  block content %} 
-  <h5>Книжки по полицям:</h5>
+{%  block content %}
+ <div class="warehouse_list_item_01">
+   <h5>Книжки по полицям:</h5>
+ </div>
   {% for rack in racks %}
-    <div style="border: 1px solid green;">
+    <div class="warehouse_list_item_02" style="border: 1px solid green;">
       <h6>Назва полички: "{{ rack.title }}"</h6>
       <ol>
         {% for book in rack.books.all %}

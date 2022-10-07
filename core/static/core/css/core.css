@@ -35,16 +35,14 @@ main {
     background-color: burlywood;
     
 }
-main div ol {
-    float: left;
-}
+
 
 main div {
     width: 30%;
     float: right;
     margin-top: 2em;
     margin-right: 12em;
-
+    
 }
 
 main div form {
@@ -81,7 +79,6 @@ main .reseption_01 {
     font-style: italic;
     color: brown;
 
-
 }
 
 main .warehouse_01 {
@@ -89,6 +86,7 @@ main .warehouse_01 {
     width: 20%;
     padding-left: 1%;
 }
+
 main .warehouse_02 {
     width: 30%;
 }
@@ -113,6 +111,18 @@ main .warehouse_add_book_ins {
 
 main .warehouse_add_book_ins button {
     margin-left: 40%;
+}
+
+main .warehouse_list_item_01 {
+    height: 1%;
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: brown;
+    font-style: italic;
+}
+
+main .warehouse_list_item_02 {
+    font-size: smaller;
 }
 
 main .card {
