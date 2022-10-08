@@ -140,7 +140,7 @@ main .card {
 main .card_table {
     color: #3f4574;
     background-color: rgb(235, 222, 146);
-    width: 60%;
+    width: 65%;
     text-align: left;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     border: 3px solid #d1ecda;
@@ -151,6 +151,14 @@ main .card-news {
     color: brown;
     text-align: center; 
     margin-top: 25.5em;
+}
+
+main .visitors_01 {
+    width: 50%;
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: brown;
+    font-style: italic;
 }
 
 main aside {

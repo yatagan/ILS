@@ -7,7 +7,7 @@
     <form action="{% url 'library_reception:book_rent' %}" method="post">
   
       {% csrf_token %}
-      {{ order_form.as_p }}
+      {{ rent_form.as_p }}
       <button class="btn btn-warning" name="submit">Орендувати книгу</button>
         
     </form>

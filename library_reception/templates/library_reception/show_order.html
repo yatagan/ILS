@@ -6,7 +6,7 @@
   </div>
   <div class="card">
     <ol>
-      {% for new_order in form_order %}
+      {% for new_order in order_form %}
       <li>Користувач "{{ new_order.member }}" на ім'я {{ new_order.member.first_name}} орендував наступні книги:</li>
         <ul>
           {% for book in new_order.books.all %}
@@ -17,6 +17,5 @@
       {% endfor %}
     </ol>
   </div>
-  {{ notice }}
 
 {% endblock content %}

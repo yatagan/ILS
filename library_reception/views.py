@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from django.shortcuts import render, redirect
 from core.models import BookInstance
 from library_reception.models import BookInstanceRent, BookInstanceOrder
@@ -17,8 +18,8 @@ def show_order(request):
     permitions = User.objects.filter(is_staff=1)
     for legal_user in permitions:
         if request.user == legal_user:
-            form_order = BookInstanceOrder.objects.all()
-            context = {'form_order': form_order}
+            order_form = BookInstanceOrder.objects.all()
+            context = {'order_form': order_form}
             return render(request, 'library_reception/show_order.html', context) 
     else:
         raise Http404        
@@ -31,14 +32,14 @@ def book_rent(request):
     for legal_user in permitions:
         if request.user == legal_user:
             if request.method != 'POST':
-                order_form = BookInstanceRentForm()
+                rent_form = BookInstanceRentForm()
             else:
-                order_form = BookInstanceRentForm(data=request.POST)
-                if order_form.is_valid():
-                    order_form.save()
+                rent_form = BookInstanceRentForm(data=request.POST)
+                if rent_form.is_valid():
+                    rent_form.save()
                 return redirect('library_reception:index')
         
-            context = {"order_form":order_form}
+            context = {"rent_form":rent_form}
             return render(request, 'library_reception/book_rent.html', context)
     else:
          raise Http404
@@ -49,26 +50,30 @@ def book_order(request):
     for legal_user in permitions:
         if request.user == legal_user:
             if request.method != 'POST':
-                form_order = BookInstanceOrderForm()
+                order_form = BookInstanceOrderForm()
             else:
-                form_order = BookInstanceOrderForm(data=request.POST)
-                if form_order.is_valid():
-                    books = form_order.cleaned_data['books']
-                    order = BookInstanceOrder(books=books)
-                    order.save()
+                order_form = BookInstanceOrderForm(data=request.POST)
+                if order_form.is_valid():
+                    books = order_form.cleaned_data['books']
+                    member = order_form.cleaned_data['member']
+                    order = BookInstanceOrder(member=member)
+                    
                     for book in books:
                         book_instances = BookInstance.objects.filter(book=book, status='a')
-                        if len(book_instances) == 0:
-                            form_order.add_error('books', f'Зараз {book.title} не доступна для замовлення')
-                        context = {'form_order': form_order}
-                        return render(request, 'library_reception/book_order.html', context)
-                           
-                    book_instance = book_instances[0]
-                    book_instance.status = 'r'
-                    book_instance.save()
-                    order.books.add(book_instance)
+                        if len(book_instances) == 0: 
+                            order_form.add_error('books', f'Зараз "{book.title}" не доступна для замовлення')
+                            context = {'order_form': order_form}
+                            return render(request, 'library_reception/book_order.html', context)
+                        else:   
+                            book_instance = book_instances[0]
+                            book_instance.status = 'r'
+                            book_instance.save()
+                            order.save()
+                            order.books.add(book_instance)
+                            context = {'order_form': order_form}
+                            return render(request, 'library_reception/show_order.html', context)
 
-            context = {'form_order': form_order}
+            context = {'order_form': order_form}
             return render(request, 'library_reception/book_order.html', context) 
 
     else:
