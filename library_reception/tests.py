@@ -22,36 +22,69 @@ class BookCheckOutTestCase(TestCase):
         
         BookInstance.objects.create(book=self.book1, format_book=1)
 
-        User.objects.create(username='admin', password='password')
+        self.admin = User.objects.create_superuser(username='admin', password='password')
         self.member = Member.objects.create(username='member', password='password')
         self.librarian = Librarian.objects.create(username='librarian', password='password')
         ...
 
-    def test_anonymous_journal(self):
+    def test_reject_anonymous_journal(self):
         c = Client()
         response = c.get('/library_reception/')
-        self.assertContains(response, "Журнал")
+        self.assertNotContains(response, "Журнал")
 
-    def test_anonymous_try_checkout(self):
+
+    def test_reject_anonymous_book_rent(self):
         c = Client()
         response = c.get(reverse('library_reception:book_rent'))
-        self.assertEqual(response.status_code, 401)
+        self.assert_(self._is_redirected_to_login(response))
 
-    def test_anonymous_checkout(self):
+
+    def test_reject_anonymous_checkout(self):
         c = Client()
-        response = c.post(
+        response = self._post_book_rent(c)
+        self.assert_(self._is_redirected_to_login(response))
+
+    def test_reject_member_checkout(self):
+        c = Client()
+        c.force_login(self.member)
+        response = self._post_book_rent(c)
+        self.assert_(self._is_redirected_to_login(response))
+
+    def test_librarian_checkout(self):
+        c = Client()
+        c.force_login(self.librarian)
+        response = self._post_book_rent(c)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Журнал арендованих книг")
+        self.assertEquals(BookInstanceRent.objects.all().count(), 1)
+
+    def test_admin_checkout(self):
+        c = Client()
+        c.force_login(self.admin)
+        response = self._post_book_rent(c)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Журнал арендованих книг")
+        self.assertEquals(BookInstanceRent.objects.all().count(), 1)
+
+    def _post_book_rent(self, client):
+        now = datetime.now()
+        return client.post(
             reverse('library_reception:book_rent'),
             {
                 'books': (self.book1.id), 
                 'member': self.member.id,
-                'library': self.librarian.id,
-                'start_rent_date': datetime.now(),
-                'return_date': datetime.now(),
-            }
-        )
-        response = c.get('/library_reception/')
-        
-        self.assertContains(response, "Журнал арендованих книг")
-        self.assertEquals(BookInstanceRent.objects.all().count(), 1)
+                'librarian': self.librarian.id,
+                
+                'start_rent_date_month': now.month,
+                'start_rent_date_day': now.day,
+                'start_rent_date_year': now.year,
 
-    # def test_checkout_by_admin(self):
+                'return_date_month': now.month,
+                'return_date_day': now.day,
+                'return_date_year': now.year,
+            },
+            follow=True,
+        )
+
+    def _is_redirected_to_login(self, response):
+        return response.status_code == 302 and 'login' in response.url
