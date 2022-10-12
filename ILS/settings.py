@@ -132,4 +132,4 @@ import django_heroku
 django_heroku.settings(locals())
 
 #Our settings
-LOGIN_URL = '/visitors/register/'
+LOGIN_URL = '/visitors/login/'

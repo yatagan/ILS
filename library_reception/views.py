@@ -2,9 +2,12 @@ from django.shortcuts import render, redirect
 from core.models import BookInstance, Book
 from library_reception.models import BookInstanceRent, BookInstanceOrder
 from library_reception.forms import BookInstanceOrderForm, BookInstanceRentForm
+from visitors.models import Librarian
+from .models import BookInstanceOrder
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import Http404
+from django.http import HttpResponse, Http404
+
 
 @login_required
 def index(request):
@@ -24,40 +27,31 @@ def show_order(request):
         raise Http404        
 
 
-
 @login_required
 def book_rent(request):
-    permitions = User.objects.filter(is_staff=1, is_superuser=0)
-    for legal_user in permitions:
-        if request.user == legal_user:
-            if request.method != 'POST':
-                rent_form = BookInstanceRentForm()
-            else:
-                rent_form = BookInstanceRentForm(data=request.POST)
-                if rent_form.is_valid():
-                    book_instances = rent_form.cleaned_data['books']
-                    member = rent_form.cleaned_data['member']
-                    rent = BookInstanceRent(member=member)
+    if Librarian.objects.filter(id=request.user.id).exists():
+        if request.method != 'POST':
+            rent_form = BookInstanceRentForm()
+        else:
+            rent_form = BookInstanceRentForm(data=request.POST)
+            if rent_form.is_valid():
+                book_instances = rent_form.cleaned_data['books']
+                member = rent_form.cleaned_data['member']
+                rent = BookInstanceRent(member=member)
 
-                    for book in books:
-                        #book_instances = BookInstance.objects.filter(book=book, status='a')
-                        if len(book_instances) == 0:
-                            rent_form.add_error('books', f'Нажаль, зараз не можлива аренда книги "{book.title}". \nВсі екземпляри книги видані або зарезервовані.')
-                            context = {'rent_form' : rent_form}
-                            return render(request, 'library_reception/book_rent.html', context )
-                        else:
-                            book_instance = book_instances[0]
-                            book_instance.status = 'o'
-                            rent.save()
-                            book_instance.save()
-                            rent.books.add(book_instance)
-                            rent_form.save()
-                            return redirect('library_reception:index')
-        
-            context = {"rent_form":rent_form}
-            return render(request, 'library_reception/book_rent.html', context)
-    else:
-         raise Http404
+                for book_instance in book_instances:
+                    book_instance.status = 'o'
+                    rent.save()
+                    book_instance.save()
+                    rent.books.add(book_instance)
+                    rent_form.save()
+                
+                return redirect('library_reception:index')
+    
+        context = {"rent_form":rent_form}
+        return render(request, 'library_reception/book_rent.html', context)
+    else: 
+        return HttpResponse("Nema prav", status=401)
 
 @login_required
 def book_order(request):
