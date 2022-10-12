@@ -25,12 +25,12 @@ class BookCheckOutTestCase(TestCase):
         self.admin = User.objects.create_superuser(username='admin', password='password')
         self.member = Member.objects.create(username='member', password='password')
         self.librarian = Librarian.objects.create(username='librarian', password='password')
-        ...
+
 
     def test_reject_anonymous_journal(self):
         c = Client()
         response = c.get('/library_reception/')
-        self.assertNotContains(response, "Журнал")
+        self.assertNotEqual(response.status_code, 200)
 
 
     def test_reject_anonymous_book_rent(self):
@@ -41,14 +41,16 @@ class BookCheckOutTestCase(TestCase):
 
     def test_reject_anonymous_checkout(self):
         c = Client()
-        response = self._post_book_rent(c)
+        response = self._post_book_rent(c, follow=False)
         self.assert_(self._is_redirected_to_login(response))
+
 
     def test_reject_member_checkout(self):
         c = Client()
         c.force_login(self.member)
         response = self._post_book_rent(c)
-        self.assert_(self._is_redirected_to_login(response))
+        self.assertEqual(response.status_code, 401)
+
 
     def test_librarian_checkout(self):
         c = Client()
@@ -62,11 +64,10 @@ class BookCheckOutTestCase(TestCase):
         c = Client()
         c.force_login(self.admin)
         response = self._post_book_rent(c)
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Журнал арендованих книг")
-        self.assertEquals(BookInstanceRent.objects.all().count(), 1)
+        self.assertEqual(response.status_code, 401)
+        self.assertEquals(BookInstanceRent.objects.all().count(), 0)
 
-    def _post_book_rent(self, client):
+    def _post_book_rent(self, client, follow=True):
         now = datetime.now()
         return client.post(
             reverse('library_reception:book_rent'),
@@ -83,7 +84,7 @@ class BookCheckOutTestCase(TestCase):
                 'return_date_day': now.day,
                 'return_date_year': now.year,
             },
-            follow=True,
+            follow=follow,
         )
 
     def _is_redirected_to_login(self, response):
