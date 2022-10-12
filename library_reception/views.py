@@ -1,6 +1,5 @@
-from asyncio.windows_events import NULL
 from django.shortcuts import render, redirect
-from core.models import BookInstance
+from core.models import BookInstance, Book
 from library_reception.models import BookInstanceRent, BookInstanceOrder
 from library_reception.forms import BookInstanceOrderForm, BookInstanceRentForm
 from django.contrib.auth.decorators import login_required
@@ -10,7 +9,7 @@ from django.http import Http404
 @login_required
 def index(request):
     #library_reception home page
-    context = {'rents': BookInstanceRent.objects.all()}
+    context = {'rent_form': BookInstanceRent.objects.all()}
     return render(request, 'library_reception/index.html', context)
 
 @login_required
@@ -36,8 +35,24 @@ def book_rent(request):
             else:
                 rent_form = BookInstanceRentForm(data=request.POST)
                 if rent_form.is_valid():
-                    rent_form.save()
-                return redirect('library_reception:index')
+                    book_instances = rent_form.cleaned_data['books']
+                    member = rent_form.cleaned_data['member']
+                    rent = BookInstanceRent(member=member)
+
+                    for book in books:
+                        #book_instances = BookInstance.objects.filter(book=book, status='a')
+                        if len(book_instances) == 0:
+                            rent_form.add_error('books', f'Нажаль, зараз не можлива аренда книги "{book.title}". \nВсі екземпляри книги видані або зарезервовані.')
+                            context = {'rent_form' : rent_form}
+                            return render(request, 'library_reception/book_rent.html', context )
+                        else:
+                            book_instance = book_instances[0]
+                            book_instance.status = 'o'
+                            rent.save()
+                            book_instance.save()
+                            rent.books.add(book_instance)
+                            rent_form.save()
+                            return redirect('library_reception:index')
         
             context = {"rent_form":rent_form}
             return render(request, 'library_reception/book_rent.html', context)

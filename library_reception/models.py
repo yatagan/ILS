@@ -1,6 +1,7 @@
 from django.db import models
 from core.models import BookInstance
 from visitors.models import Librarian, Member
+import datetime
 
 class BookInstanceRent(models.Model):
     books = models.ManyToManyField(BookInstance, verbose_name="Назва книги:")
@@ -18,7 +19,7 @@ class BookInstanceRent(models.Model):
         ordering = ['member']    
 
 class BookInstanceOrder(models.Model):
-    #date_reserve = models.DateTimeField(verbose_name="Момент резервування")
+    moment_reserve = models.DateTimeField(auto_now=True, verbose_name="Момент резервування")
     books = models.ManyToManyField(BookInstance, verbose_name="Назва книги:")
     member = models.ForeignKey(Member, verbose_name="Книгу замовив", on_delete=models.CASCADE)
 
@@ -28,4 +29,6 @@ class BookInstanceOrder(models.Model):
     class Meta:
         verbose_name = 'Замовлення книги'
         verbose_name_plural = 'Замовлення книг'    
-        ordering = ['member']    
+        ordering = ['member']
+
+

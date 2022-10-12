@@ -13,7 +13,7 @@
           <th width="15%">Хто видав</th>
           <th width="15%">Закінчення оренди</th>
         </tr>
-        {% for rent in rents.all %}
+        {% for rent in rent_form.all %}
         <tr>
           <td>{{ rent.member }}</td>
             <td >{{ rent.start_rent_date }}</td>
