@@ -4,7 +4,8 @@ from warehouse.models import Rack
 from warehouse.forms import AddBookInstanceForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import Http404
+from django.http import Http404, HttpResponse
+from visitors.models import Librarian
 
 
 @login_required
@@ -33,29 +34,27 @@ def list_items(request):
 
 @login_required
 def add_book_instance(request):
-    librarians = User.objects.filter(is_staff=1, is_superuser=0)
-    for librarian in librarians:
-        if request.user == librarian:
-            if request.method != 'POST':
-                form = AddBookInstanceForm()
-            else:
-                form = AddBookInstanceForm(data=request.POST)
-                if form.is_valid():
-                    selected_book = form.cleaned_data['book']
-                    format_book = form.cleaned_data['format_book']
-                    number = form.cleaned_data['number']
-                    rack = form.cleaned_data['rack']
-                    new_books = [BookInstance(book=selected_book, format_book=format_book) for _ in range(number)]
-                    for book in new_books:
-                        book.save()
-                        rack.books.add(book)
-                        rack.save()
-                    return redirect ('warehouse:index')
-   
-            context = {'form': form}
-            return render(request, 'warehouse/add_book_instance.html', context)
+    if Librarian.objects.filter(id=request.user.id).exists():
+        if request.method != 'POST':
+            form = AddBookInstanceForm()
+        else:
+            form = AddBookInstanceForm(data=request.POST)
+            if form.is_valid():
+                selected_book = form.cleaned_data['book']
+                format_book = form.cleaned_data['format_book']
+                number = form.cleaned_data['number']
+                rack = form.cleaned_data['rack']
+                new_books = [BookInstance(book=selected_book, format_book=format_book) for _ in range(number)]
+                for book in new_books:
+                    book.save()
+                    rack.books.add(book)
+                    rack.save()
+                return redirect ('warehouse:index')
+
+        context = {'form': form}
+        return render(request, 'warehouse/add_book_instance.html', context)
     else:
-         raise Http404     
+         return HttpResponse("Xer vam", status=401)   
 
 
 def search_book(request):
