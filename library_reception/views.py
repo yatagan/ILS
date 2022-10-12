@@ -1,21 +1,14 @@
-from asyncio.windows_events import NULL
 from django.shortcuts import render, redirect
 from core.models import BookInstance
 from library_reception.models import BookInstanceRent, BookInstanceOrder
 from library_reception.forms import BookInstanceOrderForm, BookInstanceRentForm
-<<<<<<< HEAD
-=======
 from visitors.models import Librarian
 from .models import BookInstanceOrder
->>>>>>> origin/master
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
 @login_required
 def index(request):
     #library_reception home page
@@ -47,6 +40,8 @@ def book_rent(request):
     
         context = {"order_form":order_form}
         return render(request, 'library_reception/book_rent.html', context)
+    else: 
+        return HttpResponse("Nema prav", status=401)
 
 
 @login_required
