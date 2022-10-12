@@ -3,10 +3,19 @@ from django.shortcuts import render, redirect
 from core.models import BookInstance
 from library_reception.models import BookInstanceRent, BookInstanceOrder
 from library_reception.forms import BookInstanceOrderForm, BookInstanceRentForm
+<<<<<<< HEAD
+=======
+from visitors.models import Librarian
+from .models import BookInstanceOrder
+>>>>>>> origin/master
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import Http404
+from django.http import HttpResponse, Http404
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 @login_required
 def index(request):
     #library_reception home page
@@ -25,24 +34,20 @@ def show_order(request):
         raise Http404        
 
 
-
 @login_required
 def book_rent(request):
-    permitions = User.objects.filter(is_staff=1, is_superuser=0)
-    for legal_user in permitions:
-        if request.user == legal_user:
-            if request.method != 'POST':
-                rent_form = BookInstanceRentForm()
-            else:
-                rent_form = BookInstanceRentForm(data=request.POST)
-                if rent_form.is_valid():
-                    rent_form.save()
+    if Librarian.objects.filter(id=request.user.id).exists():
+        if request.method != 'POST':
+            order_form = BookInstanceRentForm()
+        else:
+            order_form = BookInstanceRentForm(data=request.POST)
+            if order_form.is_valid():
+                order_form.save()
                 return redirect('library_reception:index')
-        
-            context = {"rent_form":rent_form}
-            return render(request, 'library_reception/book_rent.html', context)
-    else:
-         raise Http404
+    
+        context = {"order_form":order_form}
+        return render(request, 'library_reception/book_rent.html', context)
+
 
 @login_required
 def book_order(request):
