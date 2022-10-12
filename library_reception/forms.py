@@ -9,7 +9,7 @@ from visitors.models import Member
 
 
 class BookInstanceRentForm(forms.ModelForm):
-    books = forms.ModelMultipleChoiceField(queryset=BookInstance.objects.all(), label="Книги:")
+    books = forms.ModelMultipleChoiceField(queryset=BookInstance.objects.filter(status='a'), label="Книги:")
     member = forms.ModelChoiceField(queryset=Member.objects.all(), label="Хто получив:")
     start_rent_date = forms.DateField(widget=SelectDateWidget(empty_label="Nothing"), label="Дата початку аренди:")   
     return_date = forms.DateField(widget=SelectDateWidget(empty_label="Nothing"), label="Дата повернення книги:")

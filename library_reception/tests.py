@@ -20,7 +20,7 @@ class BookCheckOutTestCase(TestCase):
     def setUp(self):
         self.book1 = Book.objects.create(title="Book #1")
         
-        BookInstance.objects.create(book=self.book1, format_book=1)
+        self.book_instance = BookInstance.objects.create(book=self.book1, format_book=1)
 
         self.admin = User.objects.create_superuser(username='admin', password='password')
         self.member = Member.objects.create(username='member', password='password')
@@ -60,7 +60,7 @@ class BookCheckOutTestCase(TestCase):
         self.assertContains(response, "Журнал арендованих книг")
         self.assertEquals(BookInstanceRent.objects.all().count(), 1)
 
-    def test_admin_checkout(self):
+    def test_reject_admin_checkout(self):
         c = Client()
         c.force_login(self.admin)
         response = self._post_book_rent(c)
@@ -72,7 +72,7 @@ class BookCheckOutTestCase(TestCase):
         return client.post(
             reverse('library_reception:book_rent'),
             {
-                'books': (self.book1.id), 
+                'books': (self.book_instance.id), 
                 'member': self.member.id,
                 'librarian': self.librarian.id,
                 
