@@ -2,3 +2,4 @@ Django
 django-heroku
 pyyaml
 gunicorn
+pytest-django
