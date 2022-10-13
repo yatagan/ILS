@@ -20,7 +20,7 @@ class BookCheckOutTestCase(TestCase):
     def setUp(self):
         self.book1 = Book.objects.create(title="Book #1")
         
-        self.book_instance = BookInstance.objects.create(book=self.book1, format_book=1)
+        self.book_instance = BookInstance.objects.create(book=self.book1, format_book=1, status='a')
 
         self.admin = User.objects.create_superuser(username='admin', password='password')
         self.member = Member.objects.create(username='member', password='password')
