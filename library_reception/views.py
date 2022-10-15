@@ -37,14 +37,18 @@ def book_rent(request):
             if rent_form.is_valid():
                 book_instances = rent_form.cleaned_data['books']
                 member = rent_form.cleaned_data['member']
-                rent = BookInstanceRent(member=member)
+                rent = BookInstanceRent(
+                    start_rent_date=rent_form.cleaned_data['start_rent_date'],
+                    return_date=rent_form.cleaned_data['return_date'],
+                    librarian=rent_form.cleaned_data['librarian'],
+                    member=member,
+                )
+                rent.save()
 
                 for book_instance in book_instances:
                     book_instance.status = 'o'
-                    rent.save()
                     book_instance.save()
                     rent.books.add(book_instance)
-                    rent_form.save()
                 
                 return redirect('library_reception:index')
     

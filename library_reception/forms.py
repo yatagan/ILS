@@ -13,9 +13,6 @@ class BookInstanceRentForm(forms.Form):
     start_rent_date = forms.DateField(widget=SelectDateWidget(), label="Дата початку аренди:")   
     return_date = forms.DateField(widget=SelectDateWidget(), label="Дата повернення книги:")
 
-    class Meta:
-        model = BookInstanceRent
-        fields = ['books', 'start_rent_date', 'return_date', 'librarian', 'member']
 
 class BookInstanceOrderForm(forms.Form):
     books = forms.ModelMultipleChoiceField(queryset=Book.objects.all(), label="Книги")
