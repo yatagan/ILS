@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from core.models import Author, Book, BookInstance
+from library_reception.models import BookInstanceRent
 from warehouse.models import Rack
 from warehouse.forms import AddBookInstanceForm
 from django.contrib.auth.decorators import login_required
@@ -54,7 +55,7 @@ def add_book_instance(request):
         context = {'form': form}
         return render(request, 'warehouse/add_book_instance.html', context)
     else:
-         return HttpResponse("Xer vam", status=401)   
+         return HttpResponse("У Вас не має таких прав", status=401)   
 
 
 def search_book(request):

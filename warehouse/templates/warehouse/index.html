@@ -18,11 +18,6 @@
             type="submit">Пошук автора</button>
   </form>
 </div>
-
-<div>
-  <a href="{% url 'warehouse:list_items' %}"><li><i"></i>Місця зберігання книжок</li></a>
-</div> 
-
 <div class="warehouse_02" style="border: 1px solid green;">
   <h5>Журнал книжок бібліотеки:</h5>
   <ol>
@@ -35,4 +30,8 @@
   <a class="btn btn-outline-success" 
      href="{% url 'warehouse:add_book_instance' %}">Додати екземпляр</a>
 </div>
+<div class="warehouse_03">
+  <a class="btn btn-outline-success"
+     href="{% url 'warehouse:list_items' %}">Місця зберігання книжок</a>
+</div> 
 {% endblock content %}

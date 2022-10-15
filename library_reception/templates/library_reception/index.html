@@ -15,14 +15,14 @@
         </tr>
         {% for rent in rent_form.all %}
         <tr>
-          <td>{{ rent.member }}</td>
+          <td>"{{ rent.member }}" {{ rent.member.first_name }}</td>
             <td >{{ rent.start_rent_date }}</td>
             <td>
               {% for book in rent.books.all %}
               <ul><li>{{ book }}</li></ul>
               {% endfor %} 
             </td>
-            <td>{{ rent.librarian }}</td>
+            <td>"{{ rent.librarian }}" {{ rent.librarian.first_name }}</td>
             <td>{{ rent.return_date }}</td>
           </tr>
         {% endfor %} 
