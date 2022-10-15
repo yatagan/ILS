@@ -11,7 +11,7 @@ class BookInstanceRent(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
 
     def __str__(self):
-        return  f"Книгу '{self.books}' отримав(ла) {self.member.first_name} {self.start_rent_date} числа."
+        return  f"Книгу '{self.books.get()}' отримав(ла) {self.member.first_name} {self.start_rent_date} числа."
 
     class Meta:
         verbose_name = 'Оренда книги'
@@ -24,7 +24,7 @@ class BookInstanceOrder(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Книгу '{self.books}' замовив(ла) {self.member.first_name}."
+        return f"Книгу '{self.books.get()}' замовив(ла) {self.member.first_name} {self.moment_reserve}."
 
     class Meta:
         verbose_name = 'Замовлення книги'

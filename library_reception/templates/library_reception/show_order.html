@@ -7,13 +7,17 @@
   <div class="card">
     <ol>
       {% for new_order in order_form %}
-      <li>Користувач "{{ new_order.member }}" на ім'я {{ new_order.member.first_name}} орендував наступні книги:</li>
-        <ul>
-          {% for book in new_order.books.all %}
-          <li>{{ book }}</li>
-          {% endfor %}
-        </ul>
-        <hr>
+      <li>Користувач "{{ new_order.member }}" 
+        на ім'я {{ new_order.member.first_name}} 
+        резервував {{ new_order.moment_reserve }} 
+        наступну книгу(и):
+      </li>
+      <ul>
+        {% for book in new_order.books.all %}
+        <li>{{ book }} ISBN: {{ book.isbn }}</li>
+        {% endfor %}
+      </ul>
+      <hr>
       {% endfor %}
     </ol>
   </div>
