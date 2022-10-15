@@ -9,3 +9,8 @@ class Rack(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'Поличка книг'
+        verbose_name_plural = 'Полички книг'    
+        ordering = ['title']        
+

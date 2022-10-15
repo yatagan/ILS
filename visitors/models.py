@@ -22,8 +22,11 @@ class Account(auth_models.User):
 class Librarian(Account):
 
     class Meta:
-        verbose_name = 'Librarian'
-        verbose_name_plural = 'Librarians'
+        verbose_name = 'Бібліотекар'
+        verbose_name_plural = 'Бібліотекарі'
+            
+
+     
 
     def addBookItem(self, book):
         ...
@@ -32,7 +35,7 @@ class Librarian(Account):
 class Member(Account):
 
     class Meta:
-        verbose_name = 'Member'
-        verbose_name_plural = 'Members'
+        verbose_name = 'Користувач бібліотеки'
+        verbose_name_plural = 'Користувачи бібліотеки'
 
     totalBooksCheckedout = models.IntegerField(default=0)

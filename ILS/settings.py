@@ -32,10 +32,10 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     #Our APP
-    'library_reception',
-    'warehouse',
-    'core',
-    'visitors',
+    'library_reception.apps.LibraryReceptionConfig',
+    'warehouse.apps.WarehouseConfig',
+    'core.apps.CoreConfig',
+    'visitors.apps.VisitorsConfig',
     #Django APP
     'django.contrib.admin',
     'django.contrib.auth',
@@ -109,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uk'
 
 TIME_ZONE = 'UTC'
 

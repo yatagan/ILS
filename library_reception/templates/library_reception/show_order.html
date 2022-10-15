@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+  <div class="reseption_01">
+    <h5>Журнал зарезервованих книжок</h5>
+  </div>
+  <div class="card">
+    <ol>
+      {% for new_order in order_form %}
+      <li>Користувач "{{ new_order.member }}" на ім'я {{ new_order.member.first_name}} орендував наступні книги:</li>
+        <ul>
+          {% for book in new_order.books.all %}
+          <li>{{ book }}</li>
+          {% endfor %}
+        </ul>
+        <hr>
+      {% endfor %}
+    </ol>
+  </div>
+
+{% endblock content %}

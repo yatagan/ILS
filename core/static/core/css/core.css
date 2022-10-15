@@ -35,16 +35,14 @@ main {
     background-color: burlywood;
     
 }
-main div ol {
-    float: left;
-}
+
 
 main div {
     width: 30%;
     float: right;
     margin-top: 2em;
     margin-right: 12em;
-
+    
 }
 
 main div form {
@@ -71,24 +69,78 @@ main table tr, th, td {
 
 main p {
     text-align: center;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+main .reseption_01 {
+    height: 1%;
+    margin-top: 1%;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+    color: brown;
+
+}
+
+main .warehouse_01 {
+    float: left;
+    width: 20%;
+    padding-left: 1%;
+}
+
+main .warehouse_02 {
+    width: 30%;
+}
+
+main .warehouse_02 h5 {
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: brown;
+    font-style: italic;
+}
+
+main .warehouse_03 {
+    width: 5%;
+    float: left;
+    padding-left: 1%;
+}
+
+main .warehouse_add_book_ins {
+    float: left;
+
+}
+
+main .warehouse_add_book_ins button {
+    margin-left: 40%;
+}
+
+main .warehouse_list_item_01 {
+    height: 1%;
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: brown;
+    font-style: italic;
+}
+
+main .warehouse_list_item_02 {
+    font-size: smaller;
 }
 
 main .card {
     color: #3f4574;
     background-color: rgb(205, 235, 146);
-    width: 50%;
+    width: 40%;
     margin-left: 10em;
     text-align: left;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin-bottom: 2px;
+    font-size: smaller;
     
 }
 
 main .card_table {
     color: #3f4574;
     background-color: rgb(235, 222, 146);
-    width: 60%;
+    width: 65%;
     text-align: left;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     border: 3px solid #d1ecda;
@@ -99,6 +151,14 @@ main .card-news {
     color: brown;
     text-align: center; 
     margin-top: 25.5em;
+}
+
+main .visitors_01 {
+    width: 50%;
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: brown;
+    font-style: italic;
 }
 
 main aside {

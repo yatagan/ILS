@@ -1,10 +1,12 @@
 from django.shortcuts import render,redirect
 from core.models import Author, Book, BookInstance
+from library_reception.models import BookInstanceRent
 from warehouse.models import Rack
 from warehouse.forms import AddBookInstanceForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import Http404
+from django.http import Http404, HttpResponse
+from visitors.models import Librarian
 
 
 @login_required
@@ -26,21 +28,18 @@ def list_items(request):
         if request.user == legal_user:
             context ={'unracked_books': BookInstance.objects.all(), 
                       'racks': Rack.objects.filter(title__isnull=False)} 
-        return render(request, 'warehouse/list_items.html', context)
+            return render(request, 'warehouse/list_items.html', context)
     else:
          raise Http404
 
 
 @login_required
 def add_book_instance(request):
-    librarians = User.objects.filter(is_staff=1)
-    for librarian in librarians:
-        if request.user == librarian:
-            if request.method != 'POST':
-                form = AddBookInstanceForm()
-            else:
-                form = AddBookInstanceForm(data=request.POST)
-
+    if Librarian.objects.filter(id=request.user.id).exists():
+        if request.method != 'POST':
+            form = AddBookInstanceForm()
+        else:
+            form = AddBookInstanceForm(data=request.POST)
             if form.is_valid():
                 selected_book = form.cleaned_data['book']
                 format_book = form.cleaned_data['format_book']
@@ -50,11 +49,13 @@ def add_book_instance(request):
                 for book in new_books:
                     book.save()
                     rack.books.add(book)
-                rack.save()
+                    rack.save()
                 return redirect ('warehouse:index')
-   
-    context = {'form': form}
-    return render(request, 'warehouse/add_book_instance.html', context)
+
+        context = {'form': form}
+        return render(request, 'warehouse/add_book_instance.html', context)
+    else:
+         return HttpResponse("У Вас не має таких прав", status=401)   
 
 
 def search_book(request):
