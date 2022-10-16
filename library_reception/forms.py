@@ -2,8 +2,8 @@
 from django.forms.widgets import SelectDateWidget
 from django import forms
 from core.models import Book, BookInstance
-from library_reception.models import BookInstanceOrder, BookInstanceRent
 from visitors.models import Librarian, Member
+import datetime
 
 
 class BookInstanceRentForm(forms.Form):
@@ -17,11 +17,8 @@ class BookInstanceRentForm(forms.Form):
 class BookInstanceOrderForm(forms.Form):
     books = forms.ModelMultipleChoiceField(queryset=Book.objects.all(), label="Книги")
     member = forms.ModelChoiceField(queryset=Member.objects.all(), label="Хто резервував", empty_label="Виберіть користувача")
-    date_start_reserve = forms.DateTimeField(widget=SelectDateWidget, label="Дата початку резервування")
+    moment_reserve = forms.SplitDateTimeField(initial=datetime.datetime.now, label="Дата початку резервування")
 
-    class Meta:
-        model = BookInstanceOrder
-        fields = ['books', 'date_start_reserve', 'member']
-
+    
 
    

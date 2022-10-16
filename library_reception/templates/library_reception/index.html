@@ -19,7 +19,7 @@
             <td >{{ rent.start_rent_date }}</td>
             <td>
               {% for book in rent.books.all %}
-              <ul><li>{{ book }}</li></ul>
+              <ul><li>{{ book }} ISBN:{{ book.isbn }}</li></ul>
               {% endfor %} 
             </td>
             <td>"{{ rent.librarian }}" {{ rent.librarian.first_name }}</td>
