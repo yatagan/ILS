@@ -9,7 +9,7 @@
       {% for new_order in order_form %}
       <li>Користувач "{{ new_order.member }}" 
         на ім'я {{ new_order.member.first_name}} 
-        резервував {{ new_order.moment_reserve|date:"d.m.Yр. H:m" }} 
+        резервував {{ new_order.moment_reserve|date:"d.m.Yр. H:m" }}
         наступну книгу(и):
       </li>
       <ul>
