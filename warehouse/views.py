@@ -1,36 +1,36 @@
 from django.shortcuts import render,redirect
 from core.models import Author, Book, BookInstance
-from library_reception.models import BookInstanceRent
 from warehouse.models import Rack
-from warehouse.forms import AddBookInstanceForm
+from warehouse.forms import AddBookInstanceForm, ReturnInstanceForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.http import Http404, HttpResponse
+from django.http import HttpResponse
 from visitors.models import Librarian
 
 
 @login_required
 def index(request):
-    permitions = User.objects.filter(is_staff=1)
-    for legal_user in permitions:
-        if request.user == legal_user:
+    if Librarian.objects.filter(id=request.user.id).exists():
     #warehouse`s main page`
-            context ={'unracked_books': BookInstance.objects.all(), 
-                      'racks': Rack.objects.filter(title__isnull=False)} 
-            return render(request, 'warehouse/index.html', context)
+        context ={'unracked_books': BookInstance.objects.all(), 
+                   'racks': Rack.objects.filter(title__isnull=False)} 
+        return render(request, 'warehouse/index.html', context)
     else:
-         raise Http404    
+        return HttpResponse("У Вас не має таких прав", status=401) 
+
+
+@login_required
+def show_response_return(request):
+    return render(request, 'warehouse/show_response_return.html')
+
 
 @login_required
 def list_items(request):
-    permitions = User.objects.filter(is_staff=1)
-    for legal_user in permitions:
-        if request.user == legal_user:
-            context ={'unracked_books': BookInstance.objects.all(), 
-                      'racks': Rack.objects.filter(title__isnull=False)} 
-            return render(request, 'warehouse/list_items.html', context)
+    if Librarian.objects.filter(id=request.user.id).exists():
+        context ={'unracked_books': BookInstance.objects.all(), 
+                 'racks': Rack.objects.filter(title__isnull=False)} 
+        return render(request, 'warehouse/list_items.html', context)
     else:
-         raise Http404
+        return HttpResponse("У Вас не має таких прав", status=401)
 
 
 @login_required
@@ -55,9 +55,29 @@ def add_book_instance(request):
         context = {'form': form}
         return render(request, 'warehouse/add_book_instance.html', context)
     else:
-         return HttpResponse("У Вас не має таких прав", status=401)   
+         return HttpResponse("У Вас не має таких прав", status=401)
 
 
+@login_required
+def return_instance(request):
+    if Librarian.objects.filter(id=request.user.id).exists():
+        if request.method != 'POST':
+            return_form = ReturnInstanceForm()
+        else:     
+            return_form = ReturnInstanceForm(data=request.POST)
+            if return_form.is_valid():
+                instance_id = return_form.cleaned_data['instance_id']
+                return_book = BookInstance.objects.filter(id=instance_id)
+                for return_instance in return_book:
+                    return_instance.status = 'a'
+                    return_instance.save()
+                return redirect ('warehouse:show_response_return')
+        ctx = {'return_form': return_form}
+        return render(request, 'warehouse/return_instance.html', ctx)    
+    else: 
+        return HttpResponse("У Вас не має таких прав.", status=401)
+
+@login_required
 def search_book(request):
     search_query = request.GET.get('search', '')
     if search_query:
@@ -68,6 +88,8 @@ def search_book(request):
     
     return render(request, 'warehouse/result_search.html', result_search_book)  
 
+
+@login_required
 def search_author(request):
     search_query = request.GET.get('search', '')
     if search_query:

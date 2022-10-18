@@ -9,7 +9,7 @@
       <h6>Назва полички: "{{ rack.title }}"</h6>
       <ol>
         {% for book in rack.books.all %}
-          <li>{{ book }}</li>
+          <li>{{ book }} {{ book_id }}</li>
         {% endfor %}
       </ol>
     </div>

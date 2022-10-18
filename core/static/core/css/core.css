@@ -123,6 +123,7 @@ main .warehouse_list_item_01 {
 
 main .warehouse_list_item_02 {
     font-size: smaller;
+    width: 50%;
 }
 
 main .card {
