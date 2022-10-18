@@ -20,10 +20,8 @@ def show_order(request):
         order_form = BookInstanceOrder.objects.all()
         context = {'order_form': order_form}
         return render(request, 'library_reception/show_order.html', context) 
-   
     else: 
         return HttpResponse("У Вас не має таких прав", status=401)
-
 
 
 @login_required
