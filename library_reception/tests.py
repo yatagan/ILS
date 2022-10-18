@@ -1,4 +1,5 @@
 from datetime import datetime
+from urllib import response
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -22,7 +23,7 @@ class BookCheckOutTestCase(TestCase):
         
         self.book_instance = BookInstance.objects.create(book=self.book1, format_book=1, status='a')
 
-        self.admin = User.objects.create_superuser(username='admin', password='password')
+        self.admin = User.objects.create(username='admin', password='password')
         self.member = Member.objects.create(username='member', password='password')
         self.librarian = Librarian.objects.create(username='librarian', password='password')
 
@@ -67,6 +68,13 @@ class BookCheckOutTestCase(TestCase):
         self.assertContains(response, "Журнал арендованих книг")
         self.assertEquals(BookInstanceRent.objects.all().count(), 1)
 
+    def test_bookinstance_return(self):
+        c=Client()
+        c.force_login(self.librarian)
+        response = self._post_bookinstance_return(c)
+        self.assertEqual(response.status_code, 200)
+          
+
     def _post_book_rent(self, client, follow=True):
         now = datetime.now()
         return client.post(
@@ -89,3 +97,18 @@ class BookCheckOutTestCase(TestCase):
 
     def _is_redirected_to_login(self, response):
         return response.status_code == 302 and 'login' in response.url
+
+    def _post_bookinstance_return(self, client, follow=True):
+        now_time = datetime.now()
+        return client.post(
+            reverse('warehouse:return_instance'),
+            {
+                'id': (self.book_instance.id),
+                'librarian': (self.librarian.id),
+
+                'date_return_month': now_time.month,
+                'return_date_day': now_time.day,
+                'return_date_year': now_time.year,
+            },
+            follow=follow,
+        )    
