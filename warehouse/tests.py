@@ -209,3 +209,41 @@ class AddBookInstanceTestCase(TestCase):
             },
         )
         self.assert_(BookInstance.objects.all().count() == 0)
+
+    def test_book_format(self):
+        response = self.c.post(
+            reverse('warehouse:add_book_instance'),
+            {
+                'book': self.book.id,
+                'status': 'm',
+                'format_book': 2,
+                'number': 1,
+                'isbn': 'ISBN',
+                'rack': self.rack.id,
+            },
+        )
+        self.assertEqual(response.status_code, 302),
+        self.assertEqual(
+            BookInstance.objects.all().count(), 1
+        )
+        book_instanse = BookInstance.objects.get(book=self.book)
+        self.assert_(book_instanse.format_book == 2)
+
+    def test_book_status(self):
+        response = self.c.post(
+            reverse('warehouse:add_book_instance'),
+            {
+                'book': self.book.id,
+                'status': 'm',
+                'format_book': 2,
+                'number': 1,
+                'isbn': 'ISBN',
+                'rack': self.rack.id,
+            },
+        )
+        self.assertEqual(response.status_code, 302),
+        self.assertEqual(
+            BookInstance.objects.all().count(), 1
+        )
+        book_instanse = BookInstance.objects.get(book=self.book)
+        self.assertEqual(book_instanse.status, 'm')
