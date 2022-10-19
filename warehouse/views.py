@@ -51,8 +51,8 @@ def add_book_instance(request):
                     book.save()
                     rack.books.add(book)
                     rack.save()
-                    messages.success(request, "Екземпляр книги успішно додано")
-                    return redirect ('warehouse:index')
+                messages.success(request, "Екземпляр книги успішно додано")
+                return redirect ('warehouse:index')
 
         context = {'form': form}
         return render(request, 'warehouse/add_book_instance.html', context)
