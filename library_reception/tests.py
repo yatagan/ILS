@@ -1,5 +1,4 @@
 from datetime import datetime
-from urllib import response
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -23,7 +22,8 @@ class BookCheckOutTestCase(TestCase):
         
         self.book_instance = BookInstance.objects.create(book=self.book1, format_book=1, status='a')
 
-        self.admin = User.objects.create(username='admin', password='password')
+        self.admin = User.objects.create_superuser(username='admin', password='password')
+        self.user = User.objects.create(username='user', password='pasword')
         self.member = Member.objects.create(username='member', password='password')
         self.librarian = Librarian.objects.create(username='librarian', password='password')
 
@@ -60,6 +60,13 @@ class BookCheckOutTestCase(TestCase):
         self.assertEqual(response.status_code, 401)
         self.assertEquals(BookInstanceRent.objects.all().count(), 0)
 
+    def test_reject_user_checkout(self):
+        c = Client()
+        c.force_login(self.user)
+        response = self._post_book_rent(c)
+        self.assertEqual(response.status_code, 401)
+        self.assertEquals(BookInstanceRent.objects.all().count(), 0)    
+
     def test_librarian_checkout(self):
         c = Client()
         c.force_login(self.librarian)
@@ -68,12 +75,23 @@ class BookCheckOutTestCase(TestCase):
         self.assertContains(response, "Журнал арендованих книг")
         self.assertEquals(BookInstanceRent.objects.all().count(), 1)
 
-    def test_bookinstance_return(self):
+    def test_librarian_invalid_checkin(self):
         c=Client()
         c.force_login(self.librarian)
         response = self._post_bookinstance_return(c)
+        self.assertEqual(response.reason_phrase, "Не можливо повернути книжку")
+
+
+    def test_librarian_checkin(self):
+        c = Client()
+        c.force_login(self.librarian)
+        response = self._post_book_rent(c)
         self.assertEqual(response.status_code, 200)
-          
+        self.assertContains(response, "Журнал арендованих книг")
+        self.assertEquals(BookInstanceRent.objects.all().count(), 1) 
+
+        response = self._post_bookinstance_return(c)
+        self.assertEqual(response.reason_phrase, "OK")
 
     def _post_book_rent(self, client, follow=True):
         now = datetime.now()
@@ -103,12 +121,12 @@ class BookCheckOutTestCase(TestCase):
         return client.post(
             reverse('warehouse:return_instance'),
             {
-                'id': (self.book_instance.id),
+                'instance_id': (self.book_instance.id),
                 'librarian': (self.librarian.id),
 
                 'date_return_month': now_time.month,
-                'return_date_day': now_time.day,
-                'return_date_year': now_time.year,
+                'date_return_day': now_time.day,
+                'date_return_year': now_time.year,
             },
             follow=follow,
         )    

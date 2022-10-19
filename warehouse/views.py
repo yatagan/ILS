@@ -5,6 +5,7 @@ from warehouse.forms import AddBookInstanceForm, ReturnInstanceForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from visitors.models import Librarian
+from django.contrib import messages
 
 
 @login_required
@@ -75,11 +76,17 @@ def return_instance(request):
             return_form = ReturnInstanceForm(data=request.POST)
             if return_form.is_valid():
                 instance_id = return_form.cleaned_data['instance_id']
-                return_book = BookInstance.objects.filter(id=instance_id)
-                for return_instance in return_book:
+                return_instance = BookInstance.objects.get(id=instance_id)
+                
+                if return_instance.status == 'o':
                     return_instance.status = 'a'
                     return_instance.save()
-                return redirect ('warehouse:show_response_return')
+                    messages.success(request, "Книжку успішно повернуто")    
+                    return redirect ('warehouse:show_response_return')
+                
+                else:
+                    messages.error(request, "Не можливо повернути книжку")
+                    return HttpResponse(reason="Не можливо повернути книжку", status=400)
         ctx = {'return_form': return_form}
         return render(request, 'warehouse/return_instance.html', ctx)    
     else: 
