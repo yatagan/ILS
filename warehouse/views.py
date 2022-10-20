@@ -50,7 +50,6 @@ def add_book_instance(request):
                 number = form.cleaned_data['number']
                 isbn = form.cleaned_data['isbn']
                 rack = form.cleaned_data['rack']
-                racks = Rack.objects.filter(title=rack)
                 new_books = [BookInstance(
                             book=selected_book, 
                             format_book=format_book, 
