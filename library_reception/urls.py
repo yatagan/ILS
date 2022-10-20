@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from library_reception import views
 
 app_name = 'library_reception'
 urlpatterns = [
