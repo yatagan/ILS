@@ -55,12 +55,12 @@ def add_book_instance(request):
                             book=selected_book, 
                             format_book=format_book, 
                             status=status,
-                            isbn=isbn
+                            isbn=isbn,
+                            rack=rack,
                             ) for _ in range(number)]
                 for book in new_books:
                     book.save()
-                    for rack in racks:
-                        rack.books.add(book)
+                rack.books.add(book)
                 messages.success(request, "Екземпляр книги успішно додано")
                 return redirect ('warehouse:index')
 
