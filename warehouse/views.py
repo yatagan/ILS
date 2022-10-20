@@ -45,12 +45,17 @@ def add_book_instance(request):
                 selected_book = form.cleaned_data['book']
                 format_book = form.cleaned_data['format_book']
                 number = form.cleaned_data['number']
+                isbn = form.cleaned_data['isbn']
                 rack = form.cleaned_data['rack']
-                new_books = [BookInstance(book=selected_book, format_book=format_book) for _ in range(number)]
+                new_books = [BookInstance(
+                    book=selected_book, 
+                    format_book=format_book,
+                    isbn=isbn,
+                    rack=rack,
+                    ) for _ in range(number)]
                 for book in new_books:
                     book.save()
                     rack.books.add(book)
-                    rack.save()
                 messages.success(request, "Екземпляр книги успішно додано")
                 return redirect ('warehouse:index')
 
