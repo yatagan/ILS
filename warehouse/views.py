@@ -3,7 +3,9 @@ from core.models import Author, Book, BookInstance
 from warehouse.models import Rack
 from warehouse.forms import AddBookInstanceForm, ReturnInstanceForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.http import Http404, HttpResponse
 from visitors.models import Librarian
 from django.contrib import messages
 
@@ -59,6 +61,7 @@ def add_book_instance(request):
                     book.save()
                     for rack in racks:
                         rack.books.add(book)
+                messages.success(request, "Екземпляр книги успішно додано")
                 return redirect ('warehouse:index')
 
         context = {'form': form}
