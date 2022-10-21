@@ -5,6 +5,7 @@ from library_reception.forms import BookInstanceOrderForm, BookInstanceRentForm
 from visitors.models import Librarian, Member
 from .models import BookInstanceOrder
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.http import HttpResponse
 
 
@@ -58,7 +59,7 @@ def book_rent(request):
                     book_instance.status = 'o'
                     book_instance.save()
                     rent.books.add(book_instance)
-                
+                messages.success(request, "Оренда успішно оформлена")
                 return redirect('library_reception:index')
     
         context = {"rent_form":rent_form}
@@ -92,7 +93,8 @@ def book_order(request):
                         book_instance.save()
                         order.save()
                         order.books.add(book_instance)
-                        return redirect('library_reception:show_response_order')
+                        messages.success(request, "Замовлення успішно оформлено")
+                        return redirect('library_reception:index')
                             
         context = {'order_form': order_form}
         return render(request, 'library_reception/book_order.html', context) 
