@@ -17,18 +17,11 @@ def index(request):
 @login_required
 def show_order(request):
     if Librarian.objects.filter(id=request.user.id).exists():
-
-
-            order_form = BookInstanceOrder.objects.all()
-            context = {'order_form': order_form}
-            return render(request, 'library_reception/show_order.html', context) 
-   
-   
+        order_form = BookInstanceOrder.objects.all()
+        context = {'order_form': order_form}
+        return render(request, 'library_reception/show_order.html', context) 
     else: 
         return HttpResponse("У Вас не має таких прав", status=401)
-
-
-
 
 
 @login_required
