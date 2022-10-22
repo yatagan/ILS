@@ -7,8 +7,8 @@ from django.conf.urls.static import static
 app_name = 'core'
 
 urlpatterns = [
-    #Home page
+    # Home page
     path('', views.index, name='index'),
-    #сторінка з книгами
+    # сторінка з книгами
     path('search/', views.search_books, name='search_books'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

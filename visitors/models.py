@@ -24,9 +24,6 @@ class Librarian(Account):
     class Meta:
         verbose_name = 'Бібліотекар'
         verbose_name_plural = 'Бібліотекарі'
-            
-
-     
 
     def addBookItem(self, book):
         ...

@@ -13,6 +13,5 @@ from core.models import Book, BookInstance, Author
 
 #         BookInstance.objects.create(book=book)
 #         BookInstance.objects.create(book=book)
-    
+
 #         self.assertEqual(book.number_books(), 2)
-        

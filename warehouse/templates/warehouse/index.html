@@ -29,16 +29,19 @@
   <h5>Журнал книжок бібліотеки:</h5>
   <ol>
     {% for book in unracked_books %}
-      <li>{{ book }}</li>
+      <li>{{ book }} id: {{ book.id }}</li>
     {% endfor %}
   </ol>
 </div>  
 <div class="warehouse_03">
   <a class="btn btn-outline-success" 
      href="{% url 'warehouse:add_book_instance' %}">Додати екземпляр</a>
-</div>
-<div class="warehouse_03">
+     <br>
+  <a class="btn btn-outline-success"  
+     href="{% url 'warehouse:return_instance' %}">Повернення книги</a>
+     <br>
   <a class="btn btn-outline-success"
-     href="{% url 'warehouse:list_items' %}">Місця зберігання книжок</a>
-</div> 
+     href="{% url 'warehouse:list_items' %}">Книги на поличках</a>
+</div>
+
 {% endblock content %}
