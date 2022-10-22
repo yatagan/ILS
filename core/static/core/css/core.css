@@ -85,6 +85,7 @@ main .warehouse_01 {
     float: left;
     width: 20%;
     padding-left: 1%;
+    margin-left: 3%;
 }
 
 main .warehouse_02 {
@@ -99,9 +100,11 @@ main .warehouse_02 h5 {
 }
 
 main .warehouse_03 {
-    width: 5%;
+    width: auto;
     float: left;
-    padding-left: 1%;
+    margin-left: 3%;
+    padding: 2%;
+    font-size: 8px;
 }
 
 main .warehouse_add_book_ins {
@@ -123,6 +126,7 @@ main .warehouse_list_item_01 {
 
 main .warehouse_list_item_02 {
     font-size: smaller;
+    width: 50%;
 }
 
 main .card {
@@ -161,7 +165,8 @@ main .visitors_01 {
     font-style: italic;
 }
 
-main aside {
+
+aside {
     float:left;
     background:#565e9b;
     width: 17%;
@@ -171,13 +176,14 @@ main aside {
     border-right: 5px solid #d1ecda;
 }            
 
-main aside h5 {
+aside h5 {
     font-family: 'Times New Roman', Times, serif;
-    margin-top: 10%;
+    margin-top: 1%;
     font-size: 30px;
+    padding-left: 1%;
 }    
 
-main aside ul li {
+aside ul li {
     font-family: Arial, sans-serif;
     color: rgb(206, 112, 29);
     display: block;
@@ -185,7 +191,7 @@ main aside ul li {
     
 }
 
-main aside ul a:hover {
+aside ul a:hover {
     text-decoration: none;
     transform: scale(1.1);
 

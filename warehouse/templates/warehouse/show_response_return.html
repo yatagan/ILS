@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+	<h4>Книга повернута на склад.</h>
+	<p>Ви можете продовжувати свою роботу.</p>
+	{% for msg in messages %}
+  	<div class="alert alert-success" role="alert">
+    	<h5 class="alert-heading"></h5>
+    	<p class="mb-3">{{ msg }}</p>
+  	</div>
+	{% endfor %}
+
+{% endblock %}

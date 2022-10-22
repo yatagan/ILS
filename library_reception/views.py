@@ -59,6 +59,7 @@ def book_rent(request):
     else: 
         return HttpResponse("У Вас не має таких прав.", status=401)
 
+
 @login_required
 def book_order(request):
     if Member.objects.filter(id=request.user.id).exists():

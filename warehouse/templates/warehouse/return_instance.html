@@ -1,0 +1,12 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<div class="card">
+    <form action="{% url 'warehouse:return_instance' %}" method="post">
+      {% csrf_token %}
+      {{ return_form.as_p }}
+      <button class="btn btn-warning" name="submit">Повернути книгу</button>
+    </form>
+  </div>
+	
+{% endblock %}

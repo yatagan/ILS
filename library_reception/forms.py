@@ -17,7 +17,7 @@ class BookInstanceRentForm(forms.Form):
 class BookInstanceOrderForm(forms.Form):
     books = forms.ModelMultipleChoiceField(queryset=Book.objects.all(), label="Книги")
     member = forms.ModelChoiceField(queryset=Member.objects.all(), label="Хто резервував", empty_label="Виберіть користувача")
-    moment_reserve = forms.SplitDateTimeField(initial=datetime.datetime.now, label="Дата початку резервування")
+    moment_reserve = forms.SplitDateTimeField(initial=datetime.datetime.now, label="Дата початку резервування", localize=True)
 
     
 
