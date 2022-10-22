@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,12 +32,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    #Our APP
+    # Our APP
     'library_reception.apps.LibraryReceptionConfig',
     'warehouse.apps.WarehouseConfig',
     'core.apps.CoreConfig',
     'visitors.apps.VisitorsConfig',
-    #Django APP
+    # Django APP
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,8 +129,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-import django_heroku
 django_heroku.settings(locals())
 
-#Our settings
+# Our settings
 LOGIN_URL = '/visitors/login/'

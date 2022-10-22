@@ -3,13 +3,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 
+
 def register(request):
-    #Зареєструє нового користувача.
+    # Зареєструє нового користувача.
     if request.method != 'POST':
-        #Виводе пусту форму реєстрації.
+        # Виводе пусту форму реєстрації.
         form = UserCreationForm()
     else:
-        #Обробка заповненої форми
+        # Обробка заповненої форми
         form = UserCreationForm(data=request.POST)
 
         if form.is_valid():
@@ -19,4 +20,3 @@ def register(request):
 
     context = {'form': form}
     return render(request, 'visitors/register.html', context)
-

@@ -10,23 +10,24 @@ from django.http import HttpResponse
 
 @login_required
 def index(request):
-    #library_reception home page
+    # library_reception home page
     context = {'rent_form': BookInstanceRent.objects.all()}
     return render(request, 'library_reception/index.html', context)
+
 
 @login_required
 def show_order(request):
     if Librarian.objects.filter(id=request.user.id).exists():
         order_form = BookInstanceOrder.objects.all()
         context = {'order_form': order_form}
-        return render(request, 'library_reception/show_order.html', context) 
-    else: 
+        return render(request, 'library_reception/show_order.html', context)
+    else:
         return HttpResponse("У Вас не має таких прав", status=401)
 
 
 @login_required
 def show_response_order(request):
-    return render(request, 'library_reception/show_response_order.html')          
+    return render(request, 'library_reception/show_response_order.html')
 
 
 @login_required
@@ -51,12 +52,12 @@ def book_rent(request):
                     book_instance.status = 'o'
                     book_instance.save()
                     rent.books.add(book_instance)
-                
+
                 return redirect('library_reception:index')
-    
-        context = {"rent_form":rent_form}
+
+        context = {"rent_form": rent_form}
         return render(request, 'library_reception/book_rent.html', context)
-    else: 
+    else:
         return HttpResponse("У Вас не має таких прав.", status=401)
 
 
@@ -72,24 +73,26 @@ def book_order(request):
                 member = order_form.cleaned_data['member']
                 order = BookInstanceOrder(
                     member=member,
-                    moment_reserve=order_form.cleaned_data['moment_reserve'], 
+                    moment_reserve=order_form.cleaned_data['moment_reserve'],
                 )
                 for book in books:
-                    book_instances = BookInstance.objects.filter(book=book, status='a')
-                    if len(book_instances) == 0: 
-                        order_form.add_error('books', f'Зараз "{book.title}" не доступна для замовлення')
+                    book_instances = BookInstance.objects.filter(
+                        book=book, status='a')
+                    if len(book_instances) == 0:
+                        order_form.add_error(
+                            'books', f'Зараз "{book.title}" не доступна для замовлення')
                         context = {'order_form': order_form}
                         return render(request, 'library_reception/book_order.html', context)
-                    else:   
+                    else:
                         book_instance = book_instances[0]
                         book_instance.status = 'r'
                         book_instance.save()
                         order.save()
                         order.books.add(book_instance)
                         return redirect('library_reception:show_response_order')
-                            
-        context = {'order_form': order_form}
-        return render(request, 'library_reception/book_order.html', context) 
 
-    else: 
+        context = {'order_form': order_form}
+        return render(request, 'library_reception/book_order.html', context)
+
+    else:
         return HttpResponse("У Вас не має таких прав.", status=401)
