@@ -3,11 +3,10 @@ from core.models import Author, Book, BookInstance
 from warehouse.models import Rack
 from warehouse.forms import AddBookInstanceForm, ReturnInstanceForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.contrib import messages
-from django.http import Http404, HttpResponse
+from django.http import HttpResponse
 from visitors.models import Librarian
-from django.contrib import messages
+
 
 
 @login_required
@@ -50,17 +49,16 @@ def add_book_instance(request):
                 number = form.cleaned_data['number']
                 isbn = form.cleaned_data['isbn']
                 rack = form.cleaned_data['rack']
-                racks = Rack.objects.filter(title=rack)
                 new_books = [BookInstance(
                             book=selected_book, 
                             format_book=format_book, 
                             status=status,
-                            isbn=isbn
+                            isbn=isbn,
+                            rack=rack,
                             ) for _ in range(number)]
                 for book in new_books:
                     book.save()
-                    for rack in racks:
-                        rack.books.add(book)
+                    rack.books.add(book)
                 messages.success(request, "Екземпляр книги успішно додано")
                 return redirect ('warehouse:index')
 
