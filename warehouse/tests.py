@@ -230,11 +230,12 @@ class AddBookInstanceTestCase(TestCase):
         self.assert_(book_instanse.format_book == 2)
 
     def test_book_status(self):
+        expected_status = 'a'
         response = self.c.post(
             reverse('warehouse:add_book_instance'),
             {
                 'book': self.book.id,
-                'status': 'm',
+                'status': expected_status,
                 'format_book': 2,
                 'number': 1,
                 'isbn': 'ISBN',
@@ -246,4 +247,4 @@ class AddBookInstanceTestCase(TestCase):
             BookInstance.objects.all().count(), 1
         )
         book_instanse = BookInstance.objects.get(book=self.book)
-        self.assertEqual(book_instanse.status, 'm')
+        self.assertEqual(book_instanse.status, expected_status)
