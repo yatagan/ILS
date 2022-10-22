@@ -5,6 +5,7 @@ from warehouse.models import Rack
 from warehouse.forms import AddBookInstanceForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.http import Http404, HttpResponse
 from visitors.models import Librarian
 
@@ -45,12 +46,21 @@ def add_book_instance(request):
                 format_book = form.cleaned_data['format_book']
                 status = form.cleaned_data['status']
                 number = form.cleaned_data['number']
+                isbn = form.cleaned_data['isbn']
                 rack = form.cleaned_data['rack']
-                new_books = [BookInstance(book=selected_book, format_book=format_book, status=status) for _ in range(number)]
+                new_books = [
+                    BookInstance(
+                        book=selected_book,
+                        format_book=format_book,
+                        status=status,
+                        isbn=isbn,
+                        rack=rack,
+                    ) for _ in range(number)
+                ]
                 for book in new_books:
                     book.save()
                     rack.books.add(book)
-                    rack.save()
+                messages.success(request, "Екземпляр книги успішно додано")
                 return redirect ('warehouse:index')
 
         context = {'form': form}
