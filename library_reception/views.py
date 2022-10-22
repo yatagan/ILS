@@ -93,4 +93,3 @@ def book_order(request):
 
     else: 
         return HttpResponse("У Вас не має таких прав.", status=401)
-

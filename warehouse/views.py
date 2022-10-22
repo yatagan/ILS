@@ -49,13 +49,15 @@ def add_book_instance(request):
                 number = form.cleaned_data['number']
                 isbn = form.cleaned_data['isbn']
                 rack = form.cleaned_data['rack']
-                new_books = [BookInstance(
-                            book=selected_book, 
-                            format_book=format_book, 
-                            status=status,
-                            isbn=isbn,
-                            rack=rack,
-                            ) for _ in range(number)]
+                new_books = [
+                    BookInstance(
+                        book=selected_book,
+                        format_book=format_book,
+                        status=status,
+                        isbn=isbn,
+                        rack=rack,
+                    ) for _ in range(number)
+                ]
                 for book in new_books:
                     book.save()
                     rack.books.add(book)
