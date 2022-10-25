@@ -52,7 +52,7 @@ def book_rent(request):
                 for book_instance in book_instances:
                     book_instance.status = 'o'
                     book_instance.save()
-                    rent.books.add(book_instance)s
+                    rent.books.add(book_instance)
                 messages.success(request, "Оренда успішно оформлена")
                 return redirect('library_reception:index')
 
