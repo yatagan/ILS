@@ -78,8 +78,8 @@ class BookCheckOutTestCase(TestCase):
     def test_librarian_invalid_checkin(self):
         c = Client()
         c.force_login(self.librarian)
-        response = self._post_bookinstance_return(c)
-        self.assertEqual(response.reason_phrase, "Не можливо повернути цю книгу, бо вона не була видана.")
+        response = self._post_bookinstance_return(c, follow=True)
+        self.assertEqual(response.status_code, 200)
 
     def test_librarian_checkin(self):
         c = Client()
