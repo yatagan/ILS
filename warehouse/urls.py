@@ -14,5 +14,4 @@ urlpatterns = [
     path('search_author/', views.search_author, name='search_author'),
     path('list_items/', views.list_items, name="list_items"),
     path('return_instance/', views.return_instance, name='return_instance'),
-    path('show_response_return/', views.show_response_return, name='show_response_return'),
 ]

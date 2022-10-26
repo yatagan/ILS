@@ -6,6 +6,7 @@ from visitors.models import Librarian, Member
 from .models import BookInstanceOrder
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.contrib import messages
 
 
 @login_required
@@ -24,10 +25,6 @@ def show_order(request):
     else:
         return HttpResponse("У Вас не має таких прав", status=401)
 
-
-@login_required
-def show_response_order(request):
-    return render(request, 'library_reception/show_response_order.html')
 
 
 @login_required
@@ -52,7 +49,7 @@ def book_rent(request):
                     book_instance.status = 'o'
                     book_instance.save()
                     rent.books.add(book_instance)
-
+                messages.success(request, "Книгу видано")
                 return redirect('library_reception:index')
 
         context = {"rent_form": rent_form}
@@ -89,7 +86,8 @@ def book_order(request):
                         book_instance.save()
                         order.save()
                         order.books.add(book_instance)
-                        return redirect('library_reception:show_response_order')
+                        messages.success(request, "Книгу зарезервовано") 
+                        return redirect('library_reception:book_order')
 
         context = {'order_form': order_form}
         return render(request, 'library_reception/book_order.html', context)

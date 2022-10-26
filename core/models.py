@@ -59,7 +59,7 @@ class BookInstance(models.Model):
     class Meta:
         verbose_name = 'Екземпляр книги'
         verbose_name_plural = 'Екземпляри книг'
-        ordering = ['book']
+        ordering = ['book', 'id']
 
 
 class Post(models.Model):

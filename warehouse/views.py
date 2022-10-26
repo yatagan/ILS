@@ -20,10 +20,6 @@ def index(request):
         return HttpResponse("У Вас не має таких прав", status=401) 
 
 
-@login_required
-def show_response_return(request):
-    return render(request, 'warehouse/show_response_return.html')
-
 
 @login_required
 def list_items(request):
@@ -84,12 +80,13 @@ def return_instance(request):
                 if return_instance.status == 'o':
                     return_instance.status = 'a'
                     return_instance.save()
-                    messages.success(request, "Книжку успішно повернуто")    
-                    return redirect ('warehouse:show_response_return')
+                    messages.success(request, "Книгу повернуто в бібліотеку")    
+                    return redirect ('warehouse:return_instance')
                 
                 else:
-                    messages.error(request, "Не можливо повернути книжку")
-                    return HttpResponse(reason="Не можливо повернути книжку", status=400)
+                    messages.error(request, "Не можливо повернути цю книгу, бо вона не була видана.")
+                    return redirect ('warehouse:return_instance')
+         
         ctx = {'return_form': return_form}
         return render(request, 'warehouse/return_instance.html', ctx)    
     else: 
