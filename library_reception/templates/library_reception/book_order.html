@@ -1,6 +1,13 @@
 {% extends "core/base.html" %}
 
 {% block content %}
+
+{% for msg in messages %}
+  <div class="alert alert-success" role="alert">
+    <h5 class="alert-heading"></h5>
+    <p class="mb-3">{{ msg }}</p>
+  </div>
+{% endfor %}
   <div class="card">
     <form action="{% url 'library_reception:book_order' %}" method="post">
       {% csrf_token %}
