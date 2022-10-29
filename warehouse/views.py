@@ -7,14 +7,23 @@ from django.contrib import messages
 from django.http import HttpResponse
 from visitors.models import Librarian
 
-
+NUMBER_ITEMS_ON_PAGE = 15
 
 @login_required
 def index(request):
     if Librarian.objects.filter(id=request.user.id).exists():
-    #warehouse`s main page`
-        context ={'unracked_books': BookInstance.objects.all(), 
-                   'racks': Rack.objects.filter(title__isnull=False)} 
+        page = int(request.GET.get('page', '0'))
+        offset = page * NUMBER_ITEMS_ON_PAGE
+        book_items = BookInstance.objects.all()[offset : offset + NUMBER_ITEMS_ON_PAGE]
+
+        page_num = BookInstance.objects.all().count() / NUMBER_ITEMS_ON_PAGE
+
+        context ={
+            'book_items': book_items, 
+            'pages': range(1, int(page_num) + 1),
+            'page_current': page,
+            'racks': Rack.objects.filter(title__isnull=False)
+        } 
         return render(request, 'warehouse/index.html', context)
     else:
         return HttpResponse("У Вас не має таких прав", status=401) 

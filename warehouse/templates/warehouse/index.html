@@ -28,11 +28,22 @@
 <div class="warehouse_02" style="border: 1px solid green;">
   <h5>Журнал книжок бібліотеки:</h5>
   <ol>
-    {% for book in unracked_books %}
+    {% for book in book_items %}
       <li>{{ book }} id: {{ book.id }}</li>
     {% endfor %}
   </ol>
 </div>  
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    {% for page in pages %}
+    <li class="page-item {% if page == page_current %} active {% endif %}">
+      <a class="page-link" href="/warehouse/?page={{ page }}">{{ page }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</nav>
+
 <div class="warehouse_03">
   <a class="btn btn-outline-success" 
      href="{% url 'warehouse:add_book_instance' %}">Додати екземпляр</a>

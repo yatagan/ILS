@@ -1,3 +1,4 @@
+from tkinter import Pack
 from django.shortcuts import render, redirect
 from core.models import BookInstance
 from library_reception.models import BookInstanceRent, BookInstanceOrder
@@ -7,12 +8,20 @@ from .models import BookInstanceOrder
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib import messages
+from django.core.paginator import Paginator
 
+PAGE_ITEMS = 2
 
 @login_required
 def index(request):
-    # library_reception home page
-    context = {'rent_form': BookInstanceRent.objects.all()}
+    page = int(request.GET.get('page', '0'))
+    paginator = Paginator(BookInstanceRent.objects.all(), PAGE_ITEMS)
+    page_obj = paginator.get_page(page)
+
+    context = {
+        'page_obj': page_obj,
+        'rents': BookInstanceRent.objects.all()[page * PAGE_ITEMS : page * PAGE_ITEMS + PAGE_ITEMS],
+    }
     return render(request, 'library_reception/index.html', context)
 
 
