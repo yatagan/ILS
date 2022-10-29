@@ -20,12 +20,12 @@ class BookInstanceRent(models.Model):
 
 
 class BookInstanceOrder(models.Model):
-    moment_reserve = models.DateTimeField(auto_now=True)
     books = models.ManyToManyField(BookInstance)
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
+    moment_reserve = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Книгу '{self.books.get()}' замовив(ла) {self.member.first_name} {self.moment_reserve}."
+        return self.books
 
     class Meta:
         verbose_name = 'Замовлення книги'
