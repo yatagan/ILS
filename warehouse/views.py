@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from core.models import Author, Book, BookInstance
+from library_reception.views import book_rent
 from warehouse.models import Rack
 from warehouse.forms import AddBookInstanceForm, ReturnInstanceForm
 from django.contrib.auth.decorators import login_required
@@ -12,17 +13,16 @@ NUMBER_ITEMS_ON_PAGE = 15
 @login_required
 def index(request):
     if Librarian.objects.filter(id=request.user.id).exists():
-        page = int(request.GET.get('page', '0'))
+        page = int(request.GET.get('page', 0))
         offset = page * NUMBER_ITEMS_ON_PAGE
-        book_items = BookInstance.objects.all()[offset : offset + NUMBER_ITEMS_ON_PAGE]
-
+        book_items = BookInstance.objects.all().order_by('pk')[offset : offset + NUMBER_ITEMS_ON_PAGE]
         page_num = BookInstance.objects.all().count() / NUMBER_ITEMS_ON_PAGE
 
         context ={
             'book_items': book_items, 
-            'pages': range(1, int(page_num) + 1),
+            'pages': range(0, int(page_num) + 1),
             'page_current': page,
-            'racks': Rack.objects.filter(title__isnull=False)
+            #'racks': Rack.objects.filter(title__isnull=False)
         } 
         return render(request, 'warehouse/index.html', context)
     else:
@@ -33,8 +33,7 @@ def index(request):
 @login_required
 def list_items(request):
     if Librarian.objects.filter(id=request.user.id).exists():
-        context ={'unracked_books': BookInstance.objects.all(), 
-                 'racks': Rack.objects.filter(title__isnull=False)} 
+        context ={'racks': Rack.objects.filter(title__isnull=False).order_by('pk')} 
         return render(request, 'warehouse/list_items.html', context)
     else:
         return HttpResponse("У Вас не має таких прав", status=401)

@@ -1,4 +1,3 @@
-from tkinter import Pack
 from django.shortcuts import render, redirect
 from core.models import BookInstance
 from library_reception.models import BookInstanceRent, BookInstanceOrder
@@ -10,7 +9,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.core.paginator import Paginator
 
-PAGE_ITEMS = 2
+PAGE_ITEMS = 5
 
 @login_required
 def index(request):
