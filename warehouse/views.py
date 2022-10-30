@@ -1,6 +1,5 @@
 from django.shortcuts import render,redirect
 from core.models import Author, Book, BookInstance
-from library_reception.views import book_rent
 from warehouse.models import Rack
 from warehouse.forms import AddBookInstanceForm, ReturnInstanceForm
 from django.contrib.auth.decorators import login_required
