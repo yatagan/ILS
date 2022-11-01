@@ -7,17 +7,20 @@
   <div class="card">
     <ol>
       {% for new_order in order_form %}
-        <li>Користувач "{{ new_order.member }}" 
-          на ім'я {{ new_order.member.first_name}} 
-          резервував {{ new_order.moment_reserve|date:"d.m.Yр. H:m" }}
-          наступну книгу(и):
-        </li>
-        <ul>
-          {% for book in new_order.books.all %}
-          <li>{{ book }} id: {{ book.id }}</li>
-          {% endfor %}
-        </ul>
-        <hr>
+
+      <li>Замовлення № {{ new_order.id }}.<br>
+        Користувач "{{ new_order.member }}" 
+        на ім'я {{ new_order.member.first_name}} 
+        резервував {{ new_order.moment_reserve|date:"d.m.Yр. H:m" }}
+        наступну книгу(и):
+      </li>
+      <ul>
+        {% for book in new_order.books.all %}
+        <li>{{ book }} id книги: {{ book.id }}</li>
+        {% endfor %}
+      </ul>
+      <hr>
+
       {% endfor %}
       <span class="current">
         Сторінка {{ page_pag.number }} з {{ page_pag.paginator.num_pages }}.
