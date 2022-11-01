@@ -2,23 +2,41 @@
 
 {% block content %}
   <div class="reseption_01">
-    <h5>Журнал зарезервованих книжок</h5>
+    <h5>Журнал замовлення книжок</h5>
   </div>
   <div class="card">
     <ol>
       {% for new_order in order_form %}
-      <li>Користувач "{{ new_order.member }}" 
-        на ім'я {{ new_order.member.first_name}} 
-        резервував {{ new_order.moment_reserve|date:"d.m.Yр. H:m" }}
-        наступну книгу(и):
-      </li>
-      <ul>
-        {% for book in new_order.books.all %}
-        <li>{{ book }} id: {{ book.id }}</li>
-        {% endfor %}
-      </ul>
-      <hr>
+        <li>Користувач "{{ new_order.member }}" 
+          на ім'я {{ new_order.member.first_name}} 
+          резервував {{ new_order.moment_reserve|date:"d.m.Yр. H:m" }}
+          наступну книгу(и):
+        </li>
+        <ul>
+          {% for book in new_order.books.all %}
+          <li>{{ book }} id: {{ book.id }}</li>
+          {% endfor %}
+        </ul>
+        <hr>
       {% endfor %}
+      <span class="current">
+        Сторінка {{ page_pag.number }} з {{ page_pag.paginator.num_pages }}.
+      </span>
+      <nav>
+        <ul class="pagination">
+          {% if page_pag.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_pag.previous_page_number }}" tabindex="-1">Попередня</a>
+          </li>
+          {% endif %}
+  
+          {% if page_pag.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_pag.next_page_number }}">Наступна</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
     </ol>
   </div>
 
