@@ -7,20 +7,32 @@ from .models import BookInstanceOrder
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib import messages
+from django.core.paginator import Paginator
 
+PAGE_ITEMS = 4
 
 @login_required
 def index(request):
-    # library_reception home page
-    context = {'rent_form': BookInstanceRent.objects.all()}
+    page = int(request.GET.get('page', '0'))
+    paginator = Paginator(BookInstanceRent.objects.all(), PAGE_ITEMS)
+    page_obj = paginator.get_page(page)
+
+    context = {
+        'page_obj': page_obj,
+        'rents': BookInstanceRent.objects.all().order_by('member')[page * PAGE_ITEMS : page * PAGE_ITEMS + PAGE_ITEMS],
+    }
     return render(request, 'library_reception/index.html', context)
 
 
 @login_required
 def show_order(request):
     if Librarian.objects.filter(id=request.user.id).exists():
-        order_form = BookInstanceOrder.objects.all()
-        context = {'order_form': order_form}
+        page = int(request.GET.get('page', '0'))
+        paginator = Paginator(BookInstanceOrder.objects.all(), PAGE_ITEMS)
+        page_pag = paginator.get_page(page)
+        order_form = BookInstanceOrder.objects.all()[page * PAGE_ITEMS : page * PAGE_ITEMS + PAGE_ITEMS]
+        context = {'order_form': order_form,
+                    'page_pag': page_pag}
         return render(request, 'library_reception/show_order.html', context)
     else:
         return HttpResponse("У Вас не має таких прав", status=401)
