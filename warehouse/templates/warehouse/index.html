@@ -28,21 +28,27 @@
 <div class="warehouse_02" style="border: 1px solid green;">
   <h5>Журнал книжок бібліотеки:</h5>
   <ol>
-    {% for book in book_items %}
+    {% for book in page_obj.object_list %}
       <li>{{ book }} id: {{ book.id }}</li>
     {% endfor %}
   </ol>
+  <nav arial-label="...">
+    <ul class="pagination">
+      {% for page in page_obj.paginator.page_range %}
+        {% if page_obj.number == page %}
+          <li class="page-item active" arial-current="page">
+            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+          </li>
+        {% elif page > page_obj.number|add:-2 and page < page_obj.number|add:2 %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+          </li>
+        {% endif %}  
+      {% endfor%}
+    </ul>
+  </nav>
+  
 </div>  
-
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    {% for page in pages %}
-    <li class="page-item {% if page == page_current %} active {% endif %}">
-      <a class="page-link" href="/warehouse/?page={{ page }}">{{ page }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-</nav>
 
 <div class="warehouse_03">
   <a class="btn btn-outline-success" 

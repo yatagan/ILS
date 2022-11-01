@@ -6,24 +6,19 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse
 from visitors.models import Librarian
+from django.core.paginator import Paginator
 
-NUMBER_ITEMS_ON_PAGE = 15
+
 
 @login_required
 def index(request):
+    NUMBER_ITEMS_ON_PAGE = 10
     if Librarian.objects.filter(id=request.user.id).exists():
-        page = int(request.GET.get('page', '0'))
-        offset = page * NUMBER_ITEMS_ON_PAGE
-        book_items = BookInstance.objects.all()[offset : offset + NUMBER_ITEMS_ON_PAGE]
-
-        page_num = BookInstance.objects.all().count() / NUMBER_ITEMS_ON_PAGE
-
-        context ={
-            'book_items': book_items, 
-            'pages': range(1, int(page_num) + 1),
-            'page_current': page,
-            'racks': Rack.objects.filter(title__isnull=False)
-        } 
+        page_num = (request.GET.get('page', 1))
+        book_items = BookInstance.objects.all().order_by('pk')
+        paginator = Paginator(book_items, NUMBER_ITEMS_ON_PAGE)
+        page_obj = paginator.get_page(page_num)
+        context ={'page_obj': page_obj} 
         return render(request, 'warehouse/index.html', context)
     else:
         return HttpResponse("У Вас не має таких прав", status=401) 
@@ -33,8 +28,9 @@ def index(request):
 @login_required
 def list_items(request):
     if Librarian.objects.filter(id=request.user.id).exists():
-        context ={'unracked_books': BookInstance.objects.all(), 
-                 'racks': Rack.objects.filter(title__isnull=False)} 
+        racks = Rack.objects.filter(title__isnull=False)
+        
+        context ={'racks': racks} 
         return render(request, 'warehouse/list_items.html', context)
     else:
         return HttpResponse("У Вас не має таких прав", status=401)

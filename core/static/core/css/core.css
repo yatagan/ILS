@@ -166,6 +166,10 @@ main .visitors_01 {
 }
 
 
+main nav, main .current {
+    font-size: x-small;
+}
+
 aside {
     float:left;
     background:#565e9b;
