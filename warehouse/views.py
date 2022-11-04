@@ -27,10 +27,13 @@ def index(request):
 
 @login_required
 def list_items(request):
+    NUMBER_ITEMS_ON_RACK = 1
     if Librarian.objects.filter(id=request.user.id).exists():
-        racks = Rack.objects.filter(title__isnull=False)
-        
-        context ={'racks': racks} 
+        page_num = (request.GET.get('page', 1))
+        racks = Rack.objects.filter(title__isnull=False).order_by('pk')
+        paginator = Paginator(racks, NUMBER_ITEMS_ON_RACK)
+        page_obj = paginator.get_page(page_num)
+        context ={'page_obj': page_obj}#, 'racks': racks} 
         return render(request, 'warehouse/list_items.html', context)
     else:
         return HttpResponse("У Вас не має таких прав", status=401)
