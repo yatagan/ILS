@@ -8,29 +8,10 @@
     
   <div class="warehouse_list_item_02" style="border: 2px solid green;">
   {% for rack in page_obj %}
-    <style>
-      #table {
-        padding: 2px;
-        width: 70%;
-        height: 3%;
-        margin-left: 8px;
-        margin-bottom: 3px;
-        border: 1px solid black;
-      }
-      
-      body {
-        counter-reset: sectionCounter 1;
-      }
-
-      section {
-        counter-increment: sectionCounter;
-      }
-    
-    </style>
-    
+        
     <h6>Назва полички: "{{ rack.title }}"</h6>
        
-          <table id="table" >
+          <table id=#table >
             <thead>
               <th>№ п/п</th>
               <th>Назва книги</th>
@@ -39,7 +20,6 @@
             {% for book in rack.books.all %}
             <tbody>
               <tr>
-                <td>1</td>
                 <td>{{ book }}</td>
                 <td style="text-align: center;">{{ book.id }}</td>
               </tr>

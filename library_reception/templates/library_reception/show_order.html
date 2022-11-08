@@ -4,43 +4,61 @@
   <div class="reseption_01">
     <h5>Журнал замовлення книжок</h5>
   </div>
-  <div class="card">
-    <ol>
-      {% for new_order in order_form %}
-
-      <li>Замовлення № {{ new_order.id }}.<br>
-        Користувач "{{ new_order.member }}" 
-        на ім'я {{ new_order.member.first_name}} 
-        резервував {{ new_order.moment_reserve|date:"d.m.Yр. H:m" }}
-        наступну книгу(и):
-      </li>
-      <ul>
-        {% for book in new_order.books.all %}
-        <li>{{ book }} id книги: {{ book.id }}</li>
-        {% endfor %}
-      </ul>
-      <hr>
-
-      {% endfor %}
-      <span class="current">
-        Сторінка {{ page_pag.number }} з {{ page_pag.paginator.num_pages }}.
-      </span>
-      <nav>
-        <ul class="pagination">
-          {% if page_pag.has_previous %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{ page_pag.previous_page_number }}" tabindex="-1">Попередня</a>
-          </li>
-          {% endif %}
+  <div>
+    <a class="btn btn-outline-success" 
+    href="{% url 'library_reception:check_time_order' %}">Контроль замовлень</a>
+  </div>  
+  {% for msg in messages %}
+  <div class="alert alert-success" role="alert" style="width: 25%;">
+    <h5 class="alert-heading"></h5>
+    <p class="mb-3">{{ msg }}</p>
+  </div>  
+  {% endfor %}    
   
-          {% if page_pag.has_next %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{ page_pag.next_page_number }}">Наступна</a>
-          </li>
-          {% endif %}
-        </ul>
-      </nav>
-    </ol>
+  <div id="#list_order" class="card" >
+    <table width="100%" border="1">
+      <thead>
+        <th width="4%">№<br>п/п</th>
+        <th width="10%">№<br>замовлення</th>
+        <th width="10%">Замовив</th>
+        <th width="12%">Ім'я</th>
+        <th width="15%">Дата</th>
+        <th width="40%">Назва книги</th>
+        <th width="10%">ID книги</th>
+      </thead>
+      {% for new_order in page_pag.object_list %}
+      <tbody>
+        <tr>
+          <td>{{ new_order.id }}</td>
+          <td>{{ new_order.member }}</td>
+          <td>{{ new_order.member.first_name}}</td>
+          <td>{{ new_order.moment_reserve|date:"d.m.Yр. H:m" }}</td>
+          {% for book in new_order.books.all %}
+          <td>{{ book }}</td>
+          <td>{{ book.id }}</td>
+          {% endfor %}
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+    <span class="current">
+      Сторінка {{ page_pag.number }} з {{ page_pag.paginator.num_pages }}.
+    </span>
+    <nav>
+      <ul class="pagination">
+        {% if page_pag.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_pag.previous_page_number }}" tabindex="-1">Попередня</a>
+        </li>
+        {% endif %}
+
+        {% if page_pag.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_pag.next_page_number }}">Наступна</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
   </div>
 
 {% endblock content %}

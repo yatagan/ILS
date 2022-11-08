@@ -132,7 +132,7 @@ main .warehouse_list_item_02 {
 main .card {
     color: #3f4574;
     background-color: rgb(205, 235, 146);
-    width: 40%;
+    width: 60%;
     margin-left: 10em;
     text-align: left;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -169,6 +169,30 @@ main .visitors_01 {
 main nav, main .current {
     font-size: x-small;
 }
+
+#table {
+    padding: 2px;
+    width: 70%;
+    height: 3%;
+    margin-left: 8px;
+    margin-bottom: 3px;
+    border: 1px solid black;
+  }
+table {
+  counter-reset: rowNumber;
+}
+
+table tbody tr::before {
+    display: table-cell;
+    counter-increment: rowNumber;
+    content: counter(rowNumber) ".";
+    padding-right: 0.3em;
+    text-align: right;
+}
+
+main #list_order {
+    width: 80%;
+ }
 
 aside {
     float:left;

@@ -11,8 +11,8 @@ class BookInstanceRent(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Книгу '{self.books.get()}' отримав(ла) {self.member.first_name} {self.start_rent_date} числа."
-
+        return self.books
+           
     class Meta:
         verbose_name = 'Оренда книги'
         verbose_name_plural = 'Оренда книг'
