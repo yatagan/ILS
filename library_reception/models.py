@@ -25,7 +25,7 @@ class BookInstanceOrder(models.Model):
     moment_reserve = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.books.get()}
+        return f"{self.books.get()}"
 
     class Meta:
         verbose_name = 'Замовлення книги'
