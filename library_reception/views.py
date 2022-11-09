@@ -11,7 +11,7 @@ from django.core.paginator import Paginator
 from datetime import timedelta
 from django.utils import timezone
 
-PAGE_ITEMS = 10
+PAGE_ITEMS = 5
 
 @login_required
 def index(request):

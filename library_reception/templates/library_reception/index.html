@@ -7,13 +7,13 @@
     <p>Журнал арендованих книг</p>
     <table width="100%" border="1">
         <thead>
-          <th width="5%">№<br>п/п</th>
-          <th width="10%">Книгу отримав</th>
+          <th width="4%">№<br>п/п</th>
+          <th width="11%">Книгу отримав</th>
           <th width="15%">Початок оренди</th>
           <th width="30%">Назва книги</th>
-          <th width="10">ID №</th>
-          <th width="15%">Хто видав</th>
-          <th width="15%">Закінчення оренди</th>
+          <th width="10">ID книги</th>
+          <th width="13%">Хто видав</th>
+          <th width="17%">Закінчення оренди</th>
         </thead>
         {% for rent in page_obj.object_list %}
         <tr>

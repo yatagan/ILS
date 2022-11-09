@@ -11,7 +11,7 @@ class BookInstanceRent(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.books
+        return str(self.books.get())
            
     class Meta:
         verbose_name = 'Оренда книги'
@@ -25,7 +25,7 @@ class BookInstanceOrder(models.Model):
     moment_reserve = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.books
+        return str(self.books.get())
 
     class Meta:
         verbose_name = 'Замовлення книги'
