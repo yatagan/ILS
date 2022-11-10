@@ -1,17 +1,50 @@
 {% extends "core/base.html" %}
 
 {%  block content %}
+
   <div class="warehouse_list_item_01">
     <h5>Книжки по полицям:</h5>
   </div>
-    {% for rack in racks %}
-      <div class="warehouse_list_item_02" style="border: 1px solid green;">
-        <h6>Назва полички: "{{ rack.title }}"</h6>
-        <ol>
-          {% for book in rack.books.all %}
-            <li>{{ book }} id: {{ book.id }}</li>
-          {% endfor %}
-        </ol>
-      </div>
-    {% endfor %}
+    
+  <div class="warehouse_list_item_02" style="border: 2px solid green;">
+  {% for rack in page_obj %}
+        
+    <h6>Назва полички: "{{ rack.title }}"</h6>
+       
+          <table id=#table >
+            <thead>
+              <th>№ п/п</th>
+              <th>Назва книги</th>
+              <th>Номер ID</th>
+            </thead>
+            {% for book in rack.books.all %}
+            <tbody>
+              <tr>
+                <td>{{ book }}</td>
+                <td style="text-align: center;">{{ book.id }}</td>
+              </tr>
+            </tbody>
+            {% endfor %}
+          </table>
+        
+  {% endfor %}   
+  </div>
+  <div>
+    <nav arial-label="...">
+      <ul class="pagination">
+        {% for page in page_obj.paginator.page_range %}
+          {% if page_obj.number == page %}
+            <li class="page-item active" arial-current="page">
+              <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+            </li>
+          {% elif page > page_obj.number|add:-2 and page < page_obj.number|add:2 %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+            </li>
+          {% endif %}  
+        {% endfor%}
+      </ul>
+    </nav>
+  </div>
+    
 {% endblock content %}

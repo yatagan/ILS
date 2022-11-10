@@ -8,8 +8,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib import messages
 from django.core.paginator import Paginator
+from datetime import timedelta
+from django.utils import timezone
 
-PAGE_ITEMS = 4
+PAGE_ITEMS = 5
 
 @login_required
 def index(request):
@@ -17,10 +19,7 @@ def index(request):
     paginator = Paginator(BookInstanceRent.objects.all(), PAGE_ITEMS)
     page_obj = paginator.get_page(page)
 
-    context = {
-        'page_obj': page_obj,
-        'rents': BookInstanceRent.objects.all().order_by('member')[page * PAGE_ITEMS : page * PAGE_ITEMS + PAGE_ITEMS],
-    }
+    context = {'page_obj': page_obj}
     return render(request, 'library_reception/index.html', context)
 
 
@@ -30,9 +29,7 @@ def show_order(request):
         page = int(request.GET.get('page', '0'))
         paginator = Paginator(BookInstanceOrder.objects.all(), PAGE_ITEMS)
         page_pag = paginator.get_page(page)
-        order_form = BookInstanceOrder.objects.all()[page * PAGE_ITEMS : page * PAGE_ITEMS + PAGE_ITEMS]
-        context = {'order_form': order_form,
-                    'page_pag': page_pag}
+        context = {'page_pag': page_pag}
         return render(request, 'library_reception/show_order.html', context)
     else:
         return HttpResponse("У Вас не має таких прав", status=401)
@@ -122,6 +119,7 @@ def book_order(request):
                     member=member,
                     moment_reserve=order_form.cleaned_data['moment_reserve'],
                 )
+                order.save()
                 for book in books:
                     book_instances = BookInstance.objects.filter(
                         book=book, status='a')
@@ -134,13 +132,26 @@ def book_order(request):
                         book_instance = book_instances[0]
                         book_instance.status = 'r'
                         book_instance.save()
-                        order.save()
                         order.books.add(book_instance)
-                        messages.success(request, "Книгу зарезервовано.") 
+                        messages.success(request, "Книгу зарезервовано.")
                         return redirect('library_reception:book_order')
-
+                
         context = {'order_form': order_form}
         return render(request, 'library_reception/book_order.html', context)
 
     else:
         return HttpResponse("У Вас не має таких прав.", status=401)
+
+
+def check_time_order(request):
+    today = timezone.now()
+    day_plus = timedelta(days=2)
+    orders = BookInstanceOrder.objects.all()
+    for order in orders:
+        if order.moment_reserve + day_plus < today:
+            for book_instance in order.books.all():
+                book_instance.status = 'a'
+                book_instance.save()
+    messages.success(request, "Замовлення книг анульовані")
+    return redirect('library_reception:show_order') 
+

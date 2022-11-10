@@ -27,11 +27,21 @@
 </div>
 <div class="warehouse_02" style="border: 1px solid green;">
   <h5>Журнал книжок бібліотеки:</h5>
-  <ol>
+  <table width="100%" border="1">
+    <thead>
+      <th width="10%">№<br>п/п</th>
+      <th width="70%">Назва книги</th>
+      <th width="15%">ID книги</th>
+    </thead>  
     {% for book in page_obj.object_list %}
-      <li>{{ book }} id: {{ book.id }}</li>
+    <tbody>
+      <tr>
+        <td>{{ book }}</td>
+        <td>{{ book.id }}</td>
+      </tr>
+    </tbody>      
     {% endfor %}
-  </ol>
+  </table>  
   <nav arial-label="...">
     <ul class="pagination">
       {% for page in page_obj.paginator.page_range %}
