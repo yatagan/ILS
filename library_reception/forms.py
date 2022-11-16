@@ -2,12 +2,11 @@
 from django.forms.widgets import SelectDateWidget
 from django import forms
 from core.models import Book, BookInstance
-from library_reception.models import BookInstanceOrder
 from visitors.models import Librarian, Member
 import datetime
 
 
-class BookInstanceRentForm(forms.Form):
+class BookLendingForm(forms.Form):
     books = forms.ModelMultipleChoiceField(
         queryset=BookInstance.objects.filter(status='a'), label="Книги:")
     librarian = forms.ModelChoiceField(queryset=Librarian.objects.all(
@@ -20,7 +19,7 @@ class BookInstanceRentForm(forms.Form):
         widget=SelectDateWidget(), label="Дата повернення книги:")
 
 
-class BookInstanceOrderForm(forms.Form):
+class BookReservationForm(forms.Form):
     books = forms.ModelMultipleChoiceField(
         queryset=Book.objects.all(), label="Книги")
     member = forms.ModelChoiceField(queryset=Member.objects.all(), 
@@ -29,7 +28,7 @@ class BookInstanceOrderForm(forms.Form):
                     label="Дата початку резервування", localize=True)
 
 
-class BookInstanceRentOrderForm(forms.Form):
+class BookLendingInstanceReservedForm(forms.Form):
     member = forms.ModelChoiceField(
         queryset=Member.objects.all(), label="Хто замовив книгу")
     id_book_ordered = forms.IntegerField(label="Зарезервовані книги")

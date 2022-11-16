@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
 from core.models import BookInstance
-from library_reception.models import BookInstanceRent, BookInstanceOrder
-from library_reception.forms import BookInstanceOrderForm, BookInstanceRentForm, BookInstanceRentOrderForm
+from library_reception.models import BookLending, BookReservation
+from library_reception.forms import BookReservationForm, BookLendingForm, BookLendingInstanceReservedForm
 from visitors.models import Librarian, Member
-from .models import BookInstanceOrder
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib import messages
@@ -16,7 +15,7 @@ PAGE_ITEMS = 5
 @login_required
 def index(request):
     page = int(request.GET.get('page', '0'))
-    paginator = Paginator(BookInstanceRent.objects.all(), PAGE_ITEMS)
+    paginator = Paginator(BookLending.objects.all(), PAGE_ITEMS)
     page_obj = paginator.get_page(page)
 
     context = {'page_obj': page_obj}
@@ -24,29 +23,29 @@ def index(request):
 
 
 @login_required
-def show_order(request):
+def show_reservation(request):
     if Librarian.objects.filter(id=request.user.id).exists():
         page = int(request.GET.get('page', '0'))
-        paginator = Paginator(BookInstanceOrder.objects.all(), PAGE_ITEMS)
+        paginator = Paginator(BookReservation.objects.all(), PAGE_ITEMS)
         page_pag = paginator.get_page(page)
         context = {'page_pag': page_pag}
-        return render(request, 'library_reception/show_order.html', context)
+        return render(request, 'library_reception/show_reservation.html', context)
     else:
         return HttpResponse("У Вас не має таких прав", status=401)
 
 
 
 @login_required
-def book_rent(request):
+def book_lending(request):
     if Librarian.objects.filter(id=request.user.id).exists():
         if request.method != 'POST':
-            rent_form = BookInstanceRentForm()
+            rent_form = BookLendingForm()
         else:
-            rent_form = BookInstanceRentForm(data=request.POST)
+            rent_form = BookLendingForm(data=request.POST)
             if rent_form.is_valid():
                 book_instances = rent_form.cleaned_data['books']
                 member = rent_form.cleaned_data['member']
-                rent = BookInstanceRent(
+                rent = BookLending(
                     start_rent_date=rent_form.cleaned_data['start_rent_date'],
                     return_date=rent_form.cleaned_data['return_date'],
                     librarian=rent_form.cleaned_data['librarian'],
@@ -62,18 +61,18 @@ def book_rent(request):
                 return redirect('library_reception:index')
 
         context = {"rent_form": rent_form}
-        return render(request, 'library_reception/book_rent.html', context)
+        return render(request, 'library_reception/book_lending.html', context)
     else:
         return HttpResponse("У Вас не має таких прав.", status=401)
         
 
 @login_required
-def rent_book_reserved(request):
+def lending_book_reserved(request):
     if Librarian.objects.filter(id=request.user.id).exists():
         if request.method != 'POST':
-            rent_reserved_form = BookInstanceRentOrderForm
+            rent_reserved_form = BookLendingInstanceReservedForm
         else:
-            rent_reserved_form = BookInstanceRentOrderForm(data=request.POST)
+            rent_reserved_form = BookLendingInstanceReservedForm(data=request.POST)
             if rent_reserved_form.is_valid():
                 member = rent_reserved_form.cleaned_data['member']
                 id_book_ordered = rent_reserved_form.cleaned_data['id_book_ordered']
@@ -82,7 +81,7 @@ def rent_book_reserved(request):
                 librarian=rent_reserved_form.cleaned_data['librarian']
                 instance_ordered = BookInstance.objects.get(bookinstanceorder=id_book_ordered)
                 
-                rent = BookInstanceRent(
+                rent = BookLending(
                     start_rent_date=start_rent,
                     return_date=date_return,
                     librarian=librarian,
@@ -94,28 +93,28 @@ def rent_book_reserved(request):
                     instance_ordered.save()
                     rent.books.add(instance_ordered) 
                     messages.success(request, "Зарезервовану книгу видано")
-                    return redirect('library_reception:book_rent')
+                    return redirect('library_reception:book_lending')
                 else:
                     messages.error(request, "Ця книга не була замовлена")
-                    return redirect('library_reception:book_rent')   
+                    return redirect('library_reception:book_lending')   
 
         context = {'rent_reserved_form': rent_reserved_form}
-        return render(request, 'library_reception/rent_book_reserved.html', context)        
+        return render(request, 'library_reception/lending_book_reserved.html', context)        
     else:
         return HttpResponse("У Вас не має таких прав", status=401)            
 
 
 @login_required
-def book_order(request):
+def book_reservation(request):
     if Member.objects.filter(id=request.user.id).exists():
         if request.method != 'POST':
-            order_form = BookInstanceOrderForm()
+            order_form = BookReservationForm()
         else:
-            order_form = BookInstanceOrderForm(data=request.POST)
+            order_form = BookReservationForm(data=request.POST)
             if order_form.is_valid():
                 books = order_form.cleaned_data['books']
                 member = order_form.cleaned_data['member']
-                order = BookInstanceOrder(
+                order = BookReservation(
                     member=member,
                     moment_reserve=order_form.cleaned_data['moment_reserve'],
                 )
@@ -127,17 +126,17 @@ def book_order(request):
                         order_form.add_error(
                             'books', f'Зараз "{ book.title }" не доступна для замовлення')
                         context = {'order_form': order_form}
-                        return render(request, 'library_reception/book_order.html', context)
+                        return render(request, 'library_reception/book_reservation.html', context)
                     else:
                         book_instance = book_instances[0]
                         book_instance.status = 'r'
                         book_instance.save()
                         order.books.add(book_instance)
                         messages.success(request, "Книгу зарезервовано.")
-                        return redirect('library_reception:book_order')
+                        return redirect('library_reception:book_reservation')
                 
         context = {'order_form': order_form}
-        return render(request, 'library_reception/book_order.html', context)
+        return render(request, 'library_reception/book_reservation.html', context)
 
     else:
         return HttpResponse("У Вас не має таких прав.", status=401)
@@ -146,12 +145,12 @@ def book_order(request):
 def check_time_order(request):
     today = timezone.now()
     day_plus = timedelta(days=2)
-    orders = BookInstanceOrder.objects.all()
+    orders = BookReservation.objects.all()
     for order in orders:
         if order.moment_reserve + day_plus < today:
             for book_instance in order.books.all():
                 book_instance.status = 'a'
                 book_instance.save()
     messages.success(request, "Замовлення книг анульовані")
-    return redirect('library_reception:show_order') 
+    return redirect('library_reception:show_reservation') 
 

@@ -12,7 +12,7 @@
 
 <div class="card">
     <p>Орендувати замовлену книгу: </p>
-    <form action="{% url 'library_reception:rent_book_reserved' %}" method="post">
+    <form action="{% url 'library_reception:lending_book_reserved' %}" method="post">
   
       {% csrf_token %}
       {{ rent_reserved_form.as_p }}

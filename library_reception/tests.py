@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.test import Client
 from core.models import Author, Book, BookInstance
 from visitors.models import Account, Member, Librarian
-from library_reception.models import BookInstanceRent
+from library_reception.models import BookLending
 
 # TestBookCheckOut
 
@@ -37,43 +37,43 @@ class BookCheckOutTestCase(TestCase):
         response = c.get('/library_reception/')
         self.assertNotEqual(response.status_code, 200)
 
-    def test_reject_anonymous_book_rent(self):
+    def test_reject_anonymous_book_lending(self):
         c = Client()
-        response = c.get(reverse('library_reception:book_rent'))
+        response = c.get(reverse('library_reception:book_lending'))
         self.assert_(self._is_redirected_to_login(response))
 
     def test_reject_anonymous_checkout(self):
         c = Client()
-        response = self._post_book_rent(c, follow=False)
+        response = self._post_book_lending(c, follow=False)
         self.assert_(self._is_redirected_to_login(response))
 
     def test_reject_member_checkout(self):
         c = Client()
         c.force_login(self.member)
-        response = self._post_book_rent(c)
+        response = self._post_book_lending(c)
         self.assertEqual(response.status_code, 401)
 
     def test_reject_admin_checkout(self):
         c = Client()
         c.force_login(self.admin)
-        response = self._post_book_rent(c)
+        response = self._post_book_lending(c)
         self.assertEqual(response.status_code, 401)
-        self.assertEquals(BookInstanceRent.objects.all().count(), 0)
+        self.assertEquals(BookLending.objects.all().count(), 0)
 
     def test_reject_user_checkout(self):
         c = Client()
         c.force_login(self.user)
-        response = self._post_book_rent(c)
+        response = self._post_book_lending(c)
         self.assertEqual(response.status_code, 401)
-        self.assertEquals(BookInstanceRent.objects.all().count(), 0)
+        self.assertEquals(BookLending.objects.all().count(), 0)
 
     def test_librarian_checkout(self):
         c = Client()
         c.force_login(self.librarian)
-        response = self._post_book_rent(c)
+        response = self._post_book_lending(c)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Журнал арендованих книг")
-        self.assertEquals(BookInstanceRent.objects.all().count(), 1)
+        self.assertEquals(BookLending.objects.all().count(), 1)
 
     def test_librarian_invalid_checkin(self):
         c = Client()
@@ -84,18 +84,18 @@ class BookCheckOutTestCase(TestCase):
     def test_librarian_checkin(self):
         c = Client()
         c.force_login(self.librarian)
-        response = self._post_book_rent(c)
+        response = self._post_book_lending(c)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Журнал арендованих книг")
-        self.assertEquals(BookInstanceRent.objects.all().count(), 1)
+        self.assertEquals(BookLending.objects.all().count(), 1)
 
         response = self._post_bookinstance_return(c)
         self.assertEqual(response.reason_phrase, "OK")
 
-    def _post_book_rent(self, client, follow=True):
+    def _post_book_lending(self, client, follow=True):
         now = datetime.now()
         return client.post(
-            reverse('library_reception:book_rent'),
+            reverse('library_reception:book_lending'),
             {
                 'books': (self.book_instance.id),
                 'member': self.member.id,

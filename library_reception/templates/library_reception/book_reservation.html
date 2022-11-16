@@ -9,7 +9,7 @@
   </div>
 {% endfor %}
   <div class="card">
-    <form action="{% url 'library_reception:book_order' %}" method="post">
+    <form action="{% url 'library_reception:book_reservation' %}" method="post">
       {% csrf_token %}
       {{ order_form.as_p }}
       <button class="btn btn-warning" name="submit">Резервувати книгу</button>

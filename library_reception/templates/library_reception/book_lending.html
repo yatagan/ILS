@@ -12,7 +12,7 @@
 
   <div class="card">
     <p>Вибрати екземпляр: </p>
-    <form action="{% url 'library_reception:book_rent' %}" method="post">
+    <form action="{% url 'library_reception:book_lending' %}" method="post">
   
       {% csrf_token %}
       {{ rent_form.as_p }}
@@ -23,7 +23,7 @@
   
   <div>
     <a class="btn btn-outline-success" 
-       href="{% url 'library_reception:rent_book_reserved' %}">Орендувати замовлену книгу</a>
+       href="{% url 'library_reception:lending_book_reserved' %}">Орендувати замовлену книгу</a>
   </div>
    
 {% endblock content %}

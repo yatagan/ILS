@@ -68,14 +68,14 @@
         <ul>
           <a href="{% url 'core:index' %}">
             <li><i class="fa-solid fa-window"></i>На головну сторінку</li></a>
-          <a href="{% url 'library_reception:book_order' %}">
+          <a href="{% url 'library_reception:book_reservation' %}">
             <li><i class="fa-solid fa-window"></i>Резервування книг</li></a>
           {% if user.is_authenticated %}
           Вітаємо, {{ user.username }} {{ user.first_name}}.
               {% if user.is_staff %}
-                <a href="{% url 'library_reception:show_order' %}">
+                <a href="{% url 'library_reception:show_reservation' %}">
                   <li><i class="fa-solid fa-window"></i>Список зарезервованих книжок</li></a>
-                <a href="{% url 'library_reception:book_rent' %}">
+                <a href="{% url 'library_reception:book_lending' %}">
                   <li><i class="fa-solid fa-window"></i>Оренда книг</li></a>
                 <a href="{% url 'library_reception:index' %}">
                   <li><i class="fa-solid fa-window"></i>Список орендованих книжок</li></a>
