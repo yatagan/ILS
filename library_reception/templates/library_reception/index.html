@@ -3,6 +3,12 @@
 {% block content %}
 
   <h4>Головна сторінка рецепціі</h4>
+  {% for msg in messages %}
+  <div class="alert alert-success" role="alert">
+    <h5 class="alert-heading"></h5>
+    <p class="mb-3">{{ msg }}</p>
+  </div>
+  {% endfor %}
   <div  class="card_table">
     <p>Журнал арендованих книг</p>
     <table width="100%" border="1">
